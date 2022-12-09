@@ -11,7 +11,7 @@
 
   - Para alterar o valor da variável
     invés de usar ->`nome = "usuario2"`;
-    use -> `set("usuario2")`;
+    use -> `setNome("usuario2")`;
 
 ---
 
