@@ -38,7 +38,7 @@ Feed
 		- titulo do evento - ok
 		- distância até localização do evento - ok
 		- classificação de idade mínima - ok
-		- status do evento "Antigo | ocorrendo agora | "
+		- status do evento "Antigo | ocorrendo agora | "em preparação"
 		- botão "Ver localização no mapa" - ok
 			- Exbibe a localização detalhada 
 		- botão "Interessei" - ok
@@ -59,7 +59,7 @@ Configurações
 logo marca	 |Header
 -------------|----------------------------------------------------
 Feed		 | Box "Crie um evento"   			  | mini Box "Crie um evento"
-Config	 | "Pesquise eventos com base na descrição" | mini box Eventos recentes
-Perfil	 |		.	    				  |
+Config	 | "Pesquise eventos com base na descrição" | Evento em destaque
+Perfil	 |		.	    				  |		mini box Eventos recentes
 Logout	 |	   Eventos	   				  |
 	
