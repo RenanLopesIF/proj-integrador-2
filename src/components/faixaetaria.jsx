@@ -3,7 +3,6 @@ import {Center, Text} from '@chakra-ui/react'
 
 function Faixaetaria(props){
     const {label, color} = props;
-
     return (
     <Center 
         borderRadius='4px'

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box,HStack, Avatar, Text, Badge, Flex, VStack, Image, Center} from '@chakra-ui/react'
+import {Box,HStack, Avatar, Text, Badge, Flex, VStack, Image, Center, ButtonGroup, Button, Divider} from '@chakra-ui/react'
 import {MdAlarmOff, MdAlarmOn} from 'react-icons/md'
 import {BiMap} from 'react-icons/bi'
 import Faixaetaria from './faixaEtaria';
@@ -12,6 +12,9 @@ function CardMain(props){
     const postImageUrlx = 'https://valenews.com.br/wp-content/uploads/2021/10/FestivaldasCoresNovaGokula27102021FernandoNoronha.jpg'
     const postImageUrl = 'https://pbs.twimg.com/media/ETCnTxDX0AIsIXG?format=jpg&name=900x900'
     const contentPadding = 3;
+    const interesedCount = 2;
+    const commentCount = 5;
+
     return <Box borderRadius='10px' bgColor='#FFF' width='100%' minH="50px">
         <HStack alignItems='flex-start' justifyContent='space-between' w='full' padding={contentPadding}>
             <HStack>
@@ -56,8 +59,22 @@ function CardMain(props){
             <Box>
                 <Text color="#364F6b" fontSize={14}>{postDescription}</Text>
                 <Center mt={4}>
-                <Image maxH='400px' src={postImageUrl}/>
+                    <Image maxH='400px' src={postImageUrl}/>
                 </Center>
+                <Flex justifyContent='flex-end' alignItems='center' mt={7}>
+                    <Text fontSize={12}>
+                        {interesedCount} {interesedCount === 1 ? "interessado" : 'interessados'}
+                        {" e "}
+                        {commentCount} {commentCount === 1 ? "comentário" : 'comentários'}
+                    </Text>
+                </Flex>
+                <Flex justifyContent='space-between' alignItems='center'>
+                    <Button variant='unstyled'  h="10" w='full'>INTERESSEI</Button>
+                    <Box h='7' w='1' bgColor='primary'></Box>
+                    <Button variant='unstyled' h='10' w='full'>COMENTÁRIOS</Button>
+                    <Box h='7' w='1' bgColor='primary'></Box>
+                    <Button variant='unstyled' h='10' w='full'>LOCALIZAÇÃO</Button>
+                </Flex>
             </Box>
         </Box>
     </Box>
