@@ -23,5 +23,7 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'no-use-before-define': 'error',
     camelcase: 'warn',
+    'react/jsx-key': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };
