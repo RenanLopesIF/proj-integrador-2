@@ -13,15 +13,18 @@
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "axios": "^1.2.2",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.11",
     "framer-motion": "^7.6.19",
+    "mapbox-gl": "^2.12.0",
     "prettier": "^2.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-map-gl": "^7.0.21",
     "react-router-dom": "^6.4.5"
   },
   "devDependencies": {
