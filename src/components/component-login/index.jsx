@@ -3,6 +3,7 @@ import {
     Button,
     InputGroup,
     InputRightElement,
+    useTheme,
 } from '@chakra-ui/react'
 import { useState } from 'react';
 import {
@@ -20,19 +21,25 @@ function Login(props) {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
 
+    const {
+      colors
+    } = useTheme();
+
+    const handleTypeInput = () => {
+      if(typeInput !== 'password') return 'text'
+      else return show ? 'text' : 'password';
+    }
+
 
     return (
       <InputGroup size='md' w="250px" h={"72px"}>
         <Input
-          pr='4.5rem'
-          type={typeInput !== 'password' ? 'text' : show ? 'text' : 'password'}
+          padding={"0"}
+          type={handleTypeInput()}
           placeholder={placeholder}
-          variant='flushed'
-          borderColor="primary.300"
-          focusBorderColor="primary.300"
-          _focus={{
-            borderColor: "primary.300"
-          }}
+          variant='disabled'
+          borderRadius={"none"}
+          borderBottom={`2px solid ${colors.primary[300]}`}
         />
         <InputRightElement width='4.5rem'>
           {

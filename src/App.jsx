@@ -9,6 +9,9 @@ function App() {
 
   return (
     <div className="App">
+      {/* <VStack width="600px">
+        <Post />
+      </VStack> */}
       <Login typeInput={"text"} placeholder={"Usuário"}/>
       <Login typeInput={"password"} placeholder={"Sua senha"}/>
     </div>
