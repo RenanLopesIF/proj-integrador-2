@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Post from './components/Post';
-import Login from './components/Login';
+import Login from './components/component-login';
 import './App.css';
 
 function App() {

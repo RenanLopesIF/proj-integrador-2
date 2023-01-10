@@ -1,8 +1,8 @@
 import {
-    Flex,
     Input,
-    Box,
     Button,
+    InputGroup,
+    InputRightElement,
 } from '@chakra-ui/react'
 import { useState } from 'react';
 import {
@@ -16,73 +16,48 @@ function Login(props) {
         typeInput,
         placeholder
     } = props;
-    const [valueTextInput, setValueTextInput] = useState("");
 
-    const [changeTypeInputPassword, setChangeTypeInputPassword] = useState('password');
-    const [changeIcon, setChangeIcon] = useState(
-        <AiOutlineEye
-            color='#FC5185'
-            cursor="pointer"
-        />
-    )
-    const [isActiveEyeIcon, setIsActiveEyeIcon] = useState(false);
-
-
-    // const handleConfigInputIcon = () => {
-    //     if(isActiveEyeIcon === false) {
-    //         setChangeIcon(
-    //             <AiOutlineEyeInvisible color="#FC5185" cursor={"pointer"} />
-    //         );
-    //         setIsActiveEyeIcon(true);
-    //         setChangeTypeInputPassword('text');
-    //     } else {
-    //         setIsActiveEyeIcon(false);
-    //         setChangeIcon(
-    //             <AiOutlineEye
-    //                 color='#FC5185'
-    //                 cursor="pointer"
-    //             />
-    //         );
-    //         setChangeTypeInputPassword('password');
-    //     }
-    // }
-
-    const [show, setShow] = useState(false)
-    const handleClick = () => setShow(!show)
+    const [show, setShow] = useState(false);
+    const handleClick = () => setShow(!show);
 
 
     return (
-        <Box width={"250px"} bg={"#FFFFFF"} >
-            <Flex
-                alignItems={"center"}
-                justifyContent="center"
-                padding="0"
-                border={"1px solid red"}
-                w="300px"
-            >
-                <Input
-                    type={typeInput === 'text' ? typeInput : changeTypeInputPassword}
-                    placeholder={placeholder}
-                    padding={"0"}
-                    borderRadius="none"
-                    border="1px solid black"
-                    // borderColor={""}
-                    focusBorderColor="white"
-                    onChange={(event) => setValueTextInput(event.target.value)}
-                    // borderBottom={'1px solid red'}
-                    size="md"
-                    width={"235px"}
-
-                />
-                {
-                    typeInput === "text"
-                        ? <AiOutlineUser color='#FC5185' cursor="pointer" />
-                        : <Button h='1.75rem' size='sm' onClick={handleClick}>
-                        {show ? 'not show' : 'Show'}
-                      </Button>
-                }
-            </Flex>
-        </Box>
+      <InputGroup size='md' w="250px" h={"72px"}>
+        <Input
+          pr='4.5rem'
+          type={typeInput !== 'password' ? 'text' : show ? 'text' : 'password'}
+          placeholder={placeholder}
+          variant='flushed'
+          borderColor="primary.300"
+          focusBorderColor="primary.300"
+          _focus={{
+            borderColor: "primary.300"
+          }}
+        />
+        <InputRightElement width='4.5rem'>
+          {
+            typeInput === 'text' ?
+              <AiOutlineUser color='#FC5185' /> :
+              <Button
+              h='1.75rem'
+              size='sm'
+              onClick={handleClick}
+              bg="none"
+              _hover={{
+                bg: "none"
+              }}
+              _active={{
+                bg: "none"
+              }}
+              >
+              {show ? <AiOutlineEyeInvisible
+              color='#FC5185'
+              cursor={"pointer"}
+              /> : <AiOutlineEye color='#FC5185' cursor={"pointer"}/>}
+            </Button>
+          }
+        </InputRightElement>
+      </InputGroup>
     )
 }
 
