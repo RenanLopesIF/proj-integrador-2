@@ -32,7 +32,7 @@ function Login(props) {
 
 
     return (
-      <InputGroup size='md' w="250px" h={"72px"}>
+      <InputGroup size='md' w="25%">
         <Input
           padding={"0"}
           type={handleTypeInput()}
@@ -40,11 +40,14 @@ function Login(props) {
           variant='disabled'
           borderRadius={"none"}
           borderBottom={`2px solid ${colors.primary[300]}`}
+          boxShadow={`1px 2px 4px 0px rgba(252,81,133,0.38)`}
+          h={"52px"}
+          textOverflow={"ellipsis"}
         />
-        <InputRightElement width='4.5rem'>
+        <InputRightElement width='4.5rem' h={"100%"} >
           {
             typeInput === 'text' ?
-              <AiOutlineUser color='#FC5185' /> :
+              <AiOutlineUser color='#FC5185' size={"26px"}/> :
               <Button
               h='1.75rem'
               size='sm'
@@ -54,13 +57,14 @@ function Login(props) {
                 bg: "none"
               }}
               _active={{
-                bg: "none"
+                bg: "none",
               }}
               >
               {show ? <AiOutlineEyeInvisible
               color='#FC5185'
               cursor={"pointer"}
-              /> : <AiOutlineEye color='#FC5185' cursor={"pointer"}/>}
+              size={"26px"}
+              /> : <AiOutlineEye color='#FC5185' cursor={"pointer"} size={"26px"}/>}
             </Button>
           }
         </InputRightElement>
