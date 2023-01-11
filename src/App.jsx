@@ -3,6 +3,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import Post from './components/Post';
+import SliderThumbWithTooltip from './components/Slider';
 import './App.css';
 
 function App() {
@@ -10,9 +11,10 @@ function App() {
 
   return (
     <div className="App">
-      <VStack width="600px">
+      {/* <VStack width="600px">
         <Post />
-      </VStack>
+      </VStack> */}
+      <SliderThumbWithTooltip />
     </div>
   );
 }
