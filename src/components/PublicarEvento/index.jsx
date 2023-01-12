@@ -5,7 +5,7 @@ import { Link, Box} from '@chakra-ui/react'
 
 
 
-function PublicarEvento(props) {
+function ButtonSubmit(props) {
   const {text, background, color} = props;
   const colors ={
     background,
@@ -19,4 +19,4 @@ function PublicarEvento(props) {
   </Box>
 }
 
-export default PublicarEvento;
+export default ButtonSubmit;
