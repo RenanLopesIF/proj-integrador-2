@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { Map, Marker } from 'react-map-gl';
 
-function MapInstance({ lat = -16, lng = -42 }) {
+function MapInstance({ lat = -16, lng = -42, mapMode = 'satellite-streets-v12' }) {
   const [viewport, setViewport] = useState({
     longitude: lng,
     latitude: lat,
@@ -20,7 +20,12 @@ function MapInstance({ lat = -16, lng = -42 }) {
     <Map
       {...viewport}
       mapboxAccessToken={accessTokenMap}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
+      // https://docs.mapbox.com/api/maps/styles/
+      // mapStyle="mapbox://styles/mapbox/streets-v9"
+      // mapStyle="mapbox://styles/mapbox/satellite-v9"
+      // mapStyle="mapbox://sprites/mapbox/bright-v8"
+      // mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
+      mapStyle={`mapbox://styles/mapbox/${mapMode}`}
       width="100%"
       height="100%"
       onMove={(evt) => setViewport(evt.viewState)}

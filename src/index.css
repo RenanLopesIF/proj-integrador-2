@@ -17,6 +17,6 @@
   box-sizing: border-box;
 }
 
-.mapboxgl-ctrl-logo{
+.mapboxgl-ctrl-logo, .mapboxgl-ctrl-bottom-right{
   display: none !important;
 }
