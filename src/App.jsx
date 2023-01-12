@@ -9,7 +9,7 @@ import { Map, Source } from 'react-map-gl';
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(true);
 
@@ -19,30 +19,19 @@ function App() {
 
   const url = 'http://localhost:3005/events';
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(url);
-      setEvents(data);
-      setLoading(false);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { data } = await axios.get(url);
+  //     setEvents(data);
+  //     setLoading(false);
+  //   })();
+  // }, []);
 
   if (loading) return <LoadingSpinner />;
 
   return (
     <div className="App">
-      <VStack width="600px">
-        {events.map((event, idx) => (
-          <Post event={event} key={idx} />
-        ))}
-        <ModalAddressDetails
-          LatLng={{ lat: -16.992218476360074, lng: -42.35898430325603 }}
-          isOpen={modalOpen}
-          onClose={onCloseModal}
-          autoAddress={events[0].display_address_name}
-          address={events[0].display_address_name}
-        />
-      </VStack>
+      <VStack width="600px">Página inicial</VStack>
     </div>
   );
 }
