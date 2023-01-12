@@ -4,16 +4,14 @@ import {
   ModalOverlay,
   ModalHeader,
   ModalBody,
-  Box,
   ModalContent,
   Button,
-  Flex,
   Text,
   VStack,
   Center,
 } from '@chakra-ui/react';
 import { FaRegWindowClose } from 'react-icons/fa';
-import MapInstance from '../MapInstance';
+import MapInstance from '../MapAddressInfoInstance';
 
 function ModalAddressDetails({ isOpen, onClose, LatLng, address, autoAddress }) {
   const borderRadio = '20px';
@@ -37,7 +35,6 @@ function ModalAddressDetails({ isOpen, onClose, LatLng, address, autoAddress }) 
             m={0}
             _hover={{ bgColor: 'primary.300' }}
             _active={{ bgColor: 'primary.300' }}
-            // variant="solid"
             bgColor="primary.300"
             position="absolute"
             right={2}
@@ -53,7 +50,7 @@ function ModalAddressDetails({ isOpen, onClose, LatLng, address, autoAddress }) 
             </Text>
             <Text color="#A4A4A4" fontSize={11}>{`DETALHES GERADOS AUTOMATICAMENTE: ${autoAddress}`}</Text>
             <Center w="full" h="100%">
-              <MapInstance lat={LatLng.lat} lng={LatLng.lng} />
+              <MapInstance lat={LatLng.lat} lng={LatLng.lng} mapMode="bright-v8" />
             </Center>
           </VStack>
         </ModalBody>
