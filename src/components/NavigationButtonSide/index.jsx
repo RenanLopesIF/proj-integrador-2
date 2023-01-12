@@ -3,7 +3,7 @@ import { Button, Link } from '@chakra-ui/react'
 
 
 
-function MeuBotao(props) {
+function NavigationButtonSide(props) {
   const { text, background, color, icon, href } = props;
 
   const colors = {
@@ -22,4 +22,4 @@ function MeuBotao(props) {
 
 }
 
-export default MeuBotao;
+export default NavigationButtonSide;
