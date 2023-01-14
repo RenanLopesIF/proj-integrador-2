@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Tooltip, useTheme } from '@chakra-ui/react';
 
-function SliderThumbWithTooltip(props) {
+function CustomSlider(props) {
   const { data, acronymDistance } = props;
   const [sliderValue, setSliderValue] = useState(5);
 
@@ -42,4 +42,4 @@ function SliderThumbWithTooltip(props) {
   );
 }
 
-export default SliderThumbWithTooltip;
+export default CustomSlider;
