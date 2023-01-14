@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -17,12 +18,19 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useRef } from 'react';
+import DropzoneEventImage from '../DropzoneEventImage';
 import MapChooseAddress from '../MapChooseAddress';
 import InputCreateEvent from '../InputCreateEvent';
+import InputDataHora from '../InputDataHora';
 
 function ModalCreateEvent({ isOpen, onClose, LatLng }) {
   const borderRadio = '20px';
+  const imgFileRef = useRef();
+
+  function handleCreateEvent() {
+    console.log('a', imgFileRef.current);
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
@@ -56,7 +64,7 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               <Center>
                 <FormLabel>Data de início</FormLabel>
               </Center>
-              <InputCreateEvent placeholder="DD/MM/AA às 00:00" w="100%" type="datetime-local" />
+              <InputDataHora />
               <FormErrorMessage>Defina a data de início.</FormErrorMessage>
             </FormControl>
 
@@ -64,13 +72,13 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               <Center>
                 <FormLabel>Data de término</FormLabel>
               </Center>
-              <InputCreateEvent placeholder="DD/MM/AA às 00:00" w="100%" type="datetime-local" />
+              <InputDataHora />
               <FormErrorMessage>Defina a data de término.</FormErrorMessage>
             </FormControl>
 
             <Textarea
               w="100%"
-              h="120px"
+              h="140px"
               bgColor="cinza.50"
               color="cinza.500"
               focusBorderColor="cinza.100"
@@ -86,16 +94,16 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               size="sm"
               resize="none"
             />
-            <SimpleGrid columns={2} spacingX={4}>
-              {/* utilizar componente customizado AddImgEvent*/}
-              <Box bgColor="cinza.50"></Box>
-              <Box>
+            <Flex w="full">
+              <Box p={2} mr={3} bgColor="cinza.50" h="140px" w="200px">
+                <DropzoneEventImage fileRef={imgFileRef} />
+              </Box>
+              <Box w="50%">
                 <FormControl>
                   <Center>
                     <FormLabel>Faixa etária</FormLabel>
                   </Center>
                   <Select
-                    placeholder="L"
                     bgColor="cinza.50"
                     color="cinza.500"
                     focusBorderColor="cinza.100"
@@ -107,14 +115,18 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
                     _placeholder={{
                       color: 'cinza.400',
                     }}
+                    defaultValue="l"
                   >
-                    <option value="option2">+12</option>
-                    <option value="option3">+16</option>
-                    <option value="option3">+18</option>
+                    <option value="l">Livre</option>
+                    <option value="10">+10</option>
+                    <option value="12">+12</option>
+                    <option value="14">+14</option>
+                    <option value="16">+16</option>
+                    <option value="18">+18</option>
                   </Select>
                 </FormControl>
               </Box>
-            </SimpleGrid>
+            </Flex>
 
             <FormControl>
               <FormLabel>
@@ -147,7 +159,9 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
                 resize="none"
               />
               {/* utilizar componente customizado */}
-              <Button w="full">Criar evento</Button>
+              <Button w="full" onClick={handleCreateEvent}>
+                Criar evento
+              </Button>
             </VStack>
           </SimpleGrid>
         </ModalBody>
