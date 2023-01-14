@@ -8,14 +8,14 @@ function IconeUsuario(props) { // não coloquei a função recebendo o nome, par
 
 
   return (
-    <div>
+    <box>
       <Flex align="center">
         <Box  fontWeight="500" color="#364F6B"ml={2}>{nome}</Box>
         <Box>
           <BiUserCircle color="#364F6B" name="edit" size="30px" />
         </Box>
       </Flex>
-    </div>
+    </box>
   );
 }
 export default IconeUsuario;

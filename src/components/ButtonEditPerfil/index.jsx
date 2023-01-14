@@ -6,7 +6,7 @@ function EditarPerfilButton() {
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <div>
+        <box>
             <Button rounded="md" p={4}
                 variantColor="teal"
                 onClick={() => setIsEditing(!isEditing)}
@@ -14,7 +14,7 @@ function EditarPerfilButton() {
 
                 Editar perfil
             </Button>
-        </div>
+        </box>
     );
 }
 

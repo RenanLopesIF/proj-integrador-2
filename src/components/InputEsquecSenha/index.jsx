@@ -1,21 +1,20 @@
 import React from 'react';
-
+import { Link } from '@chakra-ui/react';
 const ForgotPasswordLink = () => {
     const [hover, setHover] = React.useState(false);
 
     return (
-        <a
-            href="pagina-de-recuperacao-de-senha"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            style={{
-                textDecoration: hover ? 'underline' : 'none',
-                textDecorationColor: hover ? '#FC5185' : 'black',
-                fontWeight: '700', color:'#364F6B', 
-            }}
-        >
-            ESQUECEU A SENHA?
-        </a>
+        <box>
+            <Link
+                _hover={{ borderBottom: "3px solid #FC5185" }}
+                style={{
+                    color: "#364F6B", fontWeight: '700'
+                }}
+            >
+                ESQUECEU A SENHA?
+            </Link>
+        </box>
+
     );
 };
 
