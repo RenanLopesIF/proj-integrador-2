@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 import Post from './components/Post';
-import Slider from './components/Slider';
 import './App.css';
 
 function App() {
