@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, HStack, Text, Flex, VStack } from '@chakra-ui/react';
 import { MdAlarmOff, MdAlarmOn, MdOutlineStarBorderPurple500 } from 'react-icons/md';
 import { BiMap, BiComment } from 'react-icons/bi';

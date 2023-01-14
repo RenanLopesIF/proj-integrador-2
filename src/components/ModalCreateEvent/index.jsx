@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -20,6 +21,7 @@ import {
 import React from 'react';
 import MapChooseAddress from '../MapChooseAddress';
 import InputCreateEvent from '../InputCreateEvent';
+import AddImgEvent from '../AddImgEvent';
 
 function ModalCreateEvent({ isOpen, onClose, LatLng }) {
   const borderRadio = '20px';
@@ -70,7 +72,7 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
 
             <Textarea
               w="100%"
-              h="120px"
+              h="140px"
               bgColor="cinza.50"
               color="cinza.500"
               focusBorderColor="cinza.100"
@@ -86,10 +88,12 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               size="sm"
               resize="none"
             />
-            <SimpleGrid columns={2} spacingX={4}>
+            <Flex w="full">
               {/* utilizar componente customizado AddImgEvent*/}
-              <Box bgColor="cinza.50"></Box>
-              <Box>
+              <Box mr={3} h="140px" w="220px">
+                <Box bgColor="cinza.50"></Box>
+              </Box>
+              <Box w="20%">
                 <FormControl>
                   <Center>
                     <FormLabel>Faixa etária</FormLabel>
@@ -114,7 +118,7 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
                   </Select>
                 </FormControl>
               </Box>
-            </SimpleGrid>
+            </Flex>
 
             <FormControl>
               <FormLabel>
