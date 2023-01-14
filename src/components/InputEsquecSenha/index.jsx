@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from '@chakra-ui/react';
-const ForgotPasswordLink = () => {
+import { Link,Box } from '@chakra-ui/react';
+const InputEsquecSenha = () => {
     const [hover, setHover] = React.useState(false);
 
     return (
-        <box>
+        <Box>
             <Link
                 _hover={{ borderBottom: "3px solid #FC5185" }}
                 style={{
@@ -13,9 +13,9 @@ const ForgotPasswordLink = () => {
             >
                 ESQUECEU A SENHA?
             </Link>
-        </box>
+        </Box>
 
     );
 };
 
-export default ForgotPasswordLink;
+export default InputEsquecSenha;

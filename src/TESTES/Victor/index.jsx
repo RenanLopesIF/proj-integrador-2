@@ -1,5 +1,5 @@
 import React from "react";
-import Teste from "/src/components/InputEsquecSenha";
+import Teste from "/src/components/IconeUser";
 
 // Se der ruim, apaga tudo e coloca return <div></div>
 

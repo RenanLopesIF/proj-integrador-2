@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Icon, Button } from '@chakra-ui/react';
+import { Icon, Button,Box } from '@chakra-ui/react';
 import { MdModeEditOutline } from 'react-icons/md';
 
-function EditarPerfilButton() {
+function ButtonEditPerfil() {
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <box>
+        <Box>
             <Button rounded="md" p={4}
                 variantColor="teal"
                 onClick={() => setIsEditing(!isEditing)}
@@ -14,8 +14,8 @@ function EditarPerfilButton() {
 
                 Editar perfil
             </Button>
-        </box>
+        </Box>
     );
 }
 
-export default EditarPerfilButton;
+export default ButtonEditPerfil;
