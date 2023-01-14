@@ -22,6 +22,7 @@ import React, { useRef } from 'react';
 import DropzoneEventImage from '../DropzoneEventImage';
 import MapChooseAddress from '../MapChooseAddress';
 import InputCreateEvent from '../InputCreateEvent';
+import InputDataHora from '../InputDataHora';
 
 function ModalCreateEvent({ isOpen, onClose, LatLng }) {
   const borderRadio = '20px';
@@ -63,7 +64,7 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               <Center>
                 <FormLabel>Data de início</FormLabel>
               </Center>
-              <InputCreateEvent placeholder="DD/MM/AA às 00:00" w="100%" type="datetime-local" />
+              <InputDataHora />
               <FormErrorMessage>Defina a data de início.</FormErrorMessage>
             </FormControl>
 
@@ -71,7 +72,7 @@ function ModalCreateEvent({ isOpen, onClose, LatLng }) {
               <Center>
                 <FormLabel>Data de término</FormLabel>
               </Center>
-              <InputCreateEvent placeholder="DD/MM/AA às 00:00" w="100%" type="datetime-local" />
+              <InputDataHora />
               <FormErrorMessage>Defina a data de término.</FormErrorMessage>
             </FormControl>
 
