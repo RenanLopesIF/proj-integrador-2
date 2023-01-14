@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { VStack, Box } from '@chakra-ui/react';
+import { VStack, Box, Text } from '@chakra-ui/react';
 import Post from './components/Post';
 import './App.css';
 import axios from 'axios';
 import LoadingSpinner from './components/LoadingSpinner';
 import ModalAddressDetails from './components/ModalAddressDetails';
 import { Map, Source } from 'react-map-gl';
+import ModalCreateEvent from './components/ModalCreateEvent';
+import SideBar from './components/SideBar';
+import Layout from './components/Layout';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -31,7 +34,14 @@ function App() {
 
   return (
     <div className="App">
-      <VStack width="600px">Página inicial</VStack>
+      <Layout>
+        <VStack bgColor="red.400" h="150px" w="100px">
+          <Text>AA</Text>
+          <Text>BB</Text>
+          <Text>CC</Text>
+          <Text>DD</Text>
+        </VStack>
+      </Layout>
     </div>
   );
 }
