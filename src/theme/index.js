@@ -39,7 +39,7 @@ const colors = {
   },
   cinza: {
     50: '#F5F5F5',
-    100: '#d9d9d9',
+    100: '#D9D9D9',
     200: '#bfbfbf',
     300: '#a6a6a6',
     400: '#8c8c8c',

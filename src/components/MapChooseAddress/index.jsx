@@ -6,7 +6,7 @@ function MapChooseAddress({ initialLocation, mapMode = 'satellite-streets-v12', 
   const [viewport, setViewport] = useState({
     longitude: initialLocation.lng,
     latitude: initialLocation.lat,
-    zoom: 14.5,
+    zoom: 12.5,
     bearing: 0,
     pitch: 30,
   });
