@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 import Post from './components/Post';
-import CustomInput from './components/CustomInput';
+import Slider from './components/Slider';
 import './App.css';
 
 function App() {
@@ -9,11 +9,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <VStack width="600px">
+      <VStack width="600px">
         <Post />
-      </VStack> */}
-      <CustomInput typeInput="text" placeholder="Usuário" />
-      <CustomInput typeInput="password" placeholder="Sua senha" />
+      </VStack>
     </div>
   );
 }

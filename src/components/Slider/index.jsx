@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Tooltip, useTheme } from '@chakra-ui/react';
 
 function SliderThumbWithTooltip(props) {
-  const { data } = props;
+  const { data, acronymDistance } = props;
   const [sliderValue, setSliderValue] = useState(5);
 
   const { colors } = useTheme();
@@ -18,8 +18,8 @@ function SliderThumbWithTooltip(props) {
       focusThumbOnChange={false}
     >
       {data.map((valor, idx) => (
-        <SliderMark key={idx} value={valor.value} mt="1" ml="-2.5" fontSize="sm">
-          {valor.label}
+        <SliderMark key={idx} value={valor.value} mt="1" mr="-2.5" fontSize="sm">
+          {valor.label + acronymDistance}
         </SliderMark>
       ))}
 
@@ -34,7 +34,7 @@ function SliderThumbWithTooltip(props) {
         h="18px"
         fontSize={'10px'}
         isOpen={true}
-        label={`${sliderValue}%`}
+        label={sliderValue + acronymDistance}
       >
         <SliderThumb borderColor={'primary.300'} boxSize={3} />
       </Tooltip>
