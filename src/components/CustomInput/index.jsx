@@ -2,7 +2,7 @@ import { Input, Button, InputGroup, InputRightElement, useTheme } from '@chakra-
 import { useState } from 'react';
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-function InputLogin(props) {
+function CustomInput(props) {
   const { typeInput, placeholder } = props;
 
   const [show, setShow] = useState(false);
@@ -18,7 +18,7 @@ function InputLogin(props) {
   return (
     <InputGroup size="md" w="25%">
       <Input
-        padding={'0'}
+        padding={'0 0 0 10px'}
         type={handleTypeInput()}
         placeholder={placeholder}
         variant="disabled"
@@ -56,4 +56,4 @@ function InputLogin(props) {
   );
 }
 
-export default InputLogin;
+export default CustomInput;
