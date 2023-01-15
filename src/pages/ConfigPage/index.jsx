@@ -20,7 +20,7 @@ function ConfigPage() {
   return (
     <Flex flexDirection={"column"} alignItems="flex-end" justifyContent={"flex-end"} gap="30px" paddingTop={"16px"}>
       <IconeUser />
-      <Box bg={"#FFFFFF"} width="96%" height={"85vh"} borderTopLeftRadius="20px" borderEndStartRadius={"20px"} padding={"20px 50px"}>
+      <Box bg={"#FFFFFF"} width="96%" height={"90vh"} borderTopLeftRadius="20px" borderEndStartRadius={"20px"} padding={"20px 50px"}>
         <Heading
           as={"h2"}
           fontWeight="700"
