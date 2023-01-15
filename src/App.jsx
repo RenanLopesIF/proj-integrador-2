@@ -10,6 +10,8 @@ import ModalCreateEvent from './components/ModalCreateEvent';
 import SideBar from './components/SideBar';
 import Layout from './components/Layout';
 
+import ConfigPage from './pages/ConfigPage';
+
 function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,12 +37,13 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        <VStack bgColor="red.400" h="150px" w="100px">
+        {/* <VStack bgColor="red.400" h="150px" w="100px">
           <Text>AA</Text>
           <Text>BB</Text>
           <Text>CC</Text>
           <Text>DD</Text>
-        </VStack>
+        </VStack> */}
+        <ConfigPage />
       </Layout>
     </div>
   );

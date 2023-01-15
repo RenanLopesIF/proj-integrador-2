@@ -19,7 +19,7 @@ function CustomSlider(props) {
     >
       {data.map((valor, idx) => (
         <SliderMark key={idx} value={valor.value} mt="1" mr="-2.5" fontSize="sm">
-          {valor.label + acronymDistance}
+          {valor.label}
         </SliderMark>
       ))}
 
