@@ -2,9 +2,7 @@ import { Input, Button, InputGroup, InputRightElement, useTheme } from '@chakra-
 import { useState } from 'react';
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-function CustomInput(props) {
-  const { typeInput, placeholder } = props;
-
+function CustomInput({ typeInput, placeholder }) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 

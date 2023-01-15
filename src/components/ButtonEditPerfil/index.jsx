@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
-import { Icon, Button,Box } from '@chakra-ui/react';
-import { MdModeEditOutline } from 'react-icons/md';
+import React from 'react';
+import { Button, Box } from '@chakra-ui/react';
 
-function ButtonEditPerfil() {
-    const [isEditing, setIsEditing] = useState(false);
-
-    return (
-        <Box>
-            <Button rounded="md" p={4}
-                variantColor="teal"
-                onClick={() => setIsEditing(!isEditing)}
-                leftIcon={<MdModeEditOutline name="edit" size="20px" />}>
-
-                Editar perfil
-            </Button>
-        </Box>
-    );
+function ButtonEditPerfil({ text, icon, isActive, onClick }) {
+  return (
+    <Box>
+      <Button
+        rounded="4px"
+        p={4}
+        bgColor={isActive ? 'secondary.600' : 'cinza.100'}
+        color={isActive ? '#FFF' : '#000'}
+        onClick={onClick}
+        leftIcon={icon}
+        fontWeight={400}
+        _hover={{ opacity: 0.7 }}
+      >
+        {text}
+      </Button>
+    </Box>
+  );
 }
 
 export default ButtonEditPerfil;

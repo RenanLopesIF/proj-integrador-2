@@ -13,12 +13,13 @@ function NavigationButtonSide({ text, isActive, icon, href }) {
       justifyContent={'flex-start'}
       alignItems={'center'}
       borderRadius={'9px'}
-      fontSize={'1.3rem'}
+      fontSize={['null', '1rem', '1rem', '1.3rem']}
       w="100%"
       h="60px"
       gap={'10px'}
       paddingLeft={'1.5rem'}
       color={isActive ? 'white' : 'secondary.600'}
+      textOverflow="ellipsis"
     >
       {text}
     </Button>
