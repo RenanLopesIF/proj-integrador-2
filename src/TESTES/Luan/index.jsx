@@ -1,27 +1,102 @@
-import React from "react";
-import { MdSettings } from 'react-icons/md'
+import { Box, Circle } from '@chakra-ui/react';
+import React from 'react';
+import ButtonSubmit from '../../components/ButtonSubmit';
+// import CustomInput from '../../components/CustomInput';
+import InputSenha from '../../components/InputSenha';
+
+// import { MdSettings } from 'react-icons/md';
 // Se der ruim, apaga tudo e coloca return <div></div>
-import NavigationButtonSide from "../../components/NavigationButtonSide";
-import ButtonSubmit from "../../components/ButtonSubmit";
-import AddImgEvent from "../../components/AddImgEvent";
-import AirbnbImage from "../../components/AddImgEvent/image/150.png";
-import BarraDePesqisa from "../../components/BarraPesquisa";
+const father = {
+  // backgroundColor: 'red',
+  with: '100%',
+  height: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  // backgroundColor: 'red',
+  alignItems: 'center',
+  color: 'black',
+};
+const componentes = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  width: '40vw',
+  height: '80vh',
+  backgroundColor: 'white',
+};
+const text = {
+  display: 'flex',
+  justifyContent: 'end',
+  flexDirection: 'column',
+  width: '100%',
+  height: '30%',
+  // backgroundColor: 'gray',
+  // fontSize: '20px',
+};
+
+const txtElogo = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: '#FC5185',
+  gap: '1rem',
+  fontSize: '30px',
+  fontWeight: '400',
+  lineHeight: '36px',
+};
+const txtEchave = {
+  display: 'flex',
+  width: '100%',
+  height: '100px',
+  // backgroundColor: 'blueviolet',
+  alignItems: 'center',
+  fontStyle: 'normal',
+  color: 'black',
+  fontSize: '30px',
+  fontWeight: '400',
+  lineHeight: '36px',
+  gap: '2rem',
+};
+
+const inputs = {
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  fontSize: '1.2rem',
+  width: '100%',
+  height: '30%',
+  // backgroundColor: 'blue',
+  gap: '70px',
+};
 
 function TesteLuan() {
-  return <div>
-
-
-<BarraDePesqisa text={'Pesquise pela discrição do evento'}/>
-
- <AddImgEvent  imageUrl = {AirbnbImage} backgroundColor={'#FC5185'} color={'#FFF'} text={'Adicionar imagem sobre o evento'}/>
-
-  <NavigationButtonSide  icon={<MdSettings />} background={'#FC5185'} color={'#FFF'} text={'home'} href={'/amaury'}/>
-  {/* <NavigationButtonSide icon={<MdReceipt/>} background={'#FFF'} color={'#364F6B'} text={'status'}/>
-  <NavigationButtonSideicon={<SearchIcon />} background={'#FFF'} color={'#364F6B'} text={'inicial'}/> */}
-  <ButtonSubmit background={'#FC5185'} color={'#FFF'} text={'Publicar meu evento'}/>
-
-
-  </div>;
+  return (
+    <div style={father}>
+      <Box style={componentes}>
+        <Box style={text}>
+          <h1 style={txtElogo}>
+            <img src="../../../public/logo.svg" alt="" /> LOGO MARCA
+          </h1>
+          <h1 style={txtEchave}>
+            <img src="../../../public/chave.svg" alt="" /> Recuperar sua senha
+          </h1>
+        </Box>
+        <Box style={inputs}>
+          <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
+          <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
+        </Box>
+        <Box display={'flex'} w={'100%'} h={'30%'} alignItems={'center'} paddingLeft={'2rem'}>
+          <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'#FC5185'} />
+          <Box display={'flex'} marginTop="2.8rem" justifyContent="space-around" w="140px">
+            <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
+            <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
+            <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
+          </Box>
+        </Box>
+      </Box>
+    </div>
+  );
 }
 
 export default TesteLuan;
