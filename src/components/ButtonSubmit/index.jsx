@@ -21,9 +21,8 @@ function ButtonSubmit(props) {
         fontSize={'18px'}
         w="100%"
         h="100%"
-        padding="20px 50px 20px 50px"
+        padding="10px 50px 10px 50px"
         gap={'4px'}
-        // marginLeft="1.4rem"
         style={colors}
       >
         {text}

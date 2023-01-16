@@ -13,9 +13,10 @@ const txtElogo = {
   alignItems: 'center',
   color: '#FC5185',
   gap: '1rem',
-  fontSize: '30px',
+  fontSize: '25px',
   fontWeight: '400',
   lineHeight: '36px',
+  // backgroundColor: 'red',
 };
 const txtEchave = {
   display: 'flex',
@@ -25,22 +26,11 @@ const txtEchave = {
   alignItems: 'center',
   fontStyle: 'normal',
   color: 'black',
-  fontSize: '30px',
+  fontSize: '25px',
   fontWeight: '400',
   lineHeight: '36px',
-  gap: '2rem',
+  // gap: '2rem',
 };
-
-// const father = {
-//   // backgroundColor: 'red',
-//   with: '100%',
-//   height: '100vh',
-//   display: 'flex',
-//   justifyContent: 'center',
-//   // backgroundColor: 'red',
-//   alignItems: 'center',
-//   color: 'black',
-// };
 
 function TesteLuan() {
   return (
@@ -51,10 +41,10 @@ function TesteLuan() {
         justifyContent={'center'}
         alignItems={'flex-start'}
         w={'40vw'}
-        h={'80vh'}
+        h={'85vh'}
         backgroundColor={'white'}
       >
-        <Box display={'flex'} justifyContent={'end'} flexDirection={'column'} w={'100%'} h={'30%'}>
+        <Box display={'flex'} justifyContent={'space-between'} flexDirection={'column'} w={'100%'} h={'30%'}>
           <h1 style={txtElogo}>
             <img src="../../../public/logo.svg" alt="" /> LOGO MARCA
           </h1>
@@ -70,14 +60,14 @@ function TesteLuan() {
           w="100%"
           h="40%"
           gap="60px"
-          backgroundColor="blue"
+          // backgroundColor="blue"
         >
           <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
           <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
         </Box>
-        <Box backgroundColor={'red'} display={'flex'} w={'100%'} h={'30%'} alignItems={'center'} paddingLeft={'2rem'}>
+        <Box display={'flex'} w={'100%'} h={'30%'} alignItems={'center'} paddingLeft={'2rem'}>
           <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'#FC5185'} />
-          <Box display={'flex'} marginTop="2.8rem" justifyContent="space-around" w="140px">
+          <Box display={'flex'} marginTop="1.7rem" justifyContent="space-around" w="140px">
             <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
             <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
             <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
