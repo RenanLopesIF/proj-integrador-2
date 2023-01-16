@@ -2,6 +2,7 @@ import { Box, Circle, Flex } from '@chakra-ui/react';
 import React from 'react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import InputSenha from '../../components/InputSenha';
+// import { ImKey } from 'react-icons/fa';
 
 const txtElogo = {
   display: 'flex',
@@ -9,7 +10,7 @@ const txtElogo = {
   alignItems: 'center',
   color: '#FC5185',
   gap: '1rem',
-  fontSize: '25px',
+  fontSize: '20px',
   fontWeight: '400',
   lineHeight: '36px',
 };
@@ -20,9 +21,12 @@ const txtEchave = {
   alignItems: 'center',
   fontStyle: 'normal',
   color: 'black',
-  fontSize: '25px',
+  fontSize: '23px',
   fontWeight: '400',
   lineHeight: '36px',
+  // backgroundColor: 'blue',
+  // justifyContent: 'space-around',
+  gap: '4rem',
 };
 
 function EsqueceuSenha() {
@@ -34,12 +38,21 @@ function EsqueceuSenha() {
         justifyContent={'center'}
         alignItems={'flex-start'}
         w={'40vw'}
-        h={'85vh'}
+        h={'80vh'}
         backgroundColor={'white'}
       >
-        <Box display={'flex'} justifyContent={'space-between'} flexDirection={'column'} w={'100%'} h={'30%'}>
+        <Box
+          // backgroundColor={'red'}
+          display={'flex'}
+          justifyContent={'space-between'}
+          flexDirection={'column'}
+          w={'100%'}
+          h={'45%'}
+        >
           <h1 style={txtElogo}>
-            <img src="../../../public/logo.svg" alt="" /> LOGO MARCA
+            <img src="../../../public/logo.svg" alt="" />
+            LOGO MARCA
+            {/* <ImKey /> */}
           </h1>
           <h1 style={txtEchave}>
             <img src="../../../public/chave.svg" alt="" /> Recuperar sua senha

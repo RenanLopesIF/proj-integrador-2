@@ -17,7 +17,7 @@ function ButtonSubmit(props) {
         textDecoration={'none'}
         justifyContent={'center'}
         alignItems={'center'}
-        borderRadius={'0.3rem'}
+        borderRadius={'0.2rem'}
         fontSize={'18px'}
         w="100%"
         h="100%"

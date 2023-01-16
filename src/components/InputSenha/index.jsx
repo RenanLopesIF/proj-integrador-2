@@ -11,7 +11,7 @@ function InputSenha({ text, placeholder }) {
           placeholder={placeholder}
           fontSize={'1.1rem'}
           w="95%"
-          h="100%"
+          h="90%"
           backgroundColor="#F5F5F5"
           focusBorderColor="gray.200"
           _placeholder={{ opacity: 1, color: 'black' }}
