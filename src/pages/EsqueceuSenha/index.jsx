@@ -2,7 +2,6 @@ import { Box, Circle, Flex } from '@chakra-ui/react';
 import React from 'react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import InputSenha from '../../components/InputSenha';
-// import { ImKey } from 'react-icons/fa';
 
 const txtElogo = {
   display: 'flex',
@@ -24,8 +23,6 @@ const txtEchave = {
   fontSize: '23px',
   fontWeight: '400',
   lineHeight: '36px',
-  // backgroundColor: 'blue',
-  // justifyContent: 'space-around',
   gap: '4rem',
 };
 
@@ -41,22 +38,15 @@ function EsqueceuSenha() {
         h={'80vh'}
         backgroundColor={'white'}
       >
-        <Box
-          // backgroundColor={'red'}
-          display={'flex'}
-          justifyContent={'space-between'}
-          flexDirection={'column'}
-          w={'100%'}
-          h={'45%'}
-        >
+        <Box display={'flex'} justifyContent={'space-between'} flexDirection={'column'} w={'100%'} h={'45%'}>
           <h1 style={txtElogo}>
             <img src="../../../public/logo.svg" alt="" />
             LOGO MARCA
-            {/* <ImKey /> */}
           </h1>
-          <h1 style={txtEchave}>
-            <img src="../../../public/chave.svg" alt="" /> Recuperar sua senha
-          </h1>
+          <h2 style={txtEchave}>
+            <img src="../../../public/chave.svg" alt="" />
+            Recuperar sua senha
+          </h2>
         </Box>
         <Box
           display={'flex'}
@@ -67,7 +57,6 @@ function EsqueceuSenha() {
           h="50%"
           padding="30px 0 80px 0"
           gap="60px"
-          // backgroundColor={'red'}
         >
           <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
           <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
