@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import BarraPesquisa from '../../components/BarraPesquisa';
@@ -13,6 +13,7 @@ function Publications() {
       try {
         const data = await axios.get('http://localhost:3005/events');
         setPartyEvent(data.data);
+        console.log(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -22,12 +23,21 @@ function Publications() {
   }, []);
 
   return (
-    <Box>
-      <Flex alignItems={'center'} justifyContent="space-between" margin={'20px 25px 26px 25px'}>
+    <Box border={'1px solid red'} padding="20px 25px 26px 25px">
+      <Flex alignItems={'center'} justifyContent="space-between" marginBottom={'26px'}>
         <BarraPesquisa text="Pesquise pela descrição do evento" />
         <IconeUser />
       </Flex>
-      <Flex>{/* <Post /> */}</Flex>
+      <Flex flexDirection={'row'} width="100%">
+        <Flex flexDirection={'column'} width="578px" gap={'25px'}>
+          {partyEvent.map((event) => (
+            <Post event={event} />
+          ))}
+        </Flex>
+        <Box>
+          <Text>Olá</Text>
+        </Box>
+      </Flex>
     </Box>
   );
 }
