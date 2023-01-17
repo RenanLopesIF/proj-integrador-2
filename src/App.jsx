@@ -9,7 +9,7 @@ import { Map, Source } from 'react-map-gl';
 import ModalCreateEvent from './components/ModalCreateEvent';
 import SideBar from './components/SideBar';
 import Layout from './components/Layout';
-import EsqueceuSenha from './pages/EsqueceuSenha';
+import TelaRecuperarSenhaInformarEmail from './pages/TelaRecuperarSenhaInformarEmail';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      <EsqueceuSenha />
+      <TelaRecuperarSenhaInformarEmail />
       {/* <Layout>
         <VStack bgColor="red.400" h="150px" w="100px">
           <Text>AA</Text>
