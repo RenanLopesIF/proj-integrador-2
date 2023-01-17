@@ -35,7 +35,7 @@ function EsqueceuSenha() {
             <Center paddingLeft={'25px'} w={'25%'}>
               <HiOutlineKey size={'100'} />
             </Center>
-            <Box display={'flex'} flexDirection={'column'} paddingLeft={'50px'} alignItems={'center'}>
+            <Box display={'flex'} flexDirection={'column'} paddingLeft={'55px'} alignItems={'center'}>
               <h1 style={txtElogo}>
                 <img src="../../../public/logo.svg" alt="" />
                 LOGO MARCA
