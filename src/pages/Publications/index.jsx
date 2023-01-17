@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import BarraPesquisa from '../../components/BarraPesquisa';
 import IconeUser from '../../components/iconeUser';
 import Post from '../../components/Post';
+import ButtonSubmit from './../../components/ButtonSubmit';
+import EventTitle from './../../components/EventTitle';
 
 function Publications() {
   const [partyEvent, setPartyEvent] = useState([]);
@@ -28,15 +30,21 @@ function Publications() {
         <BarraPesquisa text="Pesquise pela descrição do evento" />
         <IconeUser />
       </Flex>
-      <Flex flexDirection={'row'} width="100%">
+      <Flex flexDirection={'row'} justifyContent="space-between" width="100%">
         <Flex flexDirection={'column'} width="578px" gap={'25px'}>
           {partyEvent.map((event) => (
             <Post event={event} />
           ))}
         </Flex>
-        <Box>
-          <Text>Olá</Text>
-        </Box>
+        <Flex flexDirection={'column'} textAlign="center">
+          <Flex border={'1px solid red'} flexDirection="column" alignItems="center" justifyContent={'center'}>
+            <EventTitle text={'ola'} />
+            <ButtonSubmit />
+          </Flex>
+          <Flex>
+            <Text>Olá</Text>
+          </Flex>
+        </Flex>
       </Flex>
     </Box>
   );
