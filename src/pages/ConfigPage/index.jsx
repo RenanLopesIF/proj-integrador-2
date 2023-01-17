@@ -6,15 +6,15 @@ function ConfigPage() {
   const {colors} = useTheme();
 
   const data = [
-    {label: "80km", value: 80},
+    {label: "0km", value: 0},
     {label: "50km", value: 50},
-    {label: "30km", value: 30}
+    {label: "100km", value: 100}
   ]
 
   const data1 = [
-    {label: "80d", value: 80},
-    {label: "50d", value: 50},
-    {label: "30d", value: 30}
+    {label: "80d", value: 1},
+    {label: "182d", value: 182},
+    {label: "365d", value: 365}
   ]
 
   return (
@@ -26,16 +26,16 @@ function ConfigPage() {
           fontWeight="700"
           fontSize={"40px"}
           lineHeight="58px"
-          color={"azulClaro.800"}
+          color={"secondary.600"}
         >Configurações</Heading>
         <Flex marginTop="35px" flexDirection={"column"}>
-          <Box width="70%" marginBottom={"75px"} h="120px" paddingRight={"60px"} bg={"cinza.50"}>
+          <Box width="100%" marginBottom={"75px"} h="140px" padding={"15px 60px 0 30px"} bg={"cinza.50"} borderRadius="5px">
             <Text fontWeight={"400"} fontSize="24px" lineHeight={"29px"} color="azulClaro.900">Distância máxima do evento:</Text>
-            <CustomSlider data={data} acronymDistance="km"/>
+            <CustomSlider data={data} acronymDistance="km" min={0} max={100}/>
           </Box>
-          <Box width="70%" h="120px" paddingRight={"60px"} bg={"cinza.50"}>
+          <Box width="100%" h="140px" padding={"15px 60px 0 30px"} bg={"cinza.50"} borderRadius="5px">
             <Text fontWeight={"400"} fontSize="24px" lineHeight={"29px"} color="azulClaro.900">Exiber eventos em até:</Text>
-            <CustomSlider data={data1} acronymDistance="d"/>
+            <CustomSlider data={data1} acronymDistance="d" min={1} max={365}/>
           </Box>
         </Flex>
       </Box>
