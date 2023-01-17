@@ -5,7 +5,7 @@ import BarraPesquisa from '../../components/BarraPesquisa';
 import IconeUser from '../../components/iconeUser';
 import Post from '../../components/Post';
 import ButtonSubmit from './../../components/ButtonSubmit';
-import EventTitle from './../../components/EventTitle';
+import { toast } from 'react-toastify';
 
 function Publications() {
   const [partyEvent, setPartyEvent] = useState([]);
@@ -15,9 +15,17 @@ function Publications() {
       try {
         const data = await axios.get('http://localhost:3005/events');
         setPartyEvent(data.data);
-        console.log(data.data);
       } catch (error) {
-        console.log(error);
+        toast.error('Error :) Recarregue a página!', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     }
 
@@ -25,7 +33,7 @@ function Publications() {
   }, []);
 
   return (
-    <Box border={'1px solid red'} padding="20px 25px 26px 25px">
+    <Box width={'100%'} border={'1px solid red'} padding="20px 25px 26px 25px">
       <Flex alignItems={'center'} justifyContent="space-between" marginBottom={'26px'}>
         <BarraPesquisa text="Pesquise pela descrição do evento" />
         <IconeUser />
@@ -38,12 +46,9 @@ function Publications() {
         </Flex>
         <Flex flexDirection={'column'} textAlign="center">
           <Flex border={'1px solid red'} flexDirection="column" alignItems="center" justifyContent={'center'}>
-            <EventTitle text={'ola'} />
             <ButtonSubmit />
           </Flex>
-          <Flex>
-            <Text>Olá</Text>
-          </Flex>
+          <Flex></Flex>
         </Flex>
       </Flex>
     </Box>
