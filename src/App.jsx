@@ -10,7 +10,7 @@ import ModalCreateEvent from './components/ModalCreateEvent';
 import SideBar from './components/SideBar';
 import Layout from './components/Layout';
 
-import Publications from "./pages/Publications"
+import Publications from './pages/Publications';
 
 function App() {
   const [events, setEvents] = useState([]);
