@@ -7,12 +7,24 @@ function GeolocationProvider({ children }) {
   const [geolocationIsAuthorized, setGeolocationIsAuthorized] = useState(false);
   const [currentGeolocation, setCurrentGeolocation] = useState({ lat: null, lng: null });
 
+  function chancgeGeolocation() {
+    // eslint-disable-next-line no-undef
+    navigator.geolocation.getCurrentPosition((e) => {
+      setCurrentGeolocation({ lat: e.coords.longitude, lng: e.coords.longitude });
+    });
+  }
+
   useEffect(() => {
     // eslint-disable-next-line no-undef
     navigator.permissions.query({ name: 'geolocation' }).then((res) => {
       if (res.state === 'granted') {
         setGeolocationIsAuthorized(true);
       }
+
+      if (res.state === 'prompt') {
+        chancgeGeolocation();
+      }
+
       res.onchange = (onC) => {
         if (onC.currentTarget.name === 'geolocation') {
           setGeolocationIsAuthorized(onC.currentTarget.state === 'granted');
@@ -23,10 +35,7 @@ function GeolocationProvider({ children }) {
 
   useEffect(() => {
     if (geolocationIsAuthorized) {
-      // eslint-disable-next-line no-undef
-      navigator.geolocation.getCurrentPosition((e) => {
-        setCurrentGeolocation({ lat: e.coords.longitude, lng: e.coords.longitude });
-      });
+      chancgeGeolocation();
     }
   }, [geolocationIsAuthorized]);
 
