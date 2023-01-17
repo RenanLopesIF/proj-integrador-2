@@ -7,7 +7,7 @@ function BarraDePesqisa(props) {
   return <Box>
     <Input width={'100%'} placeholder={text} borderRadius={'1rem'}
      border={'1px solid #A9A9A9'} variant={'disabled'} _placeholder={{ opacity: 1, color: '#C0C0C0' }}
-     fontWeight={'medium'}  focusBorderColor='greey' />
+     fontWeight={'medium'}  focusBorderColor='greey' w={"580px"} bg="transparent"/>
   </Box>
 }
 export default BarraDePesqisa
