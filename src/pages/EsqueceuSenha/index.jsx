@@ -1,4 +1,4 @@
-import { Box, Circle, Flex } from '@chakra-ui/react';
+import { Box, Center, Circle, Flex } from '@chakra-ui/react';
 import React from 'react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import InputSenha from '../../components/InputSenha';
@@ -24,8 +24,8 @@ const txtEchave = {
   fontSize: '23px',
   fontWeight: '400',
   lineHeight: '36px',
-  gap: '5.5rem',
-  marginLeft: '30px',
+  // gap: '5.5rem',
+  // marginLeft: '30px',
 };
 
 function EsqueceuSenha() {
@@ -37,9 +37,30 @@ function EsqueceuSenha() {
         justifyContent={'center'}
         alignItems={'flex-start'}
         w={'45%'}
-        h={'50%'}
+        // h={'50%'}
+        bgColor={'green'}
       >
-        <Box
+        <Box w={'100%'} padding={'3'}>
+          <Box
+            display={'flex'}
+            // justifyContent={'center'}
+            backgroundColor={'yellow'}
+            alignItems={'center'}
+            w={'100%'}
+            h={'50%'}
+          >
+            <Center paddingLeft={'25px'} w={'25%'}>
+              <HiOutlineKey size={'100'} />
+            </Center>
+            <Box display={'flex'} flexDirection={'column'} paddingLeft={'50px'} alignItems={'center'}>
+              <h1 style={txtElogo}>
+                <img src="../../../public/logo.svg" alt="" />
+                LOGO MARCA
+              </h1>
+              <h2 style={txtEchave}>Recuperar sua senha</h2>
+            </Box>
+          </Box>
+          {/* <Box
           display={'flex'}
           backgroundColor={'yellow'}
           justifyContent={'space-between'}
@@ -55,20 +76,21 @@ function EsqueceuSenha() {
             <HiOutlineKey size={'100'} />
             Recuperar sua senha
           </h2>
-        </Box>
-        <Box
-          display={'flex'}
-          justifyContent={'center'}
-          flexDirection={'column'}
-          fontSize={'1.2rem'}
-          w="100%"
-          h="100%"
-          padding="30px 0 80px 0"
-          gap="60px"
-          backgroundColor={'blue'}
-        >
-          <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
-          <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
+        </Box> */}
+          <Box
+            display={'flex'}
+            justifyContent={'center'}
+            flexDirection={'column'}
+            fontSize={'1.2rem'}
+            w="100%"
+            h="100%"
+            padding="30px 0 80px 0"
+            gap="60px"
+            backgroundColor={'blue'}
+          >
+            <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
+            <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
+          </Box>
         </Box>
         <Box display={'flex'} w={'100%'} h={'40%'} alignItems={'center'} paddingLeft={'2rem'}>
           <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'#FC5185'} />
