@@ -1,7 +1,7 @@
-.App{
-    background-color: #E5E5E5;
-    color: #364F6B;
-    min-height: 100vh;
+.App {
+  background-color: #E5E5E5;
+  color: #364F6B;
+  min-height: 100vh;
 }
 
 .leaflet-container {
