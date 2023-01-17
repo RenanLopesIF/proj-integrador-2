@@ -4,8 +4,8 @@ import SideBar from './SideBar';
 
 function Layout({ children }) {
   return (
-    <Grid gridAutoRows="1fr" gridTemplateColumns="0.23fr 1fr">
-      <GridItem width="23.5vw" h="100vh">
+    <Grid gridAutoRows="1fr" gridTemplateColumns="0.18fr 1fr">
+      <GridItem width="18vw" h="100vh">
         <SideBar />
       </GridItem>
       <GridItem>

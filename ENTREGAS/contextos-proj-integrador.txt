@@ -40,7 +40,7 @@ Feed
 		- classificação de idade mínima - ok
 		- status do evento "Antigo | ocorrendo agora | "em preparação"
 		- botão "Ver localização no mapa" - ok
-			- Exbibe a localização detalhada 
+			- Exbibe a localização detalhada
 		- botão "Interessei" - ok
 		- botão comentar - ok
 		- número de interesses - ok
@@ -50,7 +50,7 @@ Feed
 
 Configurações
 	- Definir distância máxima dos posts
-	- Definir data máxima dos posts 
+	- Definir data máxima dos posts
 
 [LAYOUT] - https://www.figma.com/community/file/1042010762615693746
 
@@ -62,4 +62,6 @@ Feed		 | Box "Crie um evento"   			  | mini Box "Crie um evento"
 Config	 | "Pesquise eventos com base na descrição" | Evento em destaque
 Perfil	 |		.	    				  |		mini box Eventos recentes
 Logout	 |	   Eventos	   				  |
-	
+
+[DRIVE DISTANCE]
+https://routing.openstreetmap.de/routed-car/route/v1/driving/-42.35872588762977,-16.991006578238956;-42.0714,-16.8676?overview=false&geometries=polyline
