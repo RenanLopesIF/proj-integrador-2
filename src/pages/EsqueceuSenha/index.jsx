@@ -57,7 +57,7 @@ function EsqueceuSenha() {
             <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
           </Box>
         </Box>
-        <Box display={'flex'} w={'100%'} h={'40%'} alignItems={'center'} paddingLeft={'2rem'}>
+        <Box display={'flex'} w={'100%'} h={'40%'} alignItems={'center'} paddingLeft={'2.5rem'}>
           <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'#FC5185'} />
           <Box display={'flex'} marginTop="1.7rem" justifyContent="space-around" w="140px">
             <Circle w={'1.4rem'} h={'1.4rem'} background="primary.300" />
