@@ -24,31 +24,14 @@ const txtEchave = {
   fontSize: '23px',
   fontWeight: '400',
   lineHeight: '36px',
-  // gap: '5.5rem',
-  // marginLeft: '30px',
 };
 
 function EsqueceuSenha() {
   return (
-    <Flex bgColor={'red'} w={'100%'} h={'100vh'} justifyContent={'center'} alignItems={'center'} color={'black'}>
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        justifyContent={'center'}
-        alignItems={'flex-start'}
-        w={'45%'}
-        // h={'50%'}
-        bgColor={'green'}
-      >
+    <Flex w={'100%'} h={'100vh'} justifyContent={'center'} alignItems={'center'} color={'black'}>
+      <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'flex-start'} w={'45%'}>
         <Box w={'100%'} padding={'3'}>
-          <Box
-            display={'flex'}
-            // justifyContent={'center'}
-            backgroundColor={'yellow'}
-            alignItems={'center'}
-            w={'100%'}
-            h={'50%'}
-          >
+          <Box display={'flex'} alignItems={'center'} w={'100%'} h={'50%'}>
             <Center paddingLeft={'25px'} w={'25%'}>
               <HiOutlineKey size={'100'} />
             </Center>
@@ -60,23 +43,6 @@ function EsqueceuSenha() {
               <h2 style={txtEchave}>Recuperar sua senha</h2>
             </Box>
           </Box>
-          {/* <Box
-          display={'flex'}
-          backgroundColor={'yellow'}
-          justifyContent={'space-between'}
-          flexDirection={'column'}
-          w={'100%'}
-          h={'45%'}
-        >
-          <h1 style={txtElogo}>
-            <img src="../../../public/logo.svg" alt="" />
-            LOGO MARCA
-          </h1>
-          <h2 style={txtEchave}>
-            <HiOutlineKey size={'100'} />
-            Recuperar sua senha
-          </h2>
-        </Box> */}
           <Box
             display={'flex'}
             justifyContent={'center'}
@@ -86,7 +52,6 @@ function EsqueceuSenha() {
             h="100%"
             padding="30px 0 80px 0"
             gap="60px"
-            backgroundColor={'blue'}
           >
             <InputSenha text={'Nova senha'} placeholder={'4 ou mais caracteres'} />
             <InputSenha text={'Confirme senha'} placeholder={'Mesma que a nova senha acima'} />
