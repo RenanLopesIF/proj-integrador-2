@@ -44,7 +44,7 @@ function ModalAddressDetails({ isOpen, onClose, LatLng, address, autoAddress }) 
         </ModalHeader>
 
         <ModalBody h="full">
-          <VStack w="full" h="full" pb={3}>
+          <VStack alignItems="flex-start" w="full" h="full" pb={3}>
             <Text mb={1} fontSize={15} fontWeight={700}>
               {address}
             </Text>

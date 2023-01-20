@@ -17,10 +17,11 @@ function ButtonSubmit(props) {
         textDecoration={'none'}
         justifyContent={'center'}
         alignItems={'center'}
-        borderRadius={'0.3rem'}
+        borderRadius={'0.2rem'}
         fontSize={'18px'}
-        w="14rem"
-        h="2.5rem"
+        w="100%"
+        h="100%"
+        padding="10px 50px 10px 50px"
         gap={'4px'}
         style={colors}
       >

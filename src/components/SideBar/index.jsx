@@ -12,7 +12,7 @@ function SideBar() {
 
   return (
     <Box>
-      <Box as="aside" zIndex={2} bgColor="white" shadow="lg" w="23.5vw" h="100vh" position="fixed" left={0} top={0}>
+      <Box as="aside" zIndex={2} bgColor="white" shadow="lg" w="18vw" h="100vh" position="fixed" left={0} top={0}>
         <Flex w="full" h="full" flexDir="column" p={4}>
           <Flex h="full" w="full" flexDir="column" gap={2}>
             <Box mb={5}>
