@@ -13,8 +13,6 @@ function Publications() {
 
   const [partyEspecifyEvent, setPartyEspecifyEvent] = useState([]);
 
-  const [saveSrcImages, setSaveSrcImages] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState(false);

@@ -37,15 +37,15 @@ function App() {
 
   return (
     <div className="App">
-      <EsqueceuSenha />
-      {/* <Layout>
-        <VStack bgColor="red.400" h="150px" w="100px">
+      <Layout>
+        {/* <VStack bgColor="red.400" h="150px" w="100px">
           <Text>AA</Text>
           <Text>BB</Text>
           <Text>CC</Text>
           <Text>DD</Text>
-        </VStack>
-      </Layout> */}
+        </VStack> */}
+        <Publications />
+      </Layout>
     </div>
   );
 }
