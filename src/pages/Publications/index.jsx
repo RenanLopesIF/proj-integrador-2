@@ -65,7 +65,7 @@ function Publications() {
             <Post event={event} />
           ))}
         </Flex>
-        <Flex flexDirection={'column'} alignItems="center" gap="100px">
+        <Flex w="50%" flexDirection={'column'} alignItems="center" gap="100px">
           <Flex flexDirection={'column'} textAlign="center" marginTop={'1px'}>
             <Flex
               padding={'40px 60px'}
