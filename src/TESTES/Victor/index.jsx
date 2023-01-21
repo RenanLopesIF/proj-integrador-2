@@ -1,5 +1,5 @@
 import React from "react";
-import Teste from "/src/components/IconeUser";
+import Teste from "/src/pages/TelaLogin";
 
 // Se der ruim, apaga tudo e coloca return <div></div>
 
