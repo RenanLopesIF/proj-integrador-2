@@ -23,9 +23,12 @@ function MiniEvent({ src, autor, title }) {
             <Image src={src} />
           </GridItem>
           <GridItem width="100%" textAlign="left">
-            <Text fontWeight="400" fontSize="14px" lineHeight="17px" color={colors.secondary[900]}>
-              {autor}
-            </Text>
+            <Flex alignItems="center" justifyContent="space-between">
+              <Text fontWeight="400" fontSize="14px" lineHeight="17px" color={colors.secondary[900]}>
+                {autor}
+              </Text>
+              <Faixaetaria />
+            </Flex>
             <Text fontWeight="400" fontSize="10px" lineHeight="12px" color={colors.cinza[400]}>
               3 dias atrás
             </Text>
