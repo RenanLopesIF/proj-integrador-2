@@ -27,7 +27,7 @@ function MiniEvent({ src, autor, title }) {
               <Text fontWeight="400" fontSize="14px" lineHeight="17px" color={colors.secondary[900]}>
                 {autor}
               </Text>
-              <Faixaetaria />
+              <Faixaetaria label="+12" color="yellow" />
             </Flex>
             <Text fontWeight="400" fontSize="10px" lineHeight="12px" color={colors.cinza[400]}>
               3 dias atrás
