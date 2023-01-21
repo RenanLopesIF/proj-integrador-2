@@ -38,13 +38,12 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        {/* <VStack bgColor="red.400" h="150px" w="100px">
+        <VStack bgColor="red.400" h="150px" w="100px">
           <Text>AA</Text>
           <Text>BB</Text>
           <Text>CC</Text>
           <Text>DD</Text>
-        </VStack> */}
-        <Publications />
+        </VStack>
       </Layout>
     </div>
   );
