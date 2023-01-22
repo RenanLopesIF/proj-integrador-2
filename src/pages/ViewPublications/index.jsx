@@ -37,7 +37,7 @@ function ViewPublications() {
     return (
       <Center w="100%" h="100%">
         <Text fontWeight="900" fontSize="30px">
-          Desculpe, algo deu erro.
+          Ocorreu um erro inesperado
         </Text>
       </Center>
     );
