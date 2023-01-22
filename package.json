@@ -27,7 +27,8 @@
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.7.1",
     "react-map-gl": "^7.0.21",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.4.5",
+    "react-toastify": "^9.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
