@@ -4,10 +4,18 @@ import { IoMdHome } from 'react-icons/io';
 import NavigationButtonSide from '../NavigationButtonSide';
 
 function SideBar() {
+  const pathname = window.location.pathname;
+
+  const activeRoute = {
+    '/': pathname === '/',
+    '/perfil': pathname === '/perfil',
+    '/configuracoes': pathname === '/configuracoes',
+  };
+
   const items = [
-    { text: 'Home', icon: <IoMdHome />, href: '#', isActive: false },
-    { text: 'Meu perfil', icon: <IoMdHome />, href: '#', isActive: true },
-    { text: 'Configurações', icon: <IoMdHome />, href: '#', isActive: false },
+    { text: 'Home', icon: <IoMdHome />, href: '/', isActive: activeRoute['/'] },
+    { text: 'Meu perfil', icon: <IoMdHome />, href: 'perfil', isActive: activeRoute['/perfil'] },
+    { text: 'Configurações', icon: <IoMdHome />, href: 'configuracoes', isActive: activeRoute['/configuracoes'] },
   ];
 
   return (

@@ -10,7 +10,7 @@ function GeolocationProvider({ children }) {
   function chancgeGeolocation() {
     // eslint-disable-next-line no-undef
     navigator.geolocation.getCurrentPosition((e) => {
-      setCurrentGeolocation({ lat: e.coords.longitude, lng: e.coords.longitude });
+      setCurrentGeolocation({ lat: e.coords.latitude, lng: e.coords.longitude });
     });
   }
 

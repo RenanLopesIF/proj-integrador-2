@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Tooltip, useTheme } from '@chakra-ui/react';
 
-function CustomSlider(props) {
-  const { data, acronymDistance, min, max } = props;
-  const [sliderValue, setSliderValue] = useState(5);
-
+function CustomSlider({ data, acronymDistance, min, max, onChange, value = 1 }) {
   const { colors } = useTheme();
 
   return (
@@ -13,7 +10,8 @@ function CustomSlider(props) {
       defaultValue={0}
       min={min}
       max={max}
-      onChange={(v) => setSliderValue(v)}
+      onChange={(v) => onChange(v)}
+      value={value}
       marginTop={'50px'}
       focusThumbOnChange={false}
     >
@@ -33,7 +31,7 @@ function CustomSlider(props) {
         backgroundColor={colors.primary[300]}
         fontSize={'16px'}
         isOpen={true}
-        label={sliderValue + acronymDistance}
+        label={value + acronymDistance}
       >
         <SliderThumb borderColor={'primary.300'} boxSize={3} />
       </Tooltip>

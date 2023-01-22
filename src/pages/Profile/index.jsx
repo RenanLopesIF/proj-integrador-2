@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import {
-  Box,
-  Button,
-  Circle,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  GridItem,
-  HStack,
-  Radio,
-  RadioGroup,
-  SimpleGrid,
-  Stack,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Circle, Flex, GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 import UserBanner from '../../components/UserBanner';
 import UserChooseImage from '../../components/UserChooseImage';
 import { HiCamera } from 'react-icons/hi';
@@ -30,8 +15,6 @@ function Profile() {
   const [currentTab, setCurrentTab] = useState('edit');
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [userGender, setUserGender] = useState('m');
 
   function handleTabScreen(tab) {
     setCurrentTab(tab);
@@ -63,7 +46,7 @@ function Profile() {
 
   return (
     <Layout>
-      <Box w="full" h="full" bgColor={currentTab === 'edit' ? '#FFF' : 'cinza.100'}>
+      <Box w="full" h="full" bgColor={currentTab === 'edit' ? '#FFF' : 'cinza.50'}>
         <Box w="full" bgColor="#FFF">
           <UserBanner />
           <Flex flexDir="row" justifyContent="space-between" px={6} position="relative" bottom="50px">
@@ -106,7 +89,7 @@ function Profile() {
               <form onSubmit={handleSubmit}>
                 <SimpleGrid columns={2} spacingX={5} spacingY={8}>
                   <GridItem colSpan={2}>
-                    <InputWithLabel isInvalid name="email" label="Email:" invalidText="preencha" />
+                    <InputWithLabel name="email" label="Email:" invalidText="preencha" />
                   </GridItem>
                   <GridItem>
                     <InputWithLabel name="name" label="Nome:" />
@@ -123,27 +106,10 @@ function Profile() {
                   <GridItem>
                     <InputWithLabel name="birthdate" label="Data de nascimento:" type="date" />
                   </GridItem>
-                  <GridItem>
-                    <FormControl bgColor="cinza.100" rounded="4px" h="55px" px={3}>
-                      <FormLabel color="#000" fontWeight={500} m={0}>
-                        Sexo:
-                      </FormLabel>
-                      <RadioGroup name="gender" onChange={setUserGender} value={userGender}>
-                        <Stack direction="row">
-                          <Radio colorScheme="secondary" value="m">
-                            Masculino
-                          </Radio>
-                          <Radio colorScheme="secondary" value="f">
-                            Feminino
-                          </Radio>
-                        </Stack>
-                      </RadioGroup>
-                      <FormErrorMessage>Preencha este campo</FormErrorMessage>
-                    </FormControl>
-                  </GridItem>
-                  <GridItem></GridItem>
+
                   <GridItem justifyContent="flex-end" display="flex">
                     <Button
+                      h="full"
                       w="full"
                       type="submit"
                       bgColor="primary.300"

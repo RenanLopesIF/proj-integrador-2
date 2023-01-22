@@ -1,7 +1,7 @@
 import { Box, Button, Center, Image, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
-/*import { useDropzone } from 'react-dropzone'; */
+import { useDropzone } from 'react-dropzone';
 
 function DropzoneEventImage({ fileRef }) {
   const dropzoneRef = useRef(null);
@@ -45,8 +45,8 @@ function DropzoneEventImage({ fileRef }) {
       >
         <input {...getInputProps()} />
         <Center w="full" h="full" border="1px solid" borderColor="cinza.400" borderRadius={8} overflow="hidden">
-          {imgFile?.preview ? (
-            <Image objectFit="contain" bgColor="cinza.100" src={imgFile?.preview} w="100%" h="100%" />
+          {imgFile && imgFile.preview ? (
+            <Image objectFit="contain" bgColor="cinza.100" src={imgFile.preview} w="100%" h="100%" />
           ) : (
             <Center>
               <Text fontSize={20} fontWeight={600} color="cinza.400">

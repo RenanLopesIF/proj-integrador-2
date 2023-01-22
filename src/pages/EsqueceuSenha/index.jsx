@@ -1,30 +1,8 @@
-import { Box, Center, Circle, Flex } from '@chakra-ui/react';
+import { Box, Center, Circle, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import InputSenha from '../../components/InputSenha';
 import { HiOutlineKey } from 'react-icons/hi';
-
-const txtElogo = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: '#FC5185',
-  gap: '1rem',
-  fontSize: '20px',
-  fontWeight: '400',
-  lineHeight: '36px',
-};
-const txtEchave = {
-  display: 'flex',
-  width: '100%',
-  height: '100px',
-  alignItems: 'center',
-  fontStyle: 'normal',
-  color: 'black',
-  fontSize: '23px',
-  fontWeight: '400',
-  lineHeight: '36px',
-};
 
 function EsqueceuSenha() {
   return (
@@ -36,11 +14,32 @@ function EsqueceuSenha() {
               <HiOutlineKey size={'100'} />
             </Center>
             <Box display={'flex'} flexDirection={'column'} paddingLeft={'55px'} alignItems={'center'}>
-              <h1 style={txtElogo}>
+              <Text
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                color="primary.300"
+                gap="1rem"
+                fontSize="20px"
+                fontWeight="400"
+                lineHeight="36px"
+              >
                 <img src="../../../public/logo.svg" alt="" />
                 LOGO MARCA
-              </h1>
-              <h2 style={txtEchave}>Recuperar sua senha</h2>
+              </Text>
+              <Text
+                display="flex"
+                width="100%"
+                height="100px"
+                alignItems="center"
+                fontStyle="normal"
+                color="black"
+                fontSize="23px"
+                fontWeight="400"
+                lineHeight="36px"
+              >
+                Recuperar sua senha
+              </Text>
             </Box>
           </Box>
           <Box
@@ -58,11 +57,11 @@ function EsqueceuSenha() {
           </Box>
         </Box>
         <Box display={'flex'} w={'100%'} h={'40%'} alignItems={'center'} paddingLeft={'2.5rem'}>
-          <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'#FC5185'} />
+          <ButtonSubmit text={'Recuperar'} color={'#FFF'} background={'primary.300'} />
           <Box display={'flex'} marginTop="1.7rem" justifyContent="space-around" w="140px">
             <Circle w={'1.4rem'} h={'1.4rem'} background="primary.300" />
-            <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
-            <Circle w={'1.4rem'} h={'1.4rem'} background={'#FC5185'} />
+            <Circle w={'1.4rem'} h={'1.4rem'} background={'primary.300'} />
+            <Circle w={'1.4rem'} h={'1.4rem'} background={'primary.300'} />
           </Box>
         </Box>
       </Box>

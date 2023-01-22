@@ -44,7 +44,7 @@ function MapChooseAddress({ initialLocation, mapMode = 'satellite-streets-v12', 
     >
       {markPosition && (
         <Marker pitchAlignment="map" color="#FF00FF" longitude={markPosition.lng} latitude={markPosition.lat}>
-          <Image w="50px" h="50px" src="marker.png" />
+          <Image w="50px" h="50px" src="/marker.png" />
         </Marker>
       )}
     </Map>

@@ -7,7 +7,7 @@ function ButtonEditPerfil({ text, icon, isActive, onClick }) {
       <Button
         rounded="4px"
         p={4}
-        bgColor={isActive ? 'secondary.600' : 'cinza.100'}
+        bgColor={isActive ? 'secondary.600' : 'cinza.50'}
         color={isActive ? '#FFF' : '#000'}
         onClick={onClick}
         leftIcon={icon}

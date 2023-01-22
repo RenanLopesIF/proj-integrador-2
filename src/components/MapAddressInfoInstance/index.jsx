@@ -32,7 +32,7 @@ function MapInstance({ lat = -16, lng = -42, mapMode = 'satellite-streets-v12' }
       ref={mapRef}
     >
       <Marker pitchAlignment="map" color="#FF00FF" longitude={lng} latitude={lat}>
-        <Image w="50px" h="50px" src="marker.png" />
+        <Image w="50px" h="50px" src="/marker.png" />
       </Marker>
     </Map>
   );
