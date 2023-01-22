@@ -11,8 +11,6 @@ import SideBar from './components/SideBar';
 import Layout from './components/Layout';
 import EsqueceuSenha from './pages/EsqueceuSenha';
 
-import Publications from './pages/Publications';
-
 function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -37,14 +35,15 @@ function App() {
 
   return (
     <div className="App">
-      <Layout>
+      <EsqueceuSenha />
+      {/* <Layout>
         <VStack bgColor="red.400" h="150px" w="100px">
           <Text>AA</Text>
           <Text>BB</Text>
           <Text>CC</Text>
           <Text>DD</Text>
         </VStack>
-      </Layout>
+      </Layout> */}
     </div>
   );
 }
