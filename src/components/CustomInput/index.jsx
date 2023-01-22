@@ -2,20 +2,22 @@ import { Input, Button, InputGroup, InputRightElement, useTheme } from '@chakra-
 import { useState } from 'react';
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-function CustomInput({ typeInput, placeholder }) {
+function CustomInput({ typeInput, placeholder, hasIcon }) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
   const { colors } = useTheme();
 
   const handleTypeInput = () => {
-    if (typeInput !== 'password') return 'text';
+    
+    if (typeInput !== 'password') return typeInput;
     else return show ? 'text' : 'password';
   };
 
   return (
-    <InputGroup size="md" w="25%">
+    <InputGroup size="md" w="100%">
       <Input
+        color={'#364F6B'}
         padding={'0 0 0 10px'}
         type={handleTypeInput()}
         placeholder={placeholder}
@@ -26,30 +28,33 @@ function CustomInput({ typeInput, placeholder }) {
         h={'52px'}
         textOverflow={'ellipsis'}
       />
-      <InputRightElement width="4.5rem" h={'100%'}>
-        {typeInput === 'text' ? (
-          <AiOutlineUser color="#FC5185" size={'26px'} />
-        ) : (
-          <Button
-            h="1.75rem"
-            size="sm"
-            onClick={handleClick}
-            bg="none"
-            _hover={{
-              bg: 'none',
-            }}
-            _active={{
-              bg: 'none',
-            }}
-          >
-            {show ? (
-              <AiOutlineEyeInvisible color="#FC5185" cursor={'pointer'} size={'26px'} />
-            ) : (
-              <AiOutlineEye color="#FC5185" cursor={'pointer'} size={'26px'} />
-            )}
-          </Button>
+      {hasIcon === true && <InputRightElement width="4.5rem" h={'100%'}>
+        {typeInput === 'text-disabled' ? null : (
+          typeInput === 'text' ? (
+            <AiOutlineUser color="#FC5185" size={'26px'} />
+          ) : (
+            <Button
+              h="1.75rem"
+              size="sm"
+              onClick={handleClick}
+              bg="none"
+              _hover={{
+                bg: 'none',
+              }}
+              _active={{
+                bg: 'none',
+              }}
+            >
+              {show ? (
+                <AiOutlineEyeInvisible color="#FC5185" cursor={'pointer'} size={'26px'} />
+              ) : (
+                <AiOutlineEye color="#FC5185" cursor={'pointer'} size={'26px'} />
+              )}
+            </Button>
+          )
         )}
       </InputRightElement>
+      }
     </InputGroup>
   );
 }

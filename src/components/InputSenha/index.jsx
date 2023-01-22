@@ -1,9 +1,9 @@
-import { Box, Input } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Input } from '@chakra-ui/react';
 
 function InputSenha({ text, placeholder }) {
   return (
-    <Box marginLeft="2rem">
+    <Box>
       <label color="black">
         {text}
         <Input
