@@ -13,8 +13,8 @@ function MapInstance({ lat = -16, lng = -42, mapMode = 'satellite-streets-v12' }
   });
 
   const mapRef = useRef(null);
-  const accessTokenMap =
-    'pk.eyJ1IjoicmVuYW5sb3BlczE2IiwiYSI6ImNsY250YmVzcjB3YnczdnA2ZjRsNzhqbTUifQ.QOcLPATBwrEKqjHcXf4R3Q';
+  // eslint-disable-next-line no-undef
+  const accessTokenMap = process.env.ACCESS_TOKEN_MAP;
 
   return (
     <Map
