@@ -12,6 +12,6 @@ routes.get('/usuarios/:id', usuariosController.getOne);
 routes.post('/usuarios/novo', usuariosController.insertOne);
 
 routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
-routes.post('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
+routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
 
 export default routes;
