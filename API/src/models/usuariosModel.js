@@ -28,11 +28,9 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [email]);
     return result;
   }
-  //   insert into usuario
-  // values (default, 'teste@teste.com', 'https://img', "https://img2");
 
   async deleteOne({ userId }) {
-    await database.query('DELETE FROM `usuarios` WHERE `id` = ?', [userId]);
+    await this.db.query('DELETE FROM `usuarios` WHERE `id` = ?', [userId]);
     return true;
   }
 }

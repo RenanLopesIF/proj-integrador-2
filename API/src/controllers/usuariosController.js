@@ -11,7 +11,7 @@ class UsuariosController {
 
       const result = await UsuariosModel.getUserById({ userId });
 
-      res.send(result);
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
@@ -23,7 +23,7 @@ class UsuariosController {
   async getAll(req, res) {
     try {
       const result = await UsuariosModel.getAll();
-      res.send(result);
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
@@ -37,7 +37,7 @@ class UsuariosController {
       const { email, login, senha } = req.body;
 
       const result = await UsuariosModel.insertOne({ email, login, senha });
-      res.send(result);
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
