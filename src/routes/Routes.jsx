@@ -22,8 +22,8 @@ function AppRoutes() {
       <Route path="/configuracoes" element={<ConfigPge />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastrar" element={<Cadastrar />} />
-      <Route path="/esqueci-minha-senha" element={<EsqueciSenha />} />
-      <Route path="/alterar-senha" element={<AlterarSenha />} />
+      <Route path="/recuperar-senha" element={<EsqueciSenha />} />
+      <Route path="/recuperar-senha/nova-senha/:userIdToken" element={<AlterarSenha />} />
 
       {TutoriaisRoutes().map((route, idx) => cloneElement(route, { key: idx }))}
       {TestesRoutes().map((route, idx) => cloneElement(route, { key: idx }))}
