@@ -44,8 +44,7 @@ class AuthController {
     const currentUser = await usuariosModel.getUserByEmail({ email });
     const encryptedID = CryptoJS.AES.encrypt(String(currentUser.ID), recoverySecretKey).toString();
 
-    const recoveryLink = `http://localhost:3004/recuperar-senha/nova-senha/${encodeURIComponent(encryptedID)}`;
-    console.log(recoveryLink);
+    const recoveryLink = `http://localhost:3000/recuperar-senha/nova-senha/${encodeURIComponent(encryptedID)}`;
     const mailName = email.split('@')[0];
 
     try {
