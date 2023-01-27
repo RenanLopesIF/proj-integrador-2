@@ -5,8 +5,8 @@ import storageUserBGImage from './configs/uploadUserBackgroundStorage.js';
 
 import usuariosController from './controllers/usuariosController.js';
 
-const uploadUserProfileImage = multer({ dest: 'public/uploads/user/profile', storage: storageUserProfileImage });
-const uploadUserBgImage = multer({ dest: 'public/uploads/user/profile', storage: storageUserBGImage });
+const uploadUserProfileImage = multer({ storage: storageUserProfileImage });
+const uploadUserBgImage = multer({ storage: storageUserBGImage });
 
 const routes = new Router();
 routes.use(json());
