@@ -9,6 +9,9 @@ routes.use(json());
 routes.get('/usuarios', usuariosController.getAll);
 routes.get('/usuarios/:id', usuariosController.getOne);
 routes.post('/usuarios/novo', usuariosController.insertOne);
+routes.post('/curtievent', eventosController.postCurtiEvent);
+routes.pots('/comentario', eventosController.postComentEvent);
+routes.pots('/comentresposta', eventosController.postRespostaComent);
 
 routes.get('/usuario/evento/:userID', eventosController.getByUser);
 

@@ -30,6 +30,33 @@ class EventosModel {
     const [result] = await this.db.query(query, [userId]);
     return result;
   }
+
+  async getCurtirEvent({ userId, eventId }) {
+    const query = `INSERT INTO  curtida_evento VALUES (
+      DEFAULT,?,?
+    )`;
+
+    const [result] = await this.db.query(query, [userId, eventId]);
+    return result;
+  }
+
+  async getComentEvent({ userId, eventId, description }) {
+    const query = `INSERT INTO  coment_evento VALUES (
+      DEFAULT, ?,?,?
+    )`;
+
+    const [result] = await this.db.query(query, [eventId, userId, description]);
+    return result;
+  }
+
+  async getRespostaComentEvent({ userId, comentId, description }) {
+    const query = `INSERT INTO  coment_resp VALUES (
+      DEFAULT,?,?,?
+    )`;
+
+    const [result] = await this.db.query(query, [comentId, userId, description]);
+    return result;
+  }
 }
 
 export default new EventosModel();
