@@ -1,13 +1,19 @@
 import LoginUserModel from "../models/loginUserModel.js";
-
+import jwt from "jsonwebtoken";
+import 'dotenv/config';
 
 class LoginUserController {
     async authenticate(req, res) { // metodo para autenticar o user
         try { // estrutura de controle para capturar erros
             // código abaixo compara os dados na requisição com o banco e armazena o resultado na variavel 'result'
             const result = await LoginUserModel.authenticat({ login: req.body.login, senha: req.body.senha });
+            console.log(result)
             if (result.length) { // verificação se existe um usuario no banco
-                res.status(200).send({ message: 'Autenticado com sucesso!' }); //caso exista
+                const privateKey = process.env['JWT_KEY']
+
+                const token = jwt.sign({ ID: result[0].id_usuario }, privateKey);
+                console.log(token)
+                res.status(200).send({ token: token }); //caso exista
             } else {
                 res.status(401).send({ message: 'Usuário ou senha invalidos!' }) //caso não exista
             }
@@ -23,3 +29,6 @@ class LoginUserController {
 }
 export default new LoginUserController();
 
+[ 
+    { ID: 1, id_usuario: 1, login: 'vhlc123', senha: 'vhlc123' }
+ ]
