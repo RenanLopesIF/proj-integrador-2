@@ -1,4 +1,5 @@
 import UsuariosModel from '../models/usuariosModel.js';
+import path from 'path';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -38,6 +39,36 @@ class UsuariosController {
 
       const result = await UsuariosModel.insertOne({ email, login, senha });
       res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async uploadUserProfileImage(req, res) {
+    try {
+      await UsuariosModel.updateUserProfileImage({
+        userId: req.params.userId,
+        imgExt: path.extname(req.file.originalname),
+      });
+      res.status(200).send({ message: 'success' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async uploadUserBgImage(req, res) {
+    try {
+      await UsuariosModel.updateUserBgImage({
+        userId: req.params.userId,
+        imgExt: path.extname(req.file.originalname),
+      });
+      res.status(200).send({ message: 'success' });
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });

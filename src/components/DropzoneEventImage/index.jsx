@@ -44,7 +44,7 @@ function DropzoneEventImage({ fileRef }) {
         cursor="pointer"
       >
         <input {...getInputProps()} />
-        <Center w="full" h="full" border="1px solid" borderColor="cinza.400" borderRadius={8} overflow="hidden">
+        <Center w="full" h="full" border="1px dashed" borderColor="cinza.400" borderRadius={8} overflow="hidden">
           {imgFile && imgFile.preview ? (
             <Image objectFit="contain" bgColor="cinza.100" src={imgFile.preview} w="100%" h="100%" />
           ) : (

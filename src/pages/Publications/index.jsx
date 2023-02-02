@@ -54,16 +54,6 @@ function Publications() {
         </Center>
       </Layout>
     );
-  if (error)
-    return (
-      <Layout>
-        <Center w="100%" h="100%">
-          <Text fontWeight="900" fontSize="30px">
-            Ocorreu um erro inesperado
-          </Text>
-        </Center>
-      </Layout>
-    );
 
   return (
     <Layout>
@@ -75,7 +65,13 @@ function Publications() {
             </Flex>
 
             <Flex flexDirection={'column'} width="578px" gap={'25px'}>
-              {partyEspecifyEvent.length > 0 ? (
+              {error ? (
+                <Center w="100%" h="100%">
+                  <Text textAlign="center" fontWeight="900" color="red.500" fontSize="30px">
+                    Não foi possível carregar as publicações
+                  </Text>
+                </Center>
+              ) : partyEspecifyEvent.length > 0 ? (
                 partyEspecifyEvent.map((event) => <Post event={event} />)
               ) : (
                 <Center w="100%" h="100%">
@@ -125,9 +121,11 @@ function Publications() {
               <Divider w="80%" py="3" borderColor="secondary.600" opacity={0.3} borderBottomWidth={2} />
             </Center>
 
-            <Box mt={12}>
-              <MiniEvent event={partyEvent[0]} city="Salinas" distance="120km" />
-            </Box>
+            {partyEvent.length > 0 && (
+              <Box mt={12}>
+                <MiniEvent event={partyEvent[0]} city="Salinas" distance="120km" />
+              </Box>
+            )}
           </Box>
         </GridItem>
       </Grid>
