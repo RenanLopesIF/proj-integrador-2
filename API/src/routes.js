@@ -4,6 +4,7 @@ import storageUserProfileImage from './configs/uploadUserImageStorage.js';
 import storageUserBGImage from './configs/uploadUserBackgroundStorage.js';
 
 import LoginUserController from './controllers/loginUserController.js';
+import CriarUserController from './controllers/criarUserController.js';
 
 import usuariosController from './controllers/usuariosController.js';
 import authController from './controllers/authController.js';
@@ -34,6 +35,7 @@ routes.get('/eventos', eventosController.getAll);
 
 routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
 routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
-routes.post('/authenticate', LoginUserController.authenticate);
 
+routes.post('/authenticate', LoginUserController.authenticate);
+routes.post('/cadastroUser', CriarUserController.acessoUser);
 export default routes;
