@@ -36,6 +36,6 @@ routes.get('/eventos', eventosController.getAll);
 routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
 routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
 
-routes.post('/authenticate', LoginUserController.authenticate);
-routes.post('/cadastroUser', CriarUserController.acessoUser);
+routes.post('/authenticate', authController.authenticate);
+routes.post('/cadastroUser', authController.acessoUser);
 export default routes;
