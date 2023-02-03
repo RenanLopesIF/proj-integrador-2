@@ -19,7 +19,7 @@ routes.use(json());
 routes.get('/usuarios', usuariosController.getAll);
 routes.get('/usuarios/:id', usuariosController.getOne);
 routes.post('/usuarios/novo', usuariosController.insertOne);
-routes.get('/usuario/evento/:userID', eventosController.getByUser);
+routes.get('/usuario/eventos/:userID', eventosController.getEventsByUser);
 routes.post(
   '/usuarios/upload/profile-image/:userId',
   uploadUserProfileImage.single('profile-image'),
