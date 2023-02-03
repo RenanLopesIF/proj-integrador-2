@@ -6,6 +6,7 @@ import storageUserBGImage from './configs/uploadUserBackgroundStorage.js';
 import LoginUserController from './controllers/loginUserController.js';
 
 import usuariosController from './controllers/usuariosController.js';
+import authController from './controllers/authController.js';
 import eventosController from './controllers/eventosController.js';
 
 const uploadUserProfileImage = multer({ storage: storageUserProfileImage });
@@ -17,6 +18,7 @@ routes.use(json());
 routes.get('/usuarios', usuariosController.getAll);
 routes.get('/usuarios/:id', usuariosController.getOne);
 routes.post('/usuarios/novo', usuariosController.insertOne);
+routes.get('/usuario/evento/:userID', eventosController.getByUser);
 routes.post(
   '/usuarios/upload/profile-image/:userId',
   uploadUserProfileImage.single('profile-image'),
@@ -27,9 +29,11 @@ routes.post(
   uploadUserBgImage.single('background-image'),
   usuariosController.uploadUserProfileImage,
 );
-routes.get('/usuario/evento/:userID', eventosController.getByUser);
 routes.get('/evento/:eventID', eventosController.getOne);
 routes.get('/eventos', eventosController.getAll);
 
+routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
+routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
 routes.post('/authenticate', LoginUserController.authenticate);
+
 export default routes;
