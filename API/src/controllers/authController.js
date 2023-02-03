@@ -17,8 +17,7 @@ class AuthController {
   }
 
   async changePasswordFromMailToRecovery(req, res) {
-    const { userIdToken } = req.params;
-    const { senha } = req.body;
+    const { senha, userIdToken } = req.body;
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
 
     try {
