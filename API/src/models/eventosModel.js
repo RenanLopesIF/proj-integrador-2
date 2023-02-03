@@ -33,7 +33,7 @@ class EventosModel {
 
   async getCurtirEvent({ userId, eventId }) {
     const query = `INSERT INTO  curtida_evento VALUES (
-      DEFAULT,?,?
+      ?,?
     )`;
 
     const [result] = await this.db.query(query, [userId, eventId]);
