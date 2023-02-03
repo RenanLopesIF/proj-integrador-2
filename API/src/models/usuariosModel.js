@@ -68,6 +68,12 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [userId]);
     return result;
   }
+
+  async putAlterConfigUser({userID, userName, userEmail, userBirthDate}) {
+    const query = `UPDATE usuarios SET nome = ?, email = ?, data_nascimento = ? WHERE id = ?`;
+    const [result] = await this.db.query(query, [userName, userEmail, userBirthDate, userID]);
+    return result;
+  }
 }
 
 export default new UsuariosModel();

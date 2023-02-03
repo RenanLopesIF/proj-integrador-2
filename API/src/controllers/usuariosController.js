@@ -72,6 +72,24 @@ class UsuariosController {
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
+    }
+  }
+  async putUpdate(req, res) {
+    try {
+      const {
+        userID,
+        userName,
+        userEmail,
+        userBirthDate,
+      } = req.body;
+      console.log(req.body);
+      const result = await UsuariosModel.putAlterConfigUser({
+        userID, userName, userEmail, userBirthDate,
+      })
+      res.status(200).send(result)
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({message: "error"});
     } finally {
       res.end();
     }

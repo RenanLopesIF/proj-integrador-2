@@ -29,6 +29,13 @@ routes.post(
   uploadUserBgImage.single('background-image'),
   usuariosController.uploadUserProfileImage,
 );
+// routes.post('/usuarios/novo', usuariosController.insertOne);
+
+// routes.get('/usuario/evento/:userID', eventosController.getByUser);
+
+routes.put('/usuarios/alterandodados', usuariosController.putUpdate)
+
+
 routes.get('/evento/:eventID', eventosController.getOne);
 routes.get('/eventos', eventosController.getAll);
 

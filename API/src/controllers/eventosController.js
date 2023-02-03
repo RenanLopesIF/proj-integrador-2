@@ -37,6 +37,8 @@ class EventosController {
       res.end();
     }
   }
+
+
 }
 
 export default new EventosController();
