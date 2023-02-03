@@ -5,30 +5,80 @@ class EventosModel {
     this.db = database.promise();
   }
 
-  async getAll() {
-    const query = `SELECT * FROM eventos
-    INNER JOIN endereco_eventos ON endereco_eventos.id_evento = eventos.id`;
+  async #getEventsByWhereCondition(whereCondition, queryVariables) {
+    const queryEvents = `SELECT
+    e.ID,
+    e.titulo,
+    e.descricao,
+    e.faixa_etaria,
+    e.url_imagem,
+    e.data_inicio,
+    e.data_fim,
+    e.criado_em,
+    ee.longitude,
+    ee.latitude,
+    ee.descricao_endereco,
+    ee.auto_descricao_endereco,
+    ee.rua,
+    ee.cidade,
+    ee.estado,
+    ee.pais,
+    u.nome AS usuario_nome,
+    u.url_imagem_perfil AS usuario_avatar
+  FROM eventos e
+  LEFT JOIN endereco_eventos ee ON ee.id_evento = e.ID
+  JOIN usuarios u ON e.id_usuario = u.ID
+  WHERE ${whereCondition};`;
 
-    const [result] = await this.db.query(query);
-    return result;
+    const queryComments = `SELECT
+      ce.ID,
+      ce.descricao,
+      u.nome AS autor,
+      u.url_imagem_perfil AS autor_avatar
+      FROM comentarios_evento ce
+      JOIN usuarios u ON u.ID = ce.id_usuario
+    WHERE ce.id_evento = ?;`;
+
+    const queryReply = `SELECT
+      rc.ID,
+      rc.descricao,
+      u.nome AS autor,
+      u.url_imagem_perfil AS autor_avatar
+      FROM respostas_comentario rc
+      JOIN usuarios u ON u.ID = rc.id_usuario
+    WHERE rc.id_comentario = ?;`;
+
+    const [resultEvents] = await this.db.query(queryEvents, queryVariables);
+
+    for (const event of resultEvents) {
+      const [resultComments] = await this.db.query(queryComments, [event.ID]);
+
+      for (const comment of resultComments) {
+        const [resultReply] = await this.db.query(queryReply, [comment.ID]);
+        comment.respostas = resultReply;
+      }
+      event.comentarios = resultComments;
+    }
+
+    return resultEvents;
+  }
+
+  async getAll({ maxLat, maxLon, minLat, minLon }) {
+    const whereCondition = 'ee.longitude <= ? AND ee.longitude >= ? AND ee.latitude <= ? AND ee.latitude >= ?';
+    const response = await this.#getEventsByWhereCondition(whereCondition, [maxLon, minLon, maxLat, minLat]);
+    return response;
   }
 
   async getOneEvent({ eventID }) {
-    const query = `SELECT * FROM eventos
-    INNER JOIN endereco_eventos ON endereco_eventos.id_evento = eventos.id
-    WHERE eventos.ID = ?`;
-
-    const [result] = await this.db.query(query, [eventID]);
-    return result;
+    const whereCondition = 'e.ID = ?';
+    const response = await this.#getEventsByWhereCondition(whereCondition, [eventID]);
+    return response;
   }
 
-  async getOneEventByUser({ userId }) {
-    const query = `SELECT * FROM eventos
-    INNER JOIN endereco_eventos ON endereco_eventos.id_evento = eventos.id
-    WHERE eventos.id_usuario = ?`;
-
-    const [result] = await this.db.query(query, [userId]);
-    return result;
+  async getEventsByUser({ userId }) {
+    const whereCondition = 'u.ID = ?';
+    const response = await this.#getEventsByWhereCondition(whereCondition, [userId]);
+    return response;
   }
 }
 
