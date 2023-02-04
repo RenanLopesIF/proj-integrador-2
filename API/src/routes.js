@@ -3,9 +3,6 @@ import multer from 'multer';
 import storageUserProfileImage from './configs/uploadUserImageStorage.js';
 import storageUserBGImage from './configs/uploadUserBackgroundStorage.js';
 
-import LoginUserController from './controllers/loginUserController.js';
-import CriarUserController from './controllers/criarUserController.js';
-
 import usuariosController from './controllers/usuariosController.js';
 import authController from './controllers/authController.js';
 import eventosController from './controllers/eventosController.js';
