@@ -36,4 +36,6 @@ routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
 routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
 routes.post('/authenticate', LoginUserController.authenticate);
 
+routes.put('/usuarios/novas/configuracoes', usuariosController.putNewConfigUser)
+
 export default routes;

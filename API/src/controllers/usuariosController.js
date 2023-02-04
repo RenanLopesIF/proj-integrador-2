@@ -1,5 +1,6 @@
 import UsuariosModel from '../models/usuariosModel.js';
 import path from 'path';
+import usuariosModel from '../models/usuariosModel.js';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -72,6 +73,26 @@ class UsuariosController {
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+
+  async putNewConfigUser(req, res) {
+    try {
+      const {
+        userConfigID,
+        maxDistance,
+        maxDate
+      } = req.body;
+      const result = await usuariosModel.putConfigUser({
+        userConfigID, maxDistance, maxDate
+      });
+      res.status(200).send(result)
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({message: "error"})
     } finally {
       res.end();
     }
