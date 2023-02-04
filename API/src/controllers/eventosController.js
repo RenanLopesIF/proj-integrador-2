@@ -1,3 +1,4 @@
+import eventosModel from '../models/eventosModel.js';
 import EventosModel from '../models/eventosModel.js';
 
 class EventosController {
@@ -35,6 +36,14 @@ class EventosController {
       res.status(400).send({ message: 'error' });
     } finally {
       res.end();
+    }
+  }
+  async criarEvento(req, res) {
+    try {
+      const dadosEvento = await eventosModel.dadosEvento(req.body);
+      res.status(200).send({ message: 'success' });
+    } catch (error) {
+      res.status(400).json({ error: error.message })
     }
   }
 }

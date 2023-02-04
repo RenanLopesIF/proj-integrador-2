@@ -80,6 +80,14 @@ class EventosModel {
     const response = await this.#getEventsByWhereCondition(whereCondition, [userId]);
     return response;
   }
+  async dadosEvento({ id_usuario, titulo, descricao, faixa_etaria, url_imagem, data_inicio, data_fim, }) {
+    const query = 'INSERT INTO eventos  VALUES (default,?,?,?,?,?,?,?,?)';
+    const criado_em = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const [resultEvento] = await this.db.query(query, [id_usuario, titulo, descricao, faixa_etaria, url_imagem, data_inicio, data_fim, criado_em]);
+    return resultEvento;
+  }
+
+
 }
 
 export default new EventosModel();
