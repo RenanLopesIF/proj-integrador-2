@@ -1,3 +1,4 @@
+import eventosModel from '../models/eventosModel.js';
 import EventosModel from '../models/eventosModel.js';
 
 class EventosController {
@@ -35,6 +36,17 @@ class EventosController {
       res.status(400).send({ message: 'error' });
     } finally {
       res.end();
+    }
+  }
+  async deletandoEvent(req, res) {
+    const eventID = req.params.eventID;
+    const userID = req.params.userID
+    try{
+      const result = await eventosModel.deletarEvento(eventID,userID);
+      console.log(result);
+      res.send(result);
+    }catch(error){
+      console.log(error.message);
     }
   }
 }

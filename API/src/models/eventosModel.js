@@ -80,6 +80,14 @@ class EventosModel {
     const response = await this.#getEventsByWhereCondition(whereCondition, [userId]);
     return response;
   }
+  async deletarEvento(id_evento, id_usuario) {
+    const query = 'DELETE FROM eventos WHERE ID = ? AND id_usuario = ?';
+    const [result] = await this.db.query(query, [id_evento, id_usuario]);
+    if (result.affectedRows === 0) {
+      throw new Error('Evento não encontrado ou não pertence ao usuário.');
+    }
+    return result;
+  }
 }
 
 export default new EventosModel();
