@@ -1,4 +1,5 @@
 import UsuariosModel from '../models/usuariosModel.js';
+import path from 'path';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -32,11 +33,63 @@ class UsuariosController {
     }
   }
 
-  async insertOne(req, res) {
+  async uploadUserProfileImage(req, res) {
     try {
-      const { email, login, senha } = req.body;
+      await UsuariosModel.updateUserProfileImage({
+        userId: req.params.userId,
+        imgExt: path.extname(req.file.originalname),
+      });
+      res.status(200).send({ message: 'success' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
 
-      const result = await UsuariosModel.insertOne({ email, login, senha });
+  async uploadUserBgImage(req, res) {
+    try {
+      await UsuariosModel.updateUserBgImage({
+        userId: req.params.userId,
+        imgExt: path.extname(req.file.originalname),
+      });
+      res.status(200).send({ message: 'success' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+  async updateUserData(req, res) {
+    try {
+      const { userID, name, email, birthdate } = req.body;
+
+      console.log(req.body);
+      const result = await UsuariosModel.updateUserData({
+        userID,
+        name,
+        email,
+        birthdate,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async updateConfigUser(req, res) {
+    try {
+      const { userId, maxDistance, maxDate } = req.body;
+      const result = await usuariosModel.updateConfigUser({
+        userId,
+        maxDistance,
+        maxDate,
+      });
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

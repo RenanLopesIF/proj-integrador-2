@@ -25,14 +25,18 @@ import InputCreateEvent from '../InputCreateEvent';
 import InputDataHora from '../InputDataHora';
 import { useGeolocation } from '../../hooks/geolocation';
 import ButtonSubmit from '../ButtonSubmit';
+import axios from 'axios';
 
 function ModalCreateEvent({ isOpen, onClose }) {
   const borderRadio = '20px';
   const imgFileRef = useRef();
   const { currentGeolocation } = useGeolocation();
 
-  function handleCreateEvent(ev) {
-    console.log(ev);
+  async function handleCreateEvent(ev) {
+    const formData = new FormData();
+    formData.append('background-image', imgFileRef.current);
+    const URL = 'http://localhost:3004/usuarios/upload/background-image/3';
+    const res = await axios.post(URL, formData);
   }
 
   return (
