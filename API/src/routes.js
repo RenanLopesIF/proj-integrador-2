@@ -25,7 +25,7 @@ routes.post(
 routes.post(
   '/usuarios/upload/background-image/:userId',
   uploadUserBgImage.single('background-image'),
-  usuariosController.uploadUserProfileImage,
+  usuariosController.uploadUserBgImage,
 );
 routes.put('/usuarios/novas/configuracoes', usuariosController.putNewConfigUser);
 
