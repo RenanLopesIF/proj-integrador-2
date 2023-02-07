@@ -48,6 +48,8 @@ class EventosController {
       res.status(200).send({ message: 'success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
+    } finally {
+      res.end();
     }
   }
 
@@ -60,6 +62,8 @@ class EventosController {
       res.send(result);
     } catch (error) {
       res.status(400).json({ error: error.message });
+    } finally {
+      res.end();
     }
   }
 }
