@@ -78,21 +78,18 @@ class UsuariosController {
     }
   }
 
-
   async putNewConfigUser(req, res) {
     try {
-      const {
-        userConfigID,
-        maxDistance,
-        maxDate
-      } = req.body;
+      const { userId, maxDistance, maxDate } = req.body;
       const result = await usuariosModel.putConfigUser({
-        userConfigID, maxDistance, maxDate
+        userId,
+        maxDistance,
+        maxDate,
       });
-      res.status(200).send(result)
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
-      res.status(400).send({message: "error"})
+      res.status(400).send({ message: 'error' });
     } finally {
       res.end();
     }

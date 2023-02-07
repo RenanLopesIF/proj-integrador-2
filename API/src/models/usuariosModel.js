@@ -69,10 +69,12 @@ class UsuariosModel {
     return result;
   }
 
-  async putConfigUser({userConfigID, maxDistance, maxDate}) {
-    const query = `UPDATE configuracoes_usuario INNER JOIN usuarios ON configuracoes_usuario.id_usuario = usuarios.ID
-    SET distancia_maxima = ?, data_maxima = ? WHERE configuracoes_usuario.ID = ?`;
-    const [result] = await this.db.query(query, [maxDistance, maxDate, userConfigID]);
+  async putConfigUser({ userId, maxDistance, maxDate }) {
+    const query = `UPDATE configuracoes_usuario cu
+      SET distancia_maxima = ?, data_maxima = ?
+      WHERE cu.id_usuario = ?;`;
+
+    const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
     return result;
   }
 }
