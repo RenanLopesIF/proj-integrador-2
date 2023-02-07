@@ -105,7 +105,6 @@ class AuthController {
       // código abaixo compara os dados na requisição com o banco e armazena o resultado na variavel 'result'
       const result = await usuariosModel.authenticat({ login: req.body.login, senha: req.body.senha });
       const curUser = await usuariosModel.getUserById({ userId: result[0].id_usuario });
-      console.log(curUser);
       if (result.length) {
         // verificação se existe um usuario no banco
         const privateKey = process.env['JWT_KEY'];

@@ -27,6 +27,38 @@ class EventosController {
     }
   }
 
+  async addEventLike(req, res) {
+    try {
+      const { userId, eventId } = req.body;
+      const result = await EventosModel.addEventLike({
+        userId,
+        eventId,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async removeEventLike(req, res) {
+    try {
+      const { userId, eventId } = req.body;
+      const result = await EventosModel.removeEventLike({
+        userId,
+        eventId,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
   async getEventsByUser(req, res) {
     try {
       const result = await EventosModel.getEventsByUser({ userId: req.params.userID });
@@ -38,6 +70,24 @@ class EventosController {
       res.end();
     }
   }
+
+  async addEventComment(req, res) {
+    try {
+      const { userId, eventId, description } = req.body;
+      const result = await EventosModel.addEventComment({
+        userId,
+        eventId,
+        description,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
   async criarEvento(req, res) {
     try {
       const auto_address = await getGeolocationInfo({ lat: req.body.latitude, lng: req.body.longitude });
@@ -48,6 +98,23 @@ class EventosController {
       res.status(200).send({ message: 'success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
+    } finally {
+      res.end();
+    }
+  }
+
+  async addCommentReply(req, res) {
+    try {
+      const { userId, comentId, description } = req.body;
+      const result = await EventosModel.addCommentReply({
+        userId,
+        comentId,
+        description,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
     } finally {
       res.end();
     }

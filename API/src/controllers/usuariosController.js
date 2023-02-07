@@ -1,6 +1,5 @@
 import UsuariosModel from '../models/usuariosModel.js';
 import path from 'path';
-import usuariosModel from '../models/usuariosModel.js';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -25,20 +24,6 @@ class UsuariosController {
   async getAll(req, res) {
     try {
       const result = await UsuariosModel.getAll();
-      res.status(200).send(result);
-    } catch (error) {
-      console.log(error);
-      res.status(400).send({ message: 'error' });
-    } finally {
-      res.end();
-    }
-  }
-
-  async insertOne(req, res) {
-    try {
-      const { email, login, senha } = req.body;
-
-      const result = await UsuariosModel.insertOne({ email, login, senha });
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

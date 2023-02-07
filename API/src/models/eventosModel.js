@@ -146,6 +146,40 @@ class EventosModel {
     }
     return result;
   }
+
+  async addEventLike({ userId, eventId }) {
+    const query = `INSERT INTO  curtida_evento VALUES (
+      ?,?
+    )`;
+
+    const [result] = await this.db.query(query, [userId, eventId]);
+    return result;
+  }
+
+  async removeEventLike({ userId, eventId }) {
+    const query = `DELETE FROM curtida_evento WHERE id_usuario = ? AND id_evento = ?`;
+
+    const [result] = await this.db.query(query, [userId, eventId]);
+    return result;
+  }
+
+  async addEventComment({ userId, eventId, description }) {
+    const query = `INSERT INTO  comentarios_evento VALUES (
+      DEFAULT, ?,?,?
+    )`;
+
+    const [result] = await this.db.query(query, [eventId, userId, description]);
+    return result;
+  }
+
+  async addCommentReply({ userId, comentId, description }) {
+    const query = `INSERT INTO respostas_comentario VALUES (
+      DEFAULT,?,?,?
+    )`;
+
+    const [result] = await this.db.query(query, [comentId, userId, description]);
+    return result;
+  }
 }
 
 export default new EventosModel();
