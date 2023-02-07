@@ -3,8 +3,6 @@ import multer from 'multer';
 import storageUserProfileImage from './configs/uploadUserImageStorage.js';
 import storageUserBGImage from './configs/uploadUserBackgroundStorage.js';
 
-import LoginUserController from './controllers/loginUserController.js';
-
 import usuariosController from './controllers/usuariosController.js';
 import authController from './controllers/authController.js';
 import eventosController from './controllers/eventosController.js';
@@ -31,12 +29,12 @@ routes.post(
 );
 routes.put('/usuarios/novas/configuracoes', usuariosController.putNewConfigUser);
 
+routes.post('/evento/novo', eventosController.criarEvento);
 routes.get('/evento/:eventID', eventosController.getOne);
 routes.get('/eventos', eventosController.getAll);
 routes.delete('/deletEvent/:eventID/:userID', eventosController.deletandoEvent);
 
 routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
 routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
-routes.post('/authenticate', LoginUserController.authenticate);
 
 export default routes;

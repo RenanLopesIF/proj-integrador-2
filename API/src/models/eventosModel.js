@@ -5,7 +5,7 @@ class EventosModel {
     this.db = database.promise();
   }
 
-  async #getEventsByWhereCondition(whereCondition, queryVariables, userId = 0) {
+  async getEventsByWhereCondition(whereCondition, queryVariables, userId = 0) {
     const queryEvents = `SELECT
     e.ID,
     e.titulo,
@@ -74,23 +74,72 @@ class EventosModel {
 
   async getAll({ maxLat, maxLon, minLat, minLon }) {
     const whereCondition = 'ee.longitude <= ? AND ee.longitude >= ? AND ee.latitude <= ? AND ee.latitude >= ?';
-    const response = await this.#getEventsByWhereCondition(whereCondition, [maxLon, minLon, maxLat, minLat]);
+    const response = await this.getEventsByWhereCondition(whereCondition, [maxLon, minLon, maxLat, minLat]);
     return response;
   }
 
   async getOneEvent({ eventID }) {
     const whereCondition = 'e.ID = ?';
-    const response = await this.#getEventsByWhereCondition(whereCondition, [eventID]);
+    const response = await this.getEventsByWhereCondition(whereCondition, [eventID]);
     return response;
   }
 
   async getEventsByUser({ userId }) {
     const whereCondition = 'u.ID = ?';
-    const response = await this.#getEventsByWhereCondition(whereCondition, [userId]);
+    const response = await this.getEventsByWhereCondition(whereCondition, [userId]);
     return response;
   }
+
+  async insertOne({
+    id_usuario,
+    titulo,
+    descricao,
+    faixa_etaria,
+    url_imagem,
+    data_inicio,
+    data_fim,
+    latitude,
+    longitude,
+    descricao_endereco,
+    autoDescEndereco,
+    addressDetails,
+  }) {
+    const query = 'INSERT INTO eventos VALUES (default,?,?,?,?,?,?,?,?)';
+    const criado_em = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const [resultEvento] = await this.db.query(query, [
+      id_usuario,
+      titulo,
+      descricao,
+      faixa_etaria,
+      url_imagem,
+      data_inicio,
+      data_fim,
+      criado_em,
+    ]);
+
+    const eventId = resultEvento.insertId;
+
+    const queryAddresEvent = 'INSERT INTO endereco_eventos VALUES (default, ?, ?, ?, ? ,? ,? ,? ,? ,?)';
+    await this.db.query(queryAddresEvent, [
+      eventId,
+      longitude,
+      latitude,
+      descricao_endereco,
+      autoDescEndereco,
+      addressDetails.road || '',
+      addressDetails.town || '',
+      addressDetails.state || '',
+      addressDetails.country || '',
+    ]);
+
+    return resultEvento;
+  }
+
   async deletarEvento(id_evento, id_usuario) {
-    const query = 'DELETE FROM eventos WHERE ID = ? AND id_usuario = ?';
+    const query = `DELETE ee, e FROM endereco_eventos ee
+      JOIN eventos e on e.ID = ee.id_evento
+      WHERE ee.id_evento = ? AND e.id_usuario = ?;`;
+
     const [result] = await this.db.query(query, [id_evento, id_usuario]);
     if (result.affectedRows === 0) {
       throw new Error('Evento não encontrado ou não pertence ao usuário.');
