@@ -39,11 +39,12 @@ class AuthController {
   async sendMailToRecoveryPassword(req, res) {
     const { email } = req.body;
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
+    const frontEndRoutePath = `http://localhost:3000`;
 
     const currentUser = await usuariosModel.getUserByEmail({ email });
     const encryptedID = CryptoJS.AES.encrypt(String(currentUser.ID), recoverySecretKey).toString();
 
-    const recoveryLink = `http://localhost:3000/recuperar-senha/nova-senha/${encodeURIComponent(encryptedID)}`;
+    const recoveryLink = `${frontEndRoutePath}/recuperar-senha/nova-senha/${encodeURIComponent(encryptedID)}`;
     const mailName = email.split('@')[0];
 
     try {
