@@ -77,11 +77,30 @@ class UsuariosController {
       res.end();
     }
   }
+  async updateUserData(req, res) {
+    try {
+      const { userID, name, email, birthdate } = req.body;
 
-  async putNewConfigUser(req, res) {
+      console.log(req.body);
+      const result = await UsuariosModel.updateUserData({
+        userID,
+        name,
+        email,
+        birthdate,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async updateConfigUser(req, res) {
     try {
       const { userId, maxDistance, maxDate } = req.body;
-      const result = await usuariosModel.putConfigUser({
+      const result = await usuariosModel.updateConfigUser({
         userId,
         maxDistance,
         maxDate,

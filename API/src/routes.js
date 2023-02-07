@@ -26,7 +26,8 @@ routes.post(
   uploadUserBgImage.single('background-image'),
   usuariosController.uploadUserBgImage,
 );
-routes.put('/usuario/atualizar/configuracoes', usuariosController.putNewConfigUser);
+routes.put('/usuario/atualizar/configuracoes', usuariosController.updateConfigUser);
+routes.put('/usuario/atualizar/dados', usuariosController.updateUserData);
 
 routes.get('/evento/:eventID', eventosController.getOne);
 routes.get('/eventos', eventosController.getAll);

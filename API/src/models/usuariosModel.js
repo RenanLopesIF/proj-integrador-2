@@ -60,6 +60,13 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [userId]);
     return result;
   }
+
+  async updateUserData({ userID, name, email, birthdate }) {
+    const query = `UPDATE usuarios SET nome = ?, email = ?, data_nascimento = ? WHERE id = ?`;
+    const [result] = await this.db.query(query, [name, email, birthdate, userID]);
+    return result;
+  }
+
   async authenticat({ login, senha }) {
     const query = 'SELECT * FROM credenciais_usuario WHERE login =? AND senha = ?'; //fazendo a busca no banco e comparandosenha e login que o user adicionou
 
@@ -84,7 +91,7 @@ class UsuariosModel {
     return resultUser;
   }
 
-  async putConfigUser({ userId, maxDistance, maxDate }) {
+  async updateConfigUser({ userId, maxDistance, maxDate }) {
     const query = `UPDATE configuracoes_usuario cu
       SET distancia_maxima = ?, data_maxima = ?
       WHERE cu.id_usuario = ?;`;
