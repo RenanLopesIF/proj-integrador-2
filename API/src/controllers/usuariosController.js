@@ -1,5 +1,6 @@
 import UsuariosModel from '../models/usuariosModel.js';
 import path from 'path';
+import usuariosModel from '../models/usuariosModel.js';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -74,22 +75,38 @@ class UsuariosController {
       res.status(400).send({ message: 'error' });
     }
   }
-  async putUpdate(req, res) {
+  async updateUserData(req, res) {
     try {
-      const {
-        userID,
-        userName,
-        userEmail,
-        userBirthDate,
-      } = req.body;
+      const { userID, name, email, birthdate } = req.body;
+
       console.log(req.body);
-      const result = await UsuariosModel.putAlterConfigUser({
-        userID, userName, userEmail, userBirthDate,
-      })
-      res.status(200).send(result)
+      const result = await UsuariosModel.updateUserData({
+        userID,
+        name,
+        email,
+        birthdate,
+      });
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
-      res.status(400).send({message: "error"});
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async updateConfigUser(req, res) {
+    try {
+      const { userId, maxDistance, maxDate } = req.body;
+      const result = await usuariosModel.updateConfigUser({
+        userId,
+        maxDistance,
+        maxDate,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
     } finally {
       res.end();
     }
