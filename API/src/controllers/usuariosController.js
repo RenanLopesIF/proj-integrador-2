@@ -73,6 +73,8 @@ class UsuariosController {
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
     }
   }
   async updateUserData(req, res) {
