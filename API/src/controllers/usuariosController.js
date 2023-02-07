@@ -1,5 +1,6 @@
 import UsuariosModel from '../models/usuariosModel.js';
 import path from 'path';
+import usuariosModel from '../models/usuariosModel.js';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -69,6 +70,23 @@ class UsuariosController {
         imgExt: path.extname(req.file.originalname),
       });
       res.status(200).send({ message: 'success' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
+  async putNewConfigUser(req, res) {
+    try {
+      const { userId, maxDistance, maxDate } = req.body;
+      const result = await usuariosModel.putConfigUser({
+        userId,
+        maxDistance,
+        maxDate,
+      });
+      res.status(200).send(result);
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });

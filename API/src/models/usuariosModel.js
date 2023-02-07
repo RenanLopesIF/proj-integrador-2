@@ -38,14 +38,6 @@ class UsuariosModel {
     return result;
   }
 
-  async insertOne({ email, login, senha, nascimento, nome }) {
-    const query = `INSERT INTO usuarios
-      VALUES (default, ?, ?, ?,default, default);`;
-
-    const [result] = await this.db.query(query, [nome, email, nascimento]);
-    return result;
-  }
-
   async deleteOne({ userId }) {
     await this.db.query('DELETE FROM `usuarios` WHERE `ID` = ?', [userId]);
     return true;
@@ -74,23 +66,32 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [login, senha]);
     return result; //aguarda o resultado da comparação entre os dados do banco com o que esta armazenado no 'query' e armazena e retorna o resultado na variavel result
   }
-  
-  async user({nome, email, data_nascimento, login,senha}){
+
+  async insertOne({ nome, email, data_nascimento, login, senha }) {
     const queryVerificUser = 'SELECT * FROM usuarios WHERE email = ?'; // buscando no banco de dados o email adicioando pelo usuario
     const [resultVerificUser] = await this.db.query(queryVerificUser, [email]); // esperando para armazenar o resultado da comparação entre os dados do banco e do que o user adicionou
-    if(resultVerificUser.length){ // caso ja exista irá entrar nesta estrutura de decisão 
-        throw new Error('Email já existe.');
+    if (resultVerificUser.length) {
+      // caso ja exista irá entrar nesta estrutura de decisão
+      throw new Error('Email já existe.');
     }
+
     const queryUser = 'INSERT INTO usuarios (nome, email, data_nascimento) VALUES (?,?,?)';
     const [resultUser] = await this.db.query(queryUser, [nome, email, data_nascimento]);
     console.log(resultUser);
     const queryCred = 'INSERT INTO credenciais_usuario (login,id_usuario,senha) VALUES (?,?,?)';
-    await this.db.query(queryCred, [login,resultUser.insertId,senha]);
+    await this.db.query(queryCred, [login, resultUser.insertId, senha]);
 
     return resultUser;
+  }
 
-}
+  async putConfigUser({ userId, maxDistance, maxDate }) {
+    const query = `UPDATE configuracoes_usuario cu
+      SET distancia_maxima = ?, data_maxima = ?
+      WHERE cu.id_usuario = ?;`;
 
+    const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
+    return result;
+  }
 }
 
 export default new UsuariosModel();

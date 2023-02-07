@@ -15,24 +15,27 @@ routes.use(json());
 
 routes.get('/usuarios', usuariosController.getAll);
 routes.get('/usuarios/:id', usuariosController.getOne);
-routes.post('/usuarios/novo', usuariosController.insertOne);
 routes.get('/usuario/eventos/:userID', eventosController.getEventsByUser);
 routes.post(
-  '/usuarios/upload/profile-image/:userId',
+  '/usuario/upload/profile-image/:userId',
   uploadUserProfileImage.single('profile-image'),
   usuariosController.uploadUserProfileImage,
 );
 routes.post(
-  '/usuarios/upload/background-image/:userId',
+  '/usuario/upload/background-image/:userId',
   uploadUserBgImage.single('background-image'),
-  usuariosController.uploadUserProfileImage,
+  usuariosController.uploadUserBgImage,
 );
+routes.put('/usuario/atualizar/configuracoes', usuariosController.putNewConfigUser);
+
 routes.get('/evento/:eventID', eventosController.getOne);
 routes.get('/eventos', eventosController.getAll);
+routes.post('/evento/novo', eventosController.criarEvento);
+routes.delete('/evento/deletar/:eventID/:userID', eventosController.deletandoEvent);
 
-routes.post('/recuperar-senha', authController.sendMailToRecoveryPassword);
-routes.put('/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
+routes.post('/auth/recuperar-senha', authController.sendMailToRecoveryPassword);
+routes.put('/auth/recuperar-senha/nova-senha/:userIdToken', authController.changePasswordFromMailToRecovery);
+routes.post('/auth/novo', authController.inserirUser);
+routes.post('/auth/login', authController.login);
 
-routes.post('/authenticate', authController.authenticate);
-routes.post('/cadastroUser', authController.acessoUser);
 export default routes;

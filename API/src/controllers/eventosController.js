@@ -1,4 +1,5 @@
 import EventosModel from '../models/eventosModel.js';
+import getGeolocationInfo from '../utils/getGeolocationInfo.js';
 
 class EventosController {
   async getAll(req, res) {
@@ -33,6 +34,34 @@ class EventosController {
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+  async criarEvento(req, res) {
+    try {
+      const auto_address = await getGeolocationInfo({ lat: req.body.latitude, lng: req.body.longitude });
+      const autoDescEndereco = auto_address.data.display_name;
+      const addressDetails = auto_address.data.address;
+
+      await EventosModel.insertOne({ ...req.body, addressDetails, autoDescEndereco });
+      res.status(200).send({ message: 'success' });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    } finally {
+      res.end();
+    }
+  }
+
+  async deletandoEvent(req, res) {
+    const eventID = req.params.eventID;
+    const userID = req.params.userID;
+    try {
+      const result = await EventosModel.deletarEvento(eventID, userID);
+      console.log(result);
+      res.send(result);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     } finally {
       res.end();
     }
