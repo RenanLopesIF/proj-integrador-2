@@ -68,6 +68,15 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [userId]);
     return result;
   }
+
+  async putConfigUser({ userId, maxDistance, maxDate }) {
+    const query = `UPDATE configuracoes_usuario cu
+      SET distancia_maxima = ?, data_maxima = ?
+      WHERE cu.id_usuario = ?;`;
+
+    const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
+    return result;
+  }
 }
 
 export default new UsuariosModel();
