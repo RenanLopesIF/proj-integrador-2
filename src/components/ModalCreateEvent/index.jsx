@@ -26,7 +26,7 @@ import InputCreateEvent from '../InputCreateEvent';
 import InputDataHora from '../InputDataHora';
 import { useGeolocation } from '../../hooks/geolocation';
 import ButtonSubmit from '../ButtonSubmit';
-import axios from 'axios';
+import api from '../../services/axios.js';
 
 function ModalCreateEvent({ isOpen, onClose }) {
   const borderRadio = '20px';
@@ -50,9 +50,9 @@ function ModalCreateEvent({ isOpen, onClose }) {
     const formData = Object.fromEntries(form);
     console.log(formData);
 
-    const URL = 'http://localhost:3004/evento/novo';
+    const URL = 'evento/novo';
     try {
-      await axios.post(URL, form);
+      await api.post(URL, form);
       toast.success('Evento publicado com sucesso');
       onClose();
     } catch (err) {
