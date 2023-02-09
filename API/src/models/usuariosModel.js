@@ -45,7 +45,7 @@ class UsuariosModel {
 
   async updateUserProfileImage({ userId, imgExt }) {
     const query = `UPDATE usuarios
-    SET url_imagem_perfil = 'uploads/user/profile/${userId}.${imgExt}'
+    SET url_imagem_perfil = 'uploads/user/profile/${userId}${imgExt}'
     WHERE usuarios.ID = ?`;
 
     const [result] = await this.db.query(query, [userId]);
@@ -54,7 +54,7 @@ class UsuariosModel {
 
   async updateUserBgImage({ userId, imgExt }) {
     const query = `UPDATE usuarios
-    SET url_imagem_fundo = 'uploads/user/background/${userId}.${imgExt}'
+    SET url_imagem_fundo = 'uploads/user/background/${userId}${imgExt}'
     WHERE usuarios.ID = ?`;
 
     const [result] = await this.db.query(query, [userId]);
