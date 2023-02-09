@@ -18,7 +18,8 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import DropzoneEventImage from '../DropzoneEventImage';
 import MapChooseAddress from '../MapChooseAddress';
 import InputCreateEvent from '../InputCreateEvent';
@@ -30,13 +31,35 @@ import axios from 'axios';
 function ModalCreateEvent({ isOpen, onClose }) {
   const borderRadio = '20px';
   const imgFileRef = useRef();
-  const { currentGeolocation } = useGeolocation();
+  const formRef = useRef();
+  const [submiting, setSubmiting] = useState(false);
 
-  async function handleCreateEvent(ev) {
-    const formData = new FormData();
-    formData.append('background-image', imgFileRef.current);
-    const URL = 'http://localhost:3004/usuarios/upload/background-image/3';
-    const res = await axios.post(URL, formData);
+  const { currentGeolocation } = useGeolocation();
+  const userId = 3;
+
+  async function handleCreateEvent() {
+    setSubmiting(true);
+    const ev = formRef.current;
+    // eslint-disable-next-line no-undef
+    const form = new FormData(ev);
+
+    form.append('event-image', imgFileRef.current);
+    form.append('latitude', currentGeolocation.lat);
+    form.append('longitude', currentGeolocation.lng);
+    form.append('id_usuario', userId);
+    const formData = Object.fromEntries(form);
+    console.log(formData);
+
+    const URL = 'http://localhost:3004/evento/novo';
+    try {
+      await axios.post(URL, form);
+      toast.success('Evento publicado com sucesso');
+      onClose();
+    } catch (err) {
+      toast.error('Ocorreu um erro ao publicar o evento');
+    } finally {
+      setSubmiting(false);
+    }
   }
 
   return (
@@ -72,21 +95,16 @@ function ModalCreateEvent({ isOpen, onClose }) {
             borderWidth={1}
             size={'lg'}
           />
-          <Box
-            as="form"
-            onSubmit={(e) => {
-              console.log(e);
-            }}
-          >
+          <Box as="form" ref={formRef}>
             <Center>
-              <InputCreateEvent placeholder="Digite o nome do evento" w="60%" />
+              <InputCreateEvent name="titulo" placeholder="Digite o nome do evento" w="60%" />
             </Center>
             <SimpleGrid columns="2" spacingX={10} spacingY={7} mt={3}>
               <FormControl isRequired w="full">
                 <Center>
                   <FormLabel>Data de início</FormLabel>
                 </Center>
-                <InputDataHora />
+                <InputDataHora name="data_inicio" />
                 <FormErrorMessage>Defina a data de início.</FormErrorMessage>
               </FormControl>
 
@@ -94,11 +112,12 @@ function ModalCreateEvent({ isOpen, onClose }) {
                 <Center>
                   <FormLabel>Data de término</FormLabel>
                 </Center>
-                <InputDataHora />
+                <InputDataHora name="data_fim" />
                 <FormErrorMessage>Defina a data de término.</FormErrorMessage>
               </FormControl>
 
               <Textarea
+                name="descricao"
                 w="100%"
                 h="140px"
                 bgColor="cinza.50"
@@ -126,6 +145,7 @@ function ModalCreateEvent({ isOpen, onClose }) {
                       <FormLabel>Faixa etária</FormLabel>
                     </Center>
                     <Select
+                      name="faixa_etaria"
                       bgColor="cinza.50"
                       color="cinza.500"
                       focusBorderColor="cinza.100"
@@ -166,6 +186,7 @@ function ModalCreateEvent({ isOpen, onClose }) {
 
               <VStack mt={8} justifyContent="space-between">
                 <Textarea
+                  name="descricao_endereco"
                   w="100%"
                   h="100px"
                   bgColor="cinza.50"
@@ -183,7 +204,7 @@ function ModalCreateEvent({ isOpen, onClose }) {
                   size="sm"
                   resize="none"
                 />
-                <ButtonSubmit onClick={handleCreateEvent} isSubmitType text="Criar evento" />
+                <ButtonSubmit onClick={handleCreateEvent} text="Criar evento" isLoading={submiting} />
               </VStack>
             </SimpleGrid>
           </Box>
