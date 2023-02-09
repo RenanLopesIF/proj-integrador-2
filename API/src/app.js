@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import routes from './routes.js';
 
@@ -12,6 +13,7 @@ class App {
   constructor() {
     this.server = express();
     this.server.use(express.json());
+    this.server.use(cors());
     this.server.use((req, res, next) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
