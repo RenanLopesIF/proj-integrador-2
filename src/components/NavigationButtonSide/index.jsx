@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Link } from '@chakra-ui/react';
 
-function NavigationButtonSide({ text, isActive, icon, href }) {
+function NavigationButtonSide({ text, isActive, icon, href, onClick }) {
   return (
     <Button
       bgColor={isActive ? 'primary.300 ' : 'white'}
@@ -20,6 +20,7 @@ function NavigationButtonSide({ text, isActive, icon, href }) {
       paddingLeft={'1.5rem'}
       color={isActive ? 'white' : 'secondary.600'}
       textOverflow="ellipsis"
+      onClick={onClick}
     >
       {text}
     </Button>

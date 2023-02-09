@@ -1,11 +1,12 @@
 import React from 'react';
 import { Avatar, Box, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../hooks/auth';
 
 function IconeUser() {
-  const nome = 'Renan Lopes';
   const userImage = '';
   const navigate = useNavigate();
+  const { userData } = useAuth();
 
   return (
     <Box
@@ -17,10 +18,15 @@ function IconeUser() {
     >
       <Flex align="center">
         <Box fontWeight="400" fontSize="22px" color="#364F6B" mr={2}>
-          {nome}
+          {userData.nome || 'Anônimo'}
         </Box>
         <Box>
-          <Avatar bg="secondary.600" size="md" src={userImage} name={nome} />
+          <Avatar
+            bg="secondary.600"
+            size="md"
+            name={userImage}
+            src={`http://localhost:3004/${userData.url_imagem_perfil}`}
+          />
         </Box>
       </Flex>
     </Box>

@@ -2,9 +2,11 @@ import { Box, Divider, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { IoMdHome } from 'react-icons/io';
 import NavigationButtonSide from '../NavigationButtonSide';
+import { useAuth } from '../../hooks/auth';
 
 function SideBar() {
   const pathname = window.location.pathname;
+  const { isAuthed, logout } = useAuth();
 
   const activeRoute = {
     '/': pathname === '/',
@@ -32,7 +34,9 @@ function SideBar() {
           </Flex>
           <Divider my={3} borderBottomWidth={1} opacity={1} borderColor="secondary.600" />
           <Flex mb="6">
-            <NavigationButtonSide text="Logout" href="#" icon={<IoMdHome />} />
+            {isAuthed && <NavigationButtonSide text="Logout" onClick={logout} icon={<IoMdHome />} />}
+
+            {!isAuthed && <NavigationButtonSide text="Login" href="/login" icon={<IoMdHome />} />}
           </Flex>
         </Flex>
       </Box>
