@@ -96,18 +96,21 @@ class EventosController {
       const autoDescEndereco = auto_address.data.display_name;
       const addressDetails = auto_address.data.address;
 
-      const url_imagem = 'public/uploads/event';
+      const url_imagem = req.file ? 'public/uploads/event' : '';
 
       const insertRes = await EventosModel.insertOne({ ...req.body, addressDetails, autoDescEndereco, url_imagem });
-      const newFilePath =
-        req.file.path.split('\\event\\')[0] + `\\event\\${insertRes.insertId}${path.extname(req.file.originalname)}`;
 
-      await new Promise((resolve, reject) => {
-        fs.rename(req.file.path, newFilePath, (err) => {
-          if (err) reject(err);
-          resolve('ok');
+      if (req.file) {
+        const newFilePath =
+          req.file.path.split('\\event\\')[0] + `\\event\\${insertRes.insertId}${path.extname(req.file.originalname)}`;
+
+        await new Promise((resolve, reject) => {
+          fs.rename(req.file.path, newFilePath, (err) => {
+            if (err) reject(err);
+            resolve('ok');
+          });
         });
-      });
+      }
 
       res.status(200).send({ message: 'success' });
     } catch (error) {

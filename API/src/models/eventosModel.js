@@ -119,8 +119,9 @@ class EventosModel {
 
     const eventId = resultEvento.insertId;
 
+    const eventImg = url_imagem ? `${url_imagem}/${eventId}` : '';
     const queryUpdateEventImg = `UPDATE eventos
-    SET url_imagem = '${url_imagem}/${eventId}'
+    SET url_imagem = '${eventImg}'
     WHERE eventos.ID = ?`;
 
     await this.db.query(queryUpdateEventImg, [eventId]);
