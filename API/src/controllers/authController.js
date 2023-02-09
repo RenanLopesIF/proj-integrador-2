@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
 import usuariosModel from '../models/usuariosModel.js';
-import jwt from 'jsonwebtoken';
 import CryptoJS from 'crypto-js';
+import encodeJwt from '../utils/encodeJwt.js';
+import decodeJwt from '../utils/decodeJwt.js';
 
 class AuthController {
   async changePasswordFromMailToRecovery(req, res) {
@@ -104,26 +105,51 @@ class AuthController {
       // estrutura de controle para capturar erros
       // código abaixo compara os dados na requisição com o banco e armazena o resultado na variavel 'result'
       const result = await usuariosModel.authenticat({ login: req.body.login, senha: req.body.senha });
+
+      if (result.length === 0) {
+        res.status(401).send({ message: 'Usuário ou senha invalidos!' });
+        return;
+      }
+
       const curUser = await usuariosModel.getUserById({ userId: result[0].id_usuario });
       if (result.length) {
         // verificação se existe um usuario no banco
-        const privateKey = process.env['JWT_KEY'];
 
-        const token = jwt.sign(curUser, privateKey);
+        const token = encodeJwt(curUser);
         console.log(token);
-        res.status(200).send({ token: token }); //caso exista
+        res.status(200).send({ data: curUser, token: token }); //caso exista
       } else {
         res.status(401).send({ message: 'Usuário ou senha invalidos!' }); //caso não exista
       }
     } catch (error) {
       // utilizado para capturar qualquer erro durante a execução do código que está dentro do try
       console.log(error); // imprime o erro no console
-      res.status(400).send({ menssage: 'Erro ao autenticar usuário' }); // envia uma resposta
+      res.status(400).send({ message: 'Erro ao autenticar usuário' }); // envia uma resposta
     } finally {
       //finalizando a estrutura para capturar erros
       //o finally possibilita que seja executado o código abaixo mesmo se der erro ou não
       res.end(); // finaliza a execução
     }
+  }
+
+  async decodeToken(req, res) {
+    const token = req.body.token;
+
+    if (!token) {
+      res.status(401).send({ message: 'token inválido' });
+      res.end();
+      return;
+    }
+
+    const resDecode = decodeJwt(token);
+    if (!token || resDecode.status === 'error') {
+      res.status(401).send({ message: 'token inválido' });
+      res.end();
+      return;
+    }
+
+    res.status(200).send({ data: resDecode.data });
+    res.end();
   }
 }
 
