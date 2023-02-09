@@ -119,6 +119,12 @@ class EventosModel {
 
     const eventId = resultEvento.insertId;
 
+    const queryUpdateEventImg = `UPDATE eventos
+    SET url_imagem = '${url_imagem}/${eventId}'
+    WHERE eventos.ID = ?`;
+
+    await this.db.query(queryUpdateEventImg, [eventId]);
+
     const queryAddresEvent = 'INSERT INTO endereco_eventos VALUES (default, ?, ?, ?, ? ,? ,? ,? ,? ,?)';
     await this.db.query(queryAddresEvent, [
       eventId,
