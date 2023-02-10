@@ -4,7 +4,7 @@ const InputEsquecSenha = () => {
   return (
     <Box>
       <Link
-        href="/esqueci-minha-senha"
+        href="/recuperar-senha"
         _hover={{ borderBottom: '3px solid primary.300' }}
         style={{
           color: '#364F6B',

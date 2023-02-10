@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Input } from '@chakra-ui/react';
 
-function InputSenha({ text, placeholder }) {
+function InputSenha({ text, placeholder, inputName }) {
   return (
     <Box>
       <label color="black">
         {text}
         <Input
+          name={inputName}
           display={'flex'}
           placeholder={placeholder}
           fontSize={'1.1rem'}
