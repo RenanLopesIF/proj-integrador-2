@@ -2,13 +2,29 @@ import React from 'react';
 import { Box, Center, Flex, Link } from '@chakra-ui/react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import CustomInput from '../../components/CustomInput';
+import api from "../../services/axios";
+
 
 function TelaDeCadastro() {
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.nativeEvent.target));
     console.log(form);
+
+    if(form.senha != form.confirmaSenha ){
+      console.log("Senha incorreta")
+      return 
+    }
+    await api.post("/auth/novo",{
+      nome: form.name + " " + form.sobrenome,
+      email: form.email,
+      data_nascimento: form.nascimento,
+      login: form.login,
+      senha: form.senha
+    });
+
   }
+
 
   return (
     <Box>
