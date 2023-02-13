@@ -33,7 +33,7 @@ routes.post(
 routes.put('/usuario/atualizar/configuracoes', protectedRoute, UsuariosController.updateConfigUser);
 routes.put('/usuario/atualizar/dados', protectedRoute, UsuariosController.updateUserData);
 
-routes.get('/evento/:eventID', protectedRoute, EventosController.getOne);
+routes.get('/evento/:eventID', protectedRoute, EventosController.getOne); 
 routes.get('/eventos', EventosController.getAll);
 routes.post('/evento/novo', [protectedRoute, uploadEventImage.single('event-image')], EventosController.criarEvento);
 routes.post('/evento/enviar-curtida', protectedRoute, EventosController.addEventLike);

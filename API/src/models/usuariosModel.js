@@ -68,9 +68,9 @@ class UsuariosModel {
   }
 
   async authenticat({ login, senha }) {
-    const query = 'SELECT * FROM credenciais_usuario WHERE login =? AND senha = ?'; //fazendo a busca no banco e comparandosenha e login que o user adicionou
+    const query = 'SELECT * FROM credenciais_usuario WHERE login =?'; //fazendo a busca no banco e comparandosenha e login que o user adicionou
 
-    const [result] = await this.db.query(query, [login, senha]);
+    const [result] = await this.db.query(query, [login]);
     return result; //aguarda o resultado da comparação entre os dados do banco com o que esta armazenado no 'query' e armazena e retorna o resultado na variavel result
   }
 
@@ -99,6 +99,11 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
     return result;
   }
+  async checkpasswordUserLogin({login}){
+    const query = "SELECT senha FROM credenciais_usuario WHERE login = ?";
+    
+    const [result] = await this.db.query(query, [login]);
+    return result;
+  }
 }
-
 export default new UsuariosModel();

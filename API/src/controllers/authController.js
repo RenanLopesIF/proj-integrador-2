@@ -101,25 +101,30 @@ class AuthController {
   }
   async login(req, res) {
     // metodo para autenticar o user
+    const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
     try {
-      // estrutura de controle para capturar erros
-      // código abaixo compara os dados na requisição com o banco e armazena o resultado na variavel 'result'
-      const result = await usuariosModel.authenticat({ login: req.body.login, senha: req.body.senha });
-
-      if (result.length === 0) {
+      const chekoutLogin = await usuariosModel.checkpasswordUserLogin({login:req.body.login})
+      console.log(chekoutLogin);
+      const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey)
+      const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8)
+      console.log(decryptSenha);
+      
+      if (criptSenha.length === 0 || decryptSenha!= req.body.senha) {
         res.status(401).send({ message: 'Usuário ou senha invalidos!' });
         return;
       }
-
+      
+      const result = await usuariosModel.authenticat({ login: req.body.login, senha: decryptSenha});
       const curUser = await usuariosModel.getUserById({ userId: result[0].id_usuario });
-      if (result.length) {
+      console.log(curUser);
+      if (curUser) {
         // verificação se existe um usuario no banco
 
         const token = encodeJwt(curUser);
         console.log(token);
         res.status(200).send({ data: curUser, token: token }); //caso exista
       } else {
-        res.status(401).send({ message: 'Usuário ou senha invalidos!' }); //caso não exista
+        res.status(402).send({ message: 'Usuário  invalidos!' }); //caso não exista
       }
     } catch (error) {
       // utilizado para capturar qualquer erro durante a execução do código que está dentro do try
