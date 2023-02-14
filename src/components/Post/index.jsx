@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Box, HStack, Text, Flex, VStack, useDisclosure, Textarea, Divider, Center } from '@chakra-ui/react';
-import { MdAlarmOff, MdAlarmOn, MdOutlineStarBorderPurple500 } from 'react-icons/md';
+import { MdAlarmOff, MdAlarmOn, MdOutlineStarBorderPurple500, MdStar } from 'react-icons/md';
 import { BiMap, BiComment } from 'react-icons/bi';
 import { TbMap2 } from 'react-icons/tb';
 import Faixaetaria from '../FaixaEtaria';
@@ -16,35 +16,14 @@ import ModalAddressDetails from '../ModalAddressDetails';
 import Comment from '../Comment';
 import ReplyContainer from '../ReplyContainer';
 import { useTheme } from '@emotion/react';
-
-const comments = [
-  {
-    id: '11',
-    author: 'Renan Lopes',
-    message: 'Bonito',
-    createdAt: 1673996285471,
-    replies: [
-      { author: 'Aaa', message: 'Tbm', id: '11a', createdAt: 1673996285471 },
-      { author: 'Bbb', message: 'Nao', id: '11b', createdAt: 1673996285471 },
-    ],
-  },
-  {
-    id: '22',
-    author: 'Amaury',
-    message: 'Haha',
-    createdAt: 1673987285471,
-    replies: [
-      { author: 'Kkk', message: 'pode', id: '22a', createdAt: 1673996285471 },
-      { author: 'Jjj', message: 'quero', id: '22b', createdAt: 1673996285471 },
-    ],
-  },
-];
+import api from '../../services/axios';
+import { useAuth } from '../../hooks/auth';
 
 function Post({ event }) {
   const contentPadding = 3;
-  const interesedCount = 2;
   const { colors } = useTheme();
   const inputCommentRef = useRef();
+  const { userData } = useAuth();
 
   const scrollStyle = {
     '&::-webkit-scrollbar': {
@@ -63,9 +42,28 @@ function Post({ event }) {
 
   const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.titulo}-${event.criado_em}` });
   const [commentsIsOpen, setCommentsIsOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(event.curtiu === 1);
 
   function handleComments() {
     setCommentsIsOpen((prev) => !prev);
+  }
+
+  async function handleLike() {
+    if (!isLiked) {
+      setIsLiked(true);
+      await api.post('/evento/enviar-curtida', {
+        userId: userData.ID,
+        eventId: event.ID,
+      });
+    } else {
+      setIsLiked(false);
+      await api.delete('/evento/remover-curtida', {
+        data: {
+          userId: userData.ID,
+          eventId: event.ID,
+        },
+      });
+    }
   }
 
   function handleReplyComment(commentId, commentAuthor) {
@@ -128,8 +126,8 @@ function Post({ event }) {
             </Flex>
             <Flex justifyContent="space-between" alignItems="center">
               <ButtonWithLeftIcon
-                onClick={() => {}}
-                icon={<MdOutlineStarBorderPurple500 size={24} />}
+                onClick={handleLike}
+                icon={isLiked ? <MdStar size={24} /> : <MdOutlineStarBorderPurple500 size={24} />}
                 text="Interessei"
               />
               <ButtonWithLeftIcon onClick={handleComments} icon={<BiComment size={24} />} text="Comentários" />

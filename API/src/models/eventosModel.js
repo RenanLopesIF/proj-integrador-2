@@ -80,15 +80,19 @@ class EventosModel {
     return parsedResultEvents;
   }
 
-  async getAll({ maiorLat, maiorLong, menorLat, menorLong }) {
+  async getAll({ maiorLat, maiorLong, menorLat, menorLong }, userId) {
     const whereCondition = 'ee.latitude  <= ? AND ee.latitude  >=  ? AND ee.longitude  <= ? AND ee.longitude  >= ?';
-    const response = await this.getEventsByWhereCondition(whereCondition, [maiorLat, menorLat, maiorLong, menorLong]);
+    const response = await this.getEventsByWhereCondition(
+      whereCondition,
+      [maiorLat, menorLat, maiorLong, menorLong],
+      userId,
+    );
     return response;
   }
 
-  async getOneEvent({ eventID }) {
+  async getOneEvent({ eventID, userId }) {
     const whereCondition = 'e.ID = ?';
-    const response = await this.getEventsByWhereCondition(whereCondition, [eventID]);
+    const response = await this.getEventsByWhereCondition(whereCondition, [eventID], userId);
     return response;
   }
 
@@ -163,7 +167,7 @@ class EventosModel {
   }
 
   async addEventLike({ userId, eventId }) {
-    const query = `INSERT INTO  curtida_evento VALUES (
+    const query = `INSERT INTO  eventos_curtidas VALUES (
       ?,?
     )`;
 
@@ -172,7 +176,7 @@ class EventosModel {
   }
 
   async removeEventLike({ userId, eventId }) {
-    const query = `DELETE FROM curtida_evento WHERE id_usuario = ? AND id_evento = ?`;
+    const query = `DELETE FROM eventos_curtidas WHERE id_usuario = ? AND id_evento = ?`;
 
     const [result] = await this.db.query(query, [userId, eventId]);
     return result;
