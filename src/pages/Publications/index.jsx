@@ -9,10 +9,13 @@ import MiniEvent from '../../components/MiniEvent';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Layout from '../../components/Layout';
 import ModalCreateEvent from '../../components/ModalCreateEvent';
+import { useAuth } from '../../hooks/auth';
+import api from '../../services/axios';
 
 function Publications() {
   const { colors } = useTheme();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { userData } = useAuth();
 
   const [partyEvent, setPartyEvent] = useState([]);
   const [partyEspecifyEvent, setPartyEspecifyEvent] = useState([]);
@@ -33,9 +36,10 @@ function Publications() {
   useEffect(() => {
     async function getPartyEvent() {
       try {
-        const data = await axios.get('http://localhost:3005/events');
+        const data = await api.get(`http://localhost:3004/eventos`);
         setPartyEvent(data.data);
         setPartyEspecifyEvent(data.data);
+        console.log(data.data);
       } catch (error) {
         setError(true);
       } finally {

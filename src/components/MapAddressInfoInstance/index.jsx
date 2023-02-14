@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { Map, Marker } from 'react-map-gl';
 
-function MapInstance({ lat = -16, lng = -42, mapMode = 'satellite-streets-v12' }) {
+function MapInstance({ lat, lng, mapMode = 'satellite-streets-v12' }) {
   const [viewport, setViewport] = useState({
     longitude: lng,
     latitude: lat,
@@ -14,7 +14,7 @@ function MapInstance({ lat = -16, lng = -42, mapMode = 'satellite-streets-v12' }
 
   const mapRef = useRef(null);
   // eslint-disable-next-line no-undef
-  const accessTokenMap = process.env.ACCESS_TOKEN_MAP;
+  const accessTokenMap = process.env.MAP_ACCESS_TOKEN;
 
   return (
     <Map

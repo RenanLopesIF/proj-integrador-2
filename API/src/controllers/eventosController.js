@@ -1,13 +1,33 @@
 import EventosModel from '../models/eventosModel.js';
+import decodeJwt from '../utils/decodeJwt.js';
 import getGeolocationInfo from '../utils/getGeolocationInfo.js';
 import fs from 'fs';
 import path from 'path';
 
 class EventosController {
   async getAll(req, res) {
+    const userToken = req.headers['user-token'];
+    const userId = userToken ? decodeJwt(userToken).data.ID : 0;
     try {
-      const exmplGeoloaction = { maxLat: 48, maxLon: 18, minLat: 42, minLon: 12 };
-      const result = await EventosModel.getAll(exmplGeoloaction);
+      const curGeolocation = {
+        lat: -17,
+        lng: -42,
+      };
+
+      const maxDistance = 30;
+
+      // latitude
+      const diffLat = maxDistance / 107;
+      const diffLong = maxDistance / 99.012;
+
+      const geoMetrics = {
+        maiorLat: diffLat + curGeolocation.lat,
+        menorLat: -diffLat + curGeolocation.lat,
+        maiorLong: diffLong + curGeolocation.lng,
+        menorLong: -diffLong + curGeolocation.lng,
+      };
+
+      const result = await EventosModel.getAll(geoMetrics, userId);
       res.status(200).send(result);
     } catch (error) {
       console.log(error);
@@ -19,7 +39,10 @@ class EventosController {
 
   async getOne(req, res) {
     try {
-      const result = await EventosModel.getOneEvent({ eventID: req.params.eventID });
+      const userToken = req.headers['user-token'];
+      const userId = userToken ? decodeJwt(userToken).data.ID : 0;
+
+      const result = await EventosModel.getOneEvent({ eventID: req.params.eventID, userId: userId });
       res.status(200).send(result);
     } catch (error) {
       console.log(error);
