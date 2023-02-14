@@ -3,9 +3,12 @@ import React from 'react';
 
 function EventState({ start, end }) {
   function getEventState() {
+    const startDate = new Date(start).getTime();
+    const endDate = new Date(end).getTime();
+
     const curDate = Date.now();
-    if (curDate > end) return 'antigo';
-    if (curDate > start) return 'acontecendo agora';
+    if (curDate > endDate) return 'antigo';
+    if (curDate > startDate) return 'acontecendo agora';
     return 'em breve';
   }
   return (

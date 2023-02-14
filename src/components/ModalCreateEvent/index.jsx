@@ -27,15 +27,17 @@ import InputDataHora from '../InputDataHora';
 import { useGeolocation } from '../../hooks/geolocation';
 import ButtonSubmit from '../ButtonSubmit';
 import api from '../../services/axios.js';
+import { useAuth } from '../../hooks/auth';
 
 function ModalCreateEvent({ isOpen, onClose }) {
   const borderRadio = '20px';
   const imgFileRef = useRef();
   const formRef = useRef();
+  const { userData } = useAuth();
   const [submiting, setSubmiting] = useState(false);
+  const [mapPosition, setMapPosition] = useState();
 
   const { currentGeolocation } = useGeolocation();
-  const userId = 3;
 
   async function handleCreateEvent() {
     setSubmiting(true);
@@ -44,9 +46,9 @@ function ModalCreateEvent({ isOpen, onClose }) {
     const form = new FormData(ev);
 
     form.append('event-image', imgFileRef.current);
-    form.append('latitude', currentGeolocation.lat);
-    form.append('longitude', currentGeolocation.lng);
-    form.append('id_usuario', userId);
+    form.append('latitude', mapPosition.lat);
+    form.append('longitude', mapPosition.lng);
+    form.append('id_usuario', userData.ID);
     const formData = Object.fromEntries(form);
     console.log(formData);
 
@@ -178,6 +180,9 @@ function ModalCreateEvent({ isOpen, onClose }) {
                 <Center w="full" h="220px" shadow="md">
                   <MapChooseAddress
                     initialLocation={{ lat: currentGeolocation.lat, lng: currentGeolocation.lng }}
+                    onHandleMarkPosition={(pos) => {
+                      setMapPosition(pos);
+                    }}
                     mapMode="bright-v8"
                   />
                 </Center>

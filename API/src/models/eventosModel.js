@@ -38,7 +38,8 @@ class EventosModel {
   LEFT JOIN endereco_eventos ee ON ee.id_evento = e.ID
   LEFT JOIN eventos_curtidas ec ON ec.id_evento = e.ID
   LEFT JOIN usuarios u ON e.id_usuario = u.ID
-  WHERE ${whereCondition};`;
+  WHERE ${whereCondition}
+  ORDER BY e.criado_em DESC;`;
 
     const queryComments = `SELECT
       ce.ID,
@@ -115,6 +116,7 @@ class EventosModel {
     descricao_endereco,
     autoDescEndereco,
     addressDetails,
+    img_ext,
   }) {
     const query = 'INSERT INTO eventos VALUES (default,?,?,?,?,?,?,?,?)';
     const criado_em = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -131,7 +133,7 @@ class EventosModel {
 
     const eventId = resultEvento.insertId;
 
-    const eventImg = url_imagem ? `${url_imagem}/${eventId}` : '';
+    const eventImg = url_imagem ? `${url_imagem}/${eventId}${img_ext}` : '';
     const queryUpdateEventImg = `UPDATE eventos
     SET url_imagem = '${eventImg}'
     WHERE eventos.ID = ?`;

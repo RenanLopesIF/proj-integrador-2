@@ -9,10 +9,7 @@ class EventosController {
     const userToken = req.headers['user-token'];
     const userId = userToken ? decodeJwt(userToken).data.ID : 0;
     try {
-      const curGeolocation = {
-        lat: -17,
-        lng: -42,
-      };
+      const curGeolocation = { lat: Number(req.query.lat), lng: Number(req.query.lng) };
 
       const maxDistance = 30;
 
@@ -119,13 +116,19 @@ class EventosController {
       const autoDescEndereco = auto_address.data.display_name;
       const addressDetails = auto_address.data.address;
 
-      const url_imagem = req.file ? 'public/uploads/event' : '';
+      const url_imagem = req.file ? 'uploads/event' : '';
+      const img_ext = req.file ? path.extname(req.file.originalname) : '';
 
-      const insertRes = await EventosModel.insertOne({ ...req.body, addressDetails, autoDescEndereco, url_imagem });
+      const insertRes = await EventosModel.insertOne({
+        ...req.body,
+        addressDetails,
+        autoDescEndereco,
+        url_imagem,
+        img_ext,
+      });
 
       if (req.file) {
-        const newFilePath =
-          req.file.path.split('\\event\\')[0] + `\\event\\${insertRes.insertId}${path.extname(req.file.originalname)}`;
+        const newFilePath = req.file.path.split('\\event\\')[0] + `\\event\\${insertRes.insertId}${img_ext}`;
 
         await new Promise((resolve, reject) => {
           fs.rename(req.file.path, newFilePath, (err) => {

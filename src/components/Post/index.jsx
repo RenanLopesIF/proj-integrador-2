@@ -112,7 +112,7 @@ function Post({ event }) {
         <Box padding={contentPadding}>
           <HStack mt={2}>
             <EventTitle text={event.titulo} />
-            <Faixaetaria label="+16" color="red.500" />
+            <Faixaetaria label={String(event.faixa_etaria)} />
           </HStack>
           <Box>
             <EventDescription text={event.descricao} />
