@@ -4,16 +4,15 @@ import { useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/auth';
 
 function IconeUser() {
-  const userImage = '';
   const navigate = useNavigate();
-  const { userData } = useAuth();
+  const { userData, isAuthed } = useAuth();
 
   return (
     <Box
-      cursor="pointer"
+      cursor={isAuthed ? 'pointer' : 'auto'}
       pl={2}
       onClick={() => {
-        navigate('/perfil');
+        if (isAuthed) navigate('/perfil');
       }}
     >
       <Flex align="center">
@@ -23,8 +22,9 @@ function IconeUser() {
         <Box>
           <Avatar
             bg="secondary.600"
+            color="white"
             size="md"
-            name={userImage}
+            name={userData.nome}
             src={`http://localhost:3004/${userData.url_imagem_perfil}`}
           />
         </Box>

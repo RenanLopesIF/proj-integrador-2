@@ -1,11 +1,12 @@
 import React from 'react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Tooltip, useTheme } from '@chakra-ui/react';
 
-function CustomSlider({ data, acronymDistance, min, max, onChange, value = 1 }) {
+function CustomSlider({ data, acronymDistance, min, max, onChange, value = 1, isDisabled }) {
   const { colors } = useTheme();
 
   return (
     <Slider
+      isDisabled={isDisabled}
       id="slider"
       defaultValue={0}
       min={min}

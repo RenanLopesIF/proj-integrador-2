@@ -18,12 +18,13 @@ import ReplyContainer from '../ReplyContainer';
 import { useTheme } from '@emotion/react';
 import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
+import { toast } from 'react-toastify';
 
 function Post({ event }) {
   const contentPadding = 3;
   const { colors } = useTheme();
   const inputCommentRef = useRef();
-  const { userData } = useAuth();
+  const { userData, isAuthed } = useAuth();
 
   const scrollStyle = {
     '&::-webkit-scrollbar': {
@@ -49,6 +50,11 @@ function Post({ event }) {
   }
 
   async function handleLike() {
+    if (!isAuthed) {
+      toast.warn('Você precisa estar logado para interagir com a publicação');
+      return;
+    }
+
     if (!isLiked) {
       setIsLiked(true);
       await api.post('/evento/enviar-curtida', {

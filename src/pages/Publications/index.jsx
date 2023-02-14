@@ -11,11 +11,14 @@ import Layout from '../../components/Layout';
 import ModalCreateEvent from '../../components/ModalCreateEvent';
 import { useGeolocation } from '../../hooks/geolocation';
 import api from '../../services/axios';
+import { useAuth } from '../../hooks/auth';
+import { toast } from 'react-toastify';
 
 function Publications() {
   const { colors } = useTheme();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { currentGeolocation } = useGeolocation();
+  const { isAuthed } = useAuth();
 
   const [partyEvent, setPartyEvent] = useState([]);
   const [partyEspecifyEvent, setPartyEspecifyEvent] = useState([]);
@@ -24,12 +27,16 @@ function Publications() {
 
   const filterSech = (textSeach) => {
     const filtedEvents = partyEvent.filter((existsParty) =>
-      existsParty.description.toLowerCase().includes(textSeach.toLowerCase()),
+      existsParty.descricao.toLowerCase().includes(textSeach.toLowerCase()),
     );
     setPartyEspecifyEvent(filtedEvents);
   };
 
   function handlePublicEvent() {
+    if (!isAuthed) {
+      toast.warn('Você precisa estar logado para publicar um evento');
+      return;
+    }
     onOpen();
   }
 

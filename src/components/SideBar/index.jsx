@@ -20,6 +20,8 @@ function SideBar() {
     { text: 'Configurações', icon: <IoMdHome />, href: 'configuracoes', isActive: activeRoute['/configuracoes'] },
   ];
 
+  const itemNeedAuth = ['perfil'];
+
   return (
     <Box>
       <Box as="aside" zIndex={2} bgColor="white" shadow="lg" w="18vw" h="100vh" position="fixed" left={0} top={0}>
@@ -28,9 +30,12 @@ function SideBar() {
             <Box mb={5}>
               <NavigationButtonSide text="LOGOMARCA" />
             </Box>
-            {items.map((item) => (
-              <NavigationButtonSide text={item.text} href={item.href} icon={item.icon} isActive={item.isActive} />
-            ))}
+            {items.map((item) => {
+              if (!isAuthed && itemNeedAuth.includes(item.href)) return;
+              return (
+                <NavigationButtonSide text={item.text} href={item.href} icon={item.icon} isActive={item.isActive} />
+              );
+            })}
           </Flex>
           <Divider my={3} borderBottomWidth={1} opacity={1} borderColor="secondary.600" />
           <Flex mb="6">

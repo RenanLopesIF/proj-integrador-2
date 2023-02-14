@@ -2,9 +2,12 @@ import { useState } from 'react';
 import Layout from '../../components/Layout';
 import IconeUser from '../../components/iconeUser';
 import CustomSlider from './../../components/CustomSlider';
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { useAuth } from '../../hooks/auth';
 
 function ConfigPage() {
+  const { isAuthed } = useAuth();
+
   const distanceData = [
     { label: '1km', value: 1 },
     { label: '50km', value: 50 },
@@ -18,8 +21,8 @@ function ConfigPage() {
   ];
 
   const [userSettings, setUserSettings] = useState({
-    maxDistance: 32,
-    maxDays: 15,
+    maxDistance: 30,
+    maxDays: 30,
   });
 
   function handleDistance(value) {
@@ -46,6 +49,12 @@ function ConfigPage() {
           <Heading as={'h2'} fontWeight="700" fontSize={'40px'} lineHeight="58px" color={'secondary.600'}>
             Configurações
           </Heading>
+          {!isAuthed && (
+            <Badge w="full" borderRadius={4} px={2} py={4} mt={10} opacity={0.8} colorScheme={'yellow'}>
+              Você precisa estar logado para alterar as configurações
+            </Badge>
+          )}
+
           <Flex marginTop="35px" flexDirection={'column'}>
             <Box
               width="100%"
@@ -59,6 +68,7 @@ function ConfigPage() {
                 Distância máxima do evento:
               </Text>
               <CustomSlider
+                isDisabled={!isAuthed}
                 data={distanceData}
                 acronymDistance="km"
                 min={1}
@@ -72,6 +82,7 @@ function ConfigPage() {
                 Exiber eventos em até:
               </Text>
               <CustomSlider
+                isDisabled={!isAuthed}
                 data={daysData}
                 acronymDistance="d"
                 min={1}
