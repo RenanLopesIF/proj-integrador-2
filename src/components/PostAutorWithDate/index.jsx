@@ -4,6 +4,7 @@ import { Avatar, Flex, HStack, Text } from '@chakra-ui/react';
 import { getDateDiff } from '../../utils/getDateDiff';
 
 function PostAutorWithDate({ autor, postCreationDate }) {
+  const createdAt = new Date(postCreationDate).getTime();
   return (
     <HStack>
       {autor.image ? <Avatar src={autor.image} /> : <Avatar />}
@@ -12,7 +13,7 @@ function PostAutorWithDate({ autor, postCreationDate }) {
           {autor.name}
         </Text>
         <Text color="gray.500" fontSize={14}>
-          {getDateDiff(postCreationDate)}
+          {getDateDiff(createdAt)}
         </Text>
       </Flex>
     </HStack>

@@ -1,11 +1,11 @@
 import { Center, Flex, Box, Text } from '@chakra-ui/react';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Post from '../../components/Post';
 import IconUsuario from './../../components/iconeUser';
 import { useParams } from 'react-router';
 import Layout from '../../components/Layout';
+import api from '../../services/axios';
 
 function ViewPublications() {
   const [event, setEvent] = useState();
@@ -17,8 +17,8 @@ function ViewPublications() {
   useEffect(() => {
     async function getEvent() {
       try {
-        const data = await axios.get(`http://localhost:3005/event/${publicationId}`);
-        setEvent(data.data);
+        const data = await api.get(`http://localhost:3004/evento/${publicationId}`);
+        setEvent(data.data[0]);
       } catch (error) {
         setError(true);
       } finally {
@@ -51,7 +51,7 @@ function ViewPublications() {
 
   return (
     <Layout>
-      <Box padding="20px 25px 26px 25px" bgColor="cinza.50">
+      <Box h="full" padding="20px 25px 26px 25px" bgColor="cinza.50">
         <Flex w="full" alignItems="center" justifyContent="flex-end">
           <Box>
             <IconUsuario />
