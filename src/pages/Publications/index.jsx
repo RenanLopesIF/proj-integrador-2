@@ -33,9 +33,10 @@ function Publications() {
   useEffect(() => {
     async function getPartyEvent() {
       try {
-        const data = await axios.get('http://localhost:3005/events');
+        const data = await axios.get('http://localhost:3004/eventos');
         setPartyEvent(data.data);
         setPartyEspecifyEvent(data.data);
+        console.log(data.data);
       } catch (error) {
         setError(true);
       } finally {

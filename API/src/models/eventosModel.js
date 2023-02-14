@@ -25,7 +25,8 @@ class EventosModel {
     ee.pais,
     u.nome AS usuario_nome,
     u.url_imagem_perfil AS usuario_avatar,
-    count(ec.id_usuario) as total_curtidas,
+    u.ID as usuario_id,
+    (select count(ec.id_evento) from eventos_curtidas ec where ec.id_evento = e.ID) as total_curtidas,
     (select
 			count(ce.ID) + (select count(rc.ID) from respostas_comentario rc
 			join comentarios_evento ce2 ON ce2.ID = rc.id_comentario
@@ -36,12 +37,13 @@ class EventosModel {
   FROM eventos e
   LEFT JOIN endereco_eventos ee ON ee.id_evento = e.ID
   LEFT JOIN eventos_curtidas ec ON ec.id_evento = e.ID
-  JOIN usuarios u ON e.id_usuario = u.ID
+  LEFT JOIN usuarios u ON e.id_usuario = u.ID
   WHERE ${whereCondition};`;
 
     const queryComments = `SELECT
       ce.ID,
       ce.descricao,
+      u.ID as autor_id,
       u.nome AS autor,
       u.url_imagem_perfil AS autor_avatar
       FROM comentarios_evento ce
@@ -51,6 +53,7 @@ class EventosModel {
     const queryReply = `SELECT
       rc.ID,
       rc.descricao,
+      u.ID as autor_id,
       u.nome AS autor,
       u.url_imagem_perfil AS autor_avatar
       FROM respostas_comentario rc
@@ -59,7 +62,12 @@ class EventosModel {
 
     const [resultEvents] = await this.db.query(queryEvents, [userId, ...queryVariables]);
 
-    for (const event of resultEvents) {
+    const parsedResultEvents = resultEvents.reduce((agg, cur) => {
+      if (cur.ID) return [...agg, cur];
+      return agg;
+    }, []);
+
+    for (const event of parsedResultEvents) {
       const [resultComments] = await this.db.query(queryComments, [event.ID]);
 
       for (const comment of resultComments) {
@@ -69,12 +77,12 @@ class EventosModel {
       event.comentarios = resultComments;
     }
 
-    return resultEvents;
+    return parsedResultEvents;
   }
 
-  async getAll({ maxLat, maxLon, minLat, minLon }) {
-    const whereCondition = 'ee.longitude <= ? AND ee.longitude >= ? AND ee.latitude <= ? AND ee.latitude >= ?';
-    const response = await this.getEventsByWhereCondition(whereCondition, [maxLon, minLon, maxLat, minLat]);
+  async getAll({ maiorLat, maiorLong, menorLat, menorLong }) {
+    const whereCondition = 'ee.latitude  <= ? AND ee.latitude  >=  ? AND ee.longitude  <= ? AND ee.longitude  >= ?';
+    const response = await this.getEventsByWhereCondition(whereCondition, [maiorLat, menorLat, maiorLong, menorLong]);
     return response;
   }
 
@@ -134,7 +142,7 @@ class EventosModel {
       descricao_endereco,
       autoDescEndereco,
       addressDetails.road || '',
-      addressDetails.town || '',
+      addressDetails.town || addressDetails.village || '',
       addressDetails.state || '',
       addressDetails.country || '',
     ]);

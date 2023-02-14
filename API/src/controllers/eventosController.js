@@ -6,8 +6,25 @@ import path from 'path';
 class EventosController {
   async getAll(req, res) {
     try {
-      const exmplGeoloaction = { maxLat: 48, maxLon: 18, minLat: 42, minLon: 12 };
-      const result = await EventosModel.getAll(exmplGeoloaction);
+      const curGeolocation = {
+        lat: -17,
+        lng: -42,
+      };
+
+      const maxDistance = 30;
+
+      // latitude
+      const diffLat = maxDistance / 107;
+      const diffLong = maxDistance / 99.012;
+
+      const geoMetrics = {
+        maiorLat: diffLat + curGeolocation.lat,
+        menorLat: -diffLat + curGeolocation.lat,
+        maiorLong: diffLong + curGeolocation.lng,
+        menorLong: -diffLong + curGeolocation.lng,
+      };
+
+      const result = await EventosModel.getAll(geoMetrics);
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

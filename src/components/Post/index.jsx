@@ -61,7 +61,7 @@ function Post({ event }) {
     },
   };
 
-  const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.title}-${event.createdAt}` });
+  const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.titulo}-${event.criado_em}` });
   const [commentsIsOpen, setCommentsIsOpen] = useState(false);
 
   function handleComments() {
@@ -80,9 +80,12 @@ function Post({ event }) {
     <>
       <Box borderRadius="10px" bgColor="#FFF" width="100%" minH="50px" pb={contentPadding}>
         <HStack alignItems="flex-start" justifyContent="space-between" w="full" padding={contentPadding}>
-          <PostAutorWithDate autor={event.autor} postCreationDate={event.createdAt} />
+          <PostAutorWithDate
+            autor={{ imagem: event.usuario_avatar, name: event.usuario_nome }}
+            postCreationDate={event.criado_em}
+          />
           <Flex alignItems="flex-end" flexDir="column" gap={1}>
-            <EventState start={event.initDate} end={event.finallyDate} />
+            <EventState start={event.data_inicio} end={event.data_fim} />
           </Flex>
         </HStack>
         <VStack
@@ -96,31 +99,31 @@ function Post({ event }) {
           <HStack gap={6}>
             <PostShortInfo
               icon={<MdAlarmOn color={colors.cinza[50]} />}
-              text={convertEventDate(event.initDate).date + ` - ${convertEventDate(event.initDate).hour}`}
+              text={convertEventDate(event.data_inicio).date + ` - ${convertEventDate(event.data_inicio).hour}`}
             />
             <PostShortInfo
               icon={<MdAlarmOff color={colors.cinza[50]} />}
-              text={convertEventDate(event.finallyDate).date + ` - ${convertEventDate(event.finallyDate).hour}`}
+              text={convertEventDate(event.data_fim).date + ` - ${convertEventDate(event.data_fim).hour}`}
             />
           </HStack>
           <PostShortInfo
             icon={<BiMap color={colors.cinza[50]} />}
-            text={String(`Em ${event.addressInfo.town}, À ${32}km`).toLocaleUpperCase()}
+            text={String(`Em ${event.cidade}, À ${32}km`).toLocaleUpperCase()}
           />
         </VStack>
         <Box padding={contentPadding}>
           <HStack mt={2}>
-            <EventTitle text={event.title} />
+            <EventTitle text={event.titulo} />
             <Faixaetaria label="+16" color="red.500" />
           </HStack>
           <Box>
-            <EventDescription text={event.description} />
-            {event.image && <PostImage src={event.image} />}
+            <EventDescription text={event.descricao} />
+            {event.url_imagem && <PostImage src={`http://localhost:3004/${event.url_imagem}`} />}
             <Flex justifyContent="flex-end" alignItems="center" mt={7}>
               <Text fontSize={12}>
-                {interesedCount} {interesedCount === 1 ? 'interessado' : 'interessados'}
+                {event.total_curtidas} {event.total_curtidas === 1 ? 'interessado' : 'interessados'}
                 {' e '}
-                {event.totalComments} {event.totalComments === 1 ? 'comentário' : 'comentários'}
+                {event.total_comentarios} {event.total_comentarios === 1 ? 'comentário' : 'comentários'}
               </Text>
             </Flex>
             <Flex justifyContent="space-between" alignItems="center">
@@ -139,28 +142,28 @@ function Post({ event }) {
               <Divider my={2} w="70%" />
             </Center>
             <Box w="full" css={scrollStyle} maxH="250px" overflow="auto" pr={2}>
-              {comments.map((comment) => {
+              {event.comentarios.map((comment) => {
                 return (
                   <>
                     <Box my={2}>
                       <Comment
-                        author={comment.author}
-                        createdAt={comment.createdAt}
-                        text={comment.message}
+                        author={comment.autor}
+                        createdAt={comment.ID}
+                        text={comment.descricao}
                         handleReply={() => {
-                          handleReplyComment(comment.id, comment.author);
+                          handleReplyComment(comment.ID, comment.autor);
                         }}
                       />
                     </Box>
                     <ReplyContainer>
                       <VStack>
-                        {comment.replies.map((reply) => (
+                        {comment.respostas.map((reply) => (
                           <Comment
-                            author={reply.author}
-                            createdAt={reply.createdAt}
-                            text={reply.message}
+                            author={reply.autor}
+                            createdAt={reply.ID}
+                            text={reply.descricao}
                             handleReply={() => {
-                              handleReplyComment(comment.id, reply.author);
+                              handleReplyComment(comment.ID, reply.autor);
                             }}
                           />
                         ))}
@@ -193,11 +196,11 @@ function Post({ event }) {
         </Box>
       </Box>
       <ModalAddressDetails
-        autoAddress={event.display_address_name}
+        autoAddress={event.auto_descricao_endereco}
         isOpen={isOpen}
         onClose={onClose}
-        address={event.addressDetails}
-        LatLng={{ lat: event.location.latitude, lng: event.location.longitude }}
+        address={event.descricao_endereco}
+        LatLng={{ lat: event.latitude, lng: event.longitude }}
       />
     </>
   );

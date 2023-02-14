@@ -24,34 +24,34 @@ function MiniEvent({ distance, event }) {
         border="1px solid #FF9900"
       >
         <GridItem width="100px">
-          <Image src={event.image} />
+          <Image src={event.url_imagem} />
         </GridItem>
         <GridItem width="100%" textAlign="left">
           <Flex flexDir="column" justifyContent="space-between" h="full" w="full">
             <Box>
               <Flex alignItems="center" justifyContent="space-between">
                 <Text fontWeight="400" fontSize="14px" lineHeight="17px" color={colors.secondary[900]}>
-                  {event.autor.nome}
+                  {event.usuario_nome}
                 </Text>
                 <Faixaetaria label="l" color="yellow.300" />
               </Flex>
               <Text fontWeight="400" fontSize="10px" lineHeight="12px" color={colors.cinza[400]}>
-                {getDateDiff(event.createdAt)}
+                {getDateDiff(event.criado_em)}
               </Text>
               <Flex alignItems="center">
                 <Text fontWeight="400" fontSize="10px" lineHeight="12px" color={colors.cinza[400]}>
-                  Em {event.addressInfo.town}, à {distance}
+                  Em {event.cidade}, à {distance}
                 </Text>
                 <CiLocationOn />
               </Flex>
               <Text color="secondary.600" fontSize={22} fontWeight={600}>
-                {event.title}
+                {event.titulo}
               </Text>
             </Box>
             <Box w="full">
               <ButtonSubmit
                 onClick={() => {
-                  navigate(`/publicacao/${event.id}`);
+                  navigate(`/publicacao/${event.ID}`);
                 }}
                 text="Mais informações"
                 background={colors.primary[300]}
