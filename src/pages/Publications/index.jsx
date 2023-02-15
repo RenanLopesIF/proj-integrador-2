@@ -41,22 +41,23 @@ function Publications() {
   }
 
   async function getPartyEvent() {
-    try {
-      const data = await api.get(
-        `http://localhost:3004/eventos?lat=${currentGeolocation.lat}&lng=${currentGeolocation.lng}`,
-      );
-      setPartyEvent(data.data);
-      setPartyEspecifyEvent(data.data);
-      console.log(data.data);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
+    if (currentGeolocation.lat && currentGeolocation.lng) {
+      try {
+        const data = await api.get(
+          `http://localhost:3004/eventos?lat=${currentGeolocation.lat}&lng=${currentGeolocation.lng}`,
+        );
+        setPartyEvent(data.data);
+        setPartyEspecifyEvent(data.data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
   useEffect(() => {
-    if (currentGeolocation.lat && currentGeolocation.lng) getPartyEvent();
+    getPartyEvent();
   }, [currentGeolocation]);
 
   if (loading)
@@ -85,7 +86,7 @@ function Publications() {
                   </Text>
                 </Center>
               ) : partyEspecifyEvent.length > 0 ? (
-                partyEspecifyEvent.map((event) => <Post event={event} />)
+                partyEspecifyEvent.map((event) => <Post refetch={getPartyEvent} event={event} />)
               ) : (
                 <Center w="100%" h="100%">
                   <Text fontWeight="900" fontSize="30px" color="secondary.600">

@@ -20,7 +20,7 @@ export function getDateDiff(timestamp) {
 
   const diffSeconds = getDiffSeconds(date1, date2);
 
-  const isBefore = timestamp < Date.now();
+  const isBefore = date2.getTime() < date1.getTime();
   // eslint-disable-next-line no-undef
   const rtf = new Intl.RelativeTimeFormat('pt-BR', { style: 'short' });
 

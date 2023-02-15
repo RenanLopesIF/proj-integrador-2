@@ -45,22 +45,26 @@ class EventosModel {
     const queryComments = `SELECT
       ce.ID,
       ce.descricao,
+      ce.criado_em,
       u.ID as autor_id,
       u.nome AS autor,
       u.url_imagem_perfil AS autor_avatar
       FROM comentarios_evento ce
       JOIN usuarios u ON u.ID = ce.id_usuario
-    WHERE ce.id_evento = ?;`;
+    WHERE ce.id_evento = ?
+    ORDER BY ce.criado_em DESC;`;
 
     const queryReply = `SELECT
       rc.ID,
       rc.descricao,
+      rc.criado_em,
       u.ID as autor_id,
       u.nome AS autor,
       u.url_imagem_perfil AS autor_avatar
       FROM respostas_comentario rc
       JOIN usuarios u ON u.ID = rc.id_usuario
-    WHERE rc.id_comentario = ?;`;
+    WHERE rc.id_comentario = ?
+    ORDER BY rc.criado_em DESC;`;
 
     const [resultEvents] = await this.db.query(queryEvents, [userId, ...queryVariables]);
 
@@ -120,8 +124,7 @@ class EventosModel {
     addressDetails,
     img_ext,
   }) {
-    const query = 'INSERT INTO eventos VALUES (default,?,?,?,?,?,?,?,?)';
-    const criado_em = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const query = 'INSERT INTO eventos VALUES (default,?,?,?,?,?,?,?,default)';
     const [resultEvento] = await this.db.query(query, [
       id_usuario,
       titulo,
@@ -130,7 +133,6 @@ class EventosModel {
       url_imagem,
       data_inicio,
       data_fim,
-      criado_em,
     ]);
 
     const eventId = resultEvento.insertId;
@@ -188,7 +190,7 @@ class EventosModel {
 
   async addEventComment({ userId, eventId, description }) {
     const query = `INSERT INTO  comentarios_evento VALUES (
-      DEFAULT, ?,?,?
+      DEFAULT, ?,?,?,DEFAULT
     )`;
 
     const [result] = await this.db.query(query, [eventId, userId, description]);
@@ -197,7 +199,7 @@ class EventosModel {
 
   async addCommentReply({ userId, comentId, description }) {
     const query = `INSERT INTO respostas_comentario VALUES (
-      DEFAULT,?,?,?
+      DEFAULT,?,?,?,DEFAULT
     )`;
 
     const [result] = await this.db.query(query, [comentId, userId, description]);

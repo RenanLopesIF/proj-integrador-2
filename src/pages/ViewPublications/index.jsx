@@ -14,18 +14,18 @@ function ViewPublications() {
 
   const { id: publicationId } = useParams();
 
-  useEffect(() => {
-    async function getEvent() {
-      try {
-        const data = await api.get(`http://localhost:3004/evento/${publicationId}`);
-        setEvent(data.data[0]);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+  async function getEvent() {
+    try {
+      const data = await api.get(`http://localhost:3004/evento/${publicationId}`);
+      setEvent(data.data[0]);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
+  }
 
+  useEffect(() => {
     getEvent();
   }, []);
 
@@ -59,7 +59,7 @@ function ViewPublications() {
         </Flex>
         <Center>
           <Flex w="578px" flexDirection="column" gap="20px">
-            <Post event={event} />
+            <Post refetch={getEvent} event={event} />
           </Flex>
         </Center>
       </Box>

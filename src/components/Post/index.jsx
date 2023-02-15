@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, HStack, Text, Flex, VStack, useDisclosure, Textarea, Divider, Center } from '@chakra-ui/react';
+import { Box, HStack, Text, Flex, VStack, useDisclosure, Textarea, Divider, Center, Button } from '@chakra-ui/react';
 import { MdAlarmOff, MdAlarmOn, MdOutlineStarBorderPurple500, MdStar } from 'react-icons/md';
 import { BiMap, BiComment } from 'react-icons/bi';
 import { TbMap2 } from 'react-icons/tb';
@@ -20,7 +20,7 @@ import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
 import { toast } from 'react-toastify';
 
-function Post({ event }) {
+function Post({ event, refetch }) {
   const contentPadding = 3;
   const { colors } = useTheme();
   const inputCommentRef = useRef();
@@ -44,9 +44,57 @@ function Post({ event }) {
   const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.titulo}-${event.criado_em}` });
   const [commentsIsOpen, setCommentsIsOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(event.curtiu === 1);
+  const [idToSentComment, setIdToSentComment] = useState(event.ID);
+  const [commentReferType, setCommentReferType] = useState('post');
 
   function handleComments() {
     setCommentsIsOpen((prev) => !prev);
+  }
+
+  function handleReplyComment(commentId, commentAuthor) {
+    setIdToSentComment(commentId);
+    setCommentReferType('comment');
+    const rr = /^@+\w+ ?\w+,/gm;
+    const oldInputValue = String(inputCommentRef.current.value).replace(rr, '');
+    inputCommentRef.current.value = `@${commentAuthor},${oldInputValue}`;
+    inputCommentRef.current.focus();
+  }
+
+  async function sendComment() {
+    const commentValue = inputCommentRef.current.value;
+    if (!commentValue) {
+      toast.warning('O comentário não pode estar vazio!');
+      return;
+    }
+
+    if (!isAuthed) {
+      toast.warning('Faça login para poder enviar um comentário!');
+      return;
+    }
+
+    const url = commentReferType === 'post' ? '/evento/enviar-comentario' : '/evento/enviar-resposta';
+    const data =
+      commentReferType === 'post'
+        ? {
+            userId: userData.ID,
+            eventId: idToSentComment,
+            description: inputCommentRef.current.value,
+          }
+        : {
+            userId: userData.ID,
+            comentId: idToSentComment,
+            description: inputCommentRef.current.value,
+          };
+
+    await api.post(url, data);
+
+    if (refetch) {
+      await refetch();
+    }
+
+    toast.info('Seu comentário foi enviado!');
+    inputCommentRef.current.value = '';
+    return;
   }
 
   async function handleLike() {
@@ -70,14 +118,6 @@ function Post({ event }) {
         },
       });
     }
-  }
-
-  function handleReplyComment(commentId, commentAuthor) {
-    console.log(commentId);
-    const rr = /^@+\w+ ?\w+,/gm;
-    const oldInputValue = String(inputCommentRef.current.value).replace(rr, '');
-    inputCommentRef.current.value = `@${commentAuthor},${oldInputValue}`;
-    inputCommentRef.current.focus();
   }
 
   return (
@@ -152,7 +192,7 @@ function Post({ event }) {
                     <Box my={2}>
                       <Comment
                         author={comment.autor}
-                        createdAt={comment.ID}
+                        createdAt={comment.criado_em}
                         text={comment.descricao}
                         handleReply={() => {
                           handleReplyComment(comment.ID, comment.autor);
@@ -164,7 +204,7 @@ function Post({ event }) {
                         {comment.respostas.map((reply) => (
                           <Comment
                             author={reply.autor}
-                            createdAt={reply.ID}
+                            createdAt={reply.criado_em}
                             text={reply.descricao}
                             handleReply={() => {
                               handleReplyComment(comment.ID, reply.autor);
@@ -195,7 +235,18 @@ function Post({ event }) {
               placeholder="Adicionar um comentário"
               size="sm"
               resize="none"
+              onChange={(ev) => {
+                if (!ev.target.value) {
+                  setIdToSentComment(event.ID);
+                  setCommentReferType('post');
+                }
+              }}
             />
+            <Flex w="full" justifyContent="flex-end">
+              <Button onClick={sendComment} colorScheme="secondary">
+                Enviar comentário
+              </Button>
+            </Flex>
           </VStack>
         </Box>
       </Box>

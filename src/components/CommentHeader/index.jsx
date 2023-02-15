@@ -9,7 +9,7 @@ function CommentHeader({ replyFn, createdAt, author }) {
       <HStack>
         <Avatar size="sm" name="Reh lopes" />
         <Text ml={2}>{author}</Text>
-        {/* <Text ml="3">{getDateDiff(createdAt)}</Text> */}
+        <Text ml="3">{getDateDiff(createdAt)}</Text>
       </HStack>
       <Flex cursor="pointer" alignItems="center" onClick={replyFn}>
         <RiReplyFill />
