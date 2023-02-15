@@ -44,7 +44,7 @@ routes.delete('/evento/deletar/:eventID/:userID', protectedRoute, EventosControl
 routes.delete('/evento/remover-curtida', protectedRoute, EventosController.removeEventLike);
 
 routes.post('/auth/recuperar-senha', AuthController.sendMailToRecoveryPassword);
-routes.put('/auth/recuperar-senha/nova-senha/:userIdToken', AuthController.changePasswordFromMailToRecovery);
+routes.put('/auth/recuperar-senha/nova-senha', AuthController.changePasswordFromMailToRecovery);
 routes.post('/auth/novo', AuthController.inserirUser);
 routes.post('/auth/login', AuthController.login);
 routes.post('/auth/decode-token', protectedRoute, AuthController.decodeToken);

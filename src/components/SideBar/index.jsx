@@ -1,4 +1,4 @@
-import { Box, Divider, Flex } from '@chakra-ui/react';
+import { Box, Divider, Flex, Image } from '@chakra-ui/react';
 import React from 'react';
 import { IoMdHome } from 'react-icons/io';
 import NavigationButtonSide from '../NavigationButtonSide';
@@ -28,7 +28,7 @@ function SideBar() {
         <Flex w="full" h="full" flexDir="column" p={4}>
           <Flex h="full" w="full" flexDir="column" gap={2}>
             <Box mb={5}>
-              <NavigationButtonSide text="LOGOMARCA" />
+              <NavigationButtonSide icon={<Image w="36px" h="44px" src="FestFinder.png" />} text="FestFinder" />
             </Box>
             {items.map((item) => {
               if (!isAuthed && itemNeedAuth.includes(item.href)) return;

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Flex, Link } from '@chakra-ui/react';
+import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
 import Custominput from '../../components/CustomInput';
 import InputEsquecSenha from '../../components/InputEsquecSenha';
 import ButtonSubmit from '../../components/ButtonSubmit';
-import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
+import ButtonBack from '../../components/ButtonBack';
 
 function TelaLogin() {
   const formRef = useRef();
@@ -16,8 +16,6 @@ function TelaLogin() {
     const formData = Object.fromEntries(form);
 
     await login(formData.login, formData.senha);
-
-    console.log(formData);
   }
 
   useEffect(() => {
@@ -27,14 +25,15 @@ function TelaLogin() {
   return (
     <Box>
       <Box backgroundColor="primary.300" height="140px" p={4}>
-        <Link href="/" fontWeight="500" color="white">
-          Voltar
-        </Link>
+        <ButtonBack href="/" />
       </Box>
       <Flex flexDirection={'column'} alignItems="center" width={'100%'} height={'100%'} marginTop={'7%'}>
-        <Box>
-          <img src="/src/assets/logotipo.png" />
-        </Box>
+        <Flex alignItems="center" mb={2}>
+          <Image w="60px" h="72px" src="FestFinder.png" />
+          <Text ml={6} color="primary.300" fontWeight={500} fontSize={32}>
+            FestFinder
+          </Text>
+        </Flex>
         <Box
           as="form"
           ref={formRef}

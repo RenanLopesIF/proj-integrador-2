@@ -1,15 +1,15 @@
 import React from 'react';
-import { Box, Center, Flex, Link } from '@chakra-ui/react';
+import { Box, Center, Flex, Image, Link, Text } from '@chakra-ui/react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import CustomInput from '../../components/CustomInput';
 import api from '../../services/axios';
 import { toast } from 'react-toastify';
+import ButtonBack from '../../components/ButtonBack';
 
 function TelaDeCadastro() {
   async function handleSubmit(e) {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.nativeEvent.target));
-    console.log(form);
 
     if (form.senha != form.confirmaSenha) {
       toast.error('Confirmação de senha não coincide');
@@ -26,7 +26,9 @@ function TelaDeCadastro() {
 
   return (
     <Box>
-      <Box backgroundColor="primary.300" height="140px" p={4} />
+      <Box backgroundColor="primary.300" height="140px" p={4}>
+        <ButtonBack href="/login" />
+      </Box>
       <Center>
         <Flex
           onSubmit={handleSubmit}
@@ -39,7 +41,12 @@ function TelaDeCadastro() {
           marginTop={'5%'}
         >
           <Box boxSize={'50%'}>
-            <img src="/src/assets/logotipo.png" />
+            <Flex alignItems="center">
+              <Image w="60px" h="72px" src="FestFinder.png" />
+              <Text ml={6} color="primary.300" fontWeight={500} fontSize={32}>
+                FestFinder
+              </Text>
+            </Flex>
           </Box>
 
           <CustomInput inputName="email" typeInput="text-disabled" placeholder="Email" />

@@ -10,11 +10,12 @@ class AuthController {
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
 
     try {
+      const criptSenha = CryptoJS.AES.encrypt(String(senha), recoverySecretKey).toString();
       const decryptedID = CryptoJS.AES.decrypt(decodeURIComponent(userIdToken), recoverySecretKey).toString(
         CryptoJS.enc.Utf8,
       );
 
-      const result = await UsuariosModel.updatePasswordById({ senha, id: decryptedID });
+      const result = await UsuariosModel.updatePasswordById({ senha: criptSenha, id: decryptedID });
 
       res.status(200).send(result);
     } catch (error) {
@@ -107,7 +108,6 @@ class AuthController {
       console.log(chekoutLogin);
       const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey);
       const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8);
-      console.log(decryptSenha);
 
       if (criptSenha.length === 0 || decryptSenha != req.body.senha) {
         res.status(401).send({ message: 'Usuário ou senha invalidos!' });
