@@ -105,10 +105,26 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
     return result;
   }
+
+  async updateUserCredentials({ login, senha, userId }) {
+    const query = `UPDATE credenciais_usuario cu
+      SET login = ?, senha = ?
+      WHERE cu.id_usuario = ?;`;
+
+    const [result] = await this.db.query(query, [login, senha, userId]);
+    return result;
+  }
+
   async checkpasswordUserLogin({ login }) {
     const query = 'SELECT senha FROM credenciais_usuario WHERE login = ?';
 
     const [result] = await this.db.query(query, [login]);
+    return result;
+  }
+
+  async getUserCredentials({ userId }) {
+    const query = `SELECT login, senha FROM credenciais_usuario cu WHERE id_usuario = ?;`;
+    const [result] = await this.db.query(query, [userId]);
     return result;
   }
 }

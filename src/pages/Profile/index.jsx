@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Box, Button, Circle, Flex, GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 import UserBanner from '../../components/UserBanner';
@@ -6,36 +6,64 @@ import UserChooseImage from '../../components/UserChooseImage';
 import { HiCamera } from 'react-icons/hi';
 import ButtonEditPerfil from '../../components/ButtonEditPerfil';
 import { MdModeEditOutline } from 'react-icons/md';
-import axios from 'axios';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Post from '../../components/Post';
 import InputWithLabel from '../../components/InputWithLabel';
+import api from '../../services/axios';
+import { useAuth } from '../../hooks/auth';
+import { toast } from 'react-toastify';
 
 function Profile() {
   const [currentTab, setCurrentTab] = useState('edit');
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { userData, isAuthed } = useAuth();
+  const [userCredentials, setUserCredentials] = useState({ login: '', senha: '' });
 
   function handleTabScreen(tab) {
     setCurrentTab(tab);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     // eslint-disable-next-line no-undef
     const formData = Object.fromEntries(new FormData(e.target));
     // eslint-disable-next-line no-undef
-    console.log(formData);
+    if (formData.password != formData.confirmPassword) {
+      toast.error('Confirmação de senha não coincide!');
+      return;
+    }
+    await api.put('/usuario/atualizar/dados', {
+      userID: userData.ID,
+      name: formData.name,
+      email: formData.email,
+      birthdate: formData.birthdate,
+      login: formData.login,
+      senha: formData.password,
+    });
   }
 
+  const getEventsByUser = useCallback(async () => {
+    const res = await api.get(`/usuario/eventos/${userData.ID}`);
+    setEvents(res.data);
+    setIsLoading(false);
+  }, [userData]);
+
+  const getUserCredentials = useCallback(async () => {
+    const res = await api.get(`/auth/usuario-credenciais`);
+    setUserCredentials(res.data);
+  }, [userData]);
+
   useEffect(() => {
-    (async () => {
-      const url = 'http://localhost:3005/events';
-      const { data } = await axios.get(url);
-      setEvents(data);
-      setIsLoading(false);
-    })();
-  }, []);
+    if (userData.ID) {
+      getEventsByUser();
+      getUserCredentials();
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthed) window.location = '/';
+  }, [isAuthed, isLoading]);
 
   if (isLoading)
     return (
@@ -79,7 +107,7 @@ function Profile() {
           {currentTab === 'publications' && (
             <VStack gap={6}>
               {events.map((evt) => (
-                <Post event={evt} />
+                <Post refetch={getEventsByUser} key={evt.ID} event={evt} />
               ))}
             </VStack>
           )}
@@ -89,22 +117,37 @@ function Profile() {
               <form onSubmit={handleSubmit}>
                 <SimpleGrid columns={2} spacingX={5} spacingY={8}>
                   <GridItem colSpan={2}>
-                    <InputWithLabel name="email" label="Email:" invalidText="preencha" />
+                    <InputWithLabel defaultValue={userData.email} name="email" label="Email:" invalidText="preencha" />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel name="name" label="Nome:" />
+                    <InputWithLabel defaultValue={userData.nome} name="name" label="Nome:" />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel name="user" label="Usuário:" />
+                    <InputWithLabel defaultValue={userCredentials.login} name="login" label="Usuário:" />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel name="password" label="Senha:" />
+                    <InputWithLabel
+                      defaultValue={userCredentials.senha}
+                      type="password"
+                      name="password"
+                      label="Senha:"
+                    />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel name="confirmPassword" label="Confirmação de senha:" />
+                    <InputWithLabel
+                      defaultValue={userCredentials.senha}
+                      type="password"
+                      name="confirmPassword"
+                      label="Confirmação de senha:"
+                    />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel name="birthdate" label="Data de nascimento:" type="date" />
+                    <InputWithLabel
+                      defaultValue={userData.data_nascimento ? userData.data_nascimento.split('T')[0] : ''}
+                      name="birthdate"
+                      label="Data de nascimento:"
+                      type="date"
+                    />
                   </GridItem>
 
                   <GridItem justifyContent="flex-end" display="flex">

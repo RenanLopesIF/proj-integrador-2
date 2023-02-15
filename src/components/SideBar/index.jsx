@@ -33,7 +33,13 @@ function SideBar() {
             {items.map((item) => {
               if (!isAuthed && itemNeedAuth.includes(item.href)) return;
               return (
-                <NavigationButtonSide text={item.text} href={item.href} icon={item.icon} isActive={item.isActive} />
+                <NavigationButtonSide
+                  key={item.href}
+                  text={item.text}
+                  href={item.href}
+                  icon={item.icon}
+                  isActive={item.isActive}
+                />
               );
             })}
           </Flex>

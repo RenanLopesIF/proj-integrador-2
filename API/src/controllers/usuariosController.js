@@ -1,5 +1,6 @@
 import UsuariosModel from '../models/usuariosModel.js';
 import path from 'path';
+import CryptoJS from 'crypto-js';
 
 class UsuariosController {
   async getOne(req, res) {
@@ -77,7 +78,10 @@ class UsuariosController {
   }
   async updateUserData(req, res) {
     try {
-      const { userID, name, email, birthdate } = req.body;
+      const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
+
+      const { userID, name, email, birthdate, login, senha } = req.body;
+      const criptSenha = CryptoJS.AES.encrypt(String(senha), recoverySecretKey).toString();
 
       console.log(req.body);
       const result = await UsuariosModel.updateUserData({
@@ -86,6 +90,14 @@ class UsuariosController {
         email,
         birthdate,
       });
+
+      const respp = await UsuariosModel.updateUserCredentials({
+        login,
+        senha: criptSenha,
+        userId: userID,
+      });
+
+      console.log(respp);
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

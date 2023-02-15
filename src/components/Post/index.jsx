@@ -186,9 +186,9 @@ function Post({ event, refetch }) {
               <Divider my={2} w="70%" />
             </Center>
             <Box w="full" css={scrollStyle} maxH="250px" overflow="auto" pr={2}>
-              {event.comentarios.map((comment) => {
+              {event.comentarios.map((comment, idx) => {
                 return (
-                  <>
+                  <Box key={'evt-comment' + idx}>
                     <Box my={2}>
                       <Comment
                         author={comment.autor}
@@ -201,8 +201,9 @@ function Post({ event, refetch }) {
                     </Box>
                     <ReplyContainer>
                       <VStack>
-                        {comment.respostas.map((reply) => (
+                        {comment.respostas.map((reply, idx) => (
                           <Comment
+                            key={'evt-reply' + idx}
                             author={reply.autor}
                             createdAt={reply.criado_em}
                             text={reply.descricao}
@@ -213,7 +214,7 @@ function Post({ event, refetch }) {
                         ))}
                       </VStack>
                     </ReplyContainer>
-                  </>
+                  </Box>
                 );
               })}
             </Box>

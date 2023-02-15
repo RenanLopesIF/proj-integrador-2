@@ -86,7 +86,7 @@ function Publications() {
                   </Text>
                 </Center>
               ) : partyEspecifyEvent.length > 0 ? (
-                partyEspecifyEvent.map((event) => <Post refetch={getPartyEvent} event={event} />)
+                partyEspecifyEvent.map((event) => <Post key={event.ID} refetch={getPartyEvent} event={event} />)
               ) : (
                 <Center w="100%" h="100%">
                   <Text fontWeight="900" fontSize="30px" color="secondary.600">

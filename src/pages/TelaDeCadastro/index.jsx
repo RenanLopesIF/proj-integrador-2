@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, Center, Flex, Link } from '@chakra-ui/react';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import CustomInput from '../../components/CustomInput';
-import api from "../../services/axios";
-
+import api from '../../services/axios';
+import { toast } from 'react-toastify';
 
 function TelaDeCadastro() {
   async function handleSubmit(e) {
@@ -11,20 +11,18 @@ function TelaDeCadastro() {
     const form = Object.fromEntries(new FormData(e.nativeEvent.target));
     console.log(form);
 
-    if(form.senha != form.confirmaSenha ){
-      console.log("Senha incorreta")
-      return 
+    if (form.senha != form.confirmaSenha) {
+      toast.error('Confirmação de senha não coincide');
+      return;
     }
-    await api.post("/auth/novo",{
-      nome: form.name + " " + form.sobrenome,
+    await api.post('/auth/novo', {
+      nome: form.name + ' ' + form.sobrenome,
       email: form.email,
       data_nascimento: form.nascimento,
       login: form.login,
-      senha: form.senha
+      senha: form.senha,
     });
-
   }
-
 
   return (
     <Box>

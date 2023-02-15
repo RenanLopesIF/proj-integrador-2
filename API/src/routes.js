@@ -48,5 +48,6 @@ routes.put('/auth/recuperar-senha/nova-senha/:userIdToken', AuthController.chang
 routes.post('/auth/novo', AuthController.inserirUser);
 routes.post('/auth/login', AuthController.login);
 routes.post('/auth/decode-token', protectedRoute, AuthController.decodeToken);
+routes.get('/auth/usuario-credenciais', protectedRoute, AuthController.getUserCredentials);
 
 export default routes;

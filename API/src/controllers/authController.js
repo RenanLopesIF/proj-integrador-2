@@ -14,7 +14,7 @@ class AuthController {
         CryptoJS.enc.Utf8,
       );
 
-      const result = await usuariosModel.updatePasswordById({ senha, id: decryptedID });
+      const result = await UsuariosModel.updatePasswordById({ senha, id: decryptedID });
 
       res.status(200).send(result);
     } catch (error) {
@@ -30,7 +30,7 @@ class AuthController {
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
     const frontEndRoutePath = `http://localhost:3000`;
 
-    const currentUser = await usuariosModel.getUserByEmail({ email });
+    const currentUser = await UsuariosModel.getUserByEmail({ email });
     const encryptedID = CryptoJS.AES.encrypt(String(currentUser.ID), recoverySecretKey).toString();
 
     const recoveryLink = `${frontEndRoutePath}/recuperar-senha/nova-senha/${encodeURIComponent(encryptedID)}`;
@@ -89,7 +89,7 @@ class AuthController {
 
       const criptSenha = CryptoJS.AES.encrypt(String(req.body.senha), recoverySecretKey).toString();
       req.body.senha = criptSenha;
-      const resultUser = await usuariosModel.insertOne(req.body);
+      const resultUser = await UsuariosModel.insertOne(req.body);
 
       res.status(200).json({ resultUser });
     } catch (error) {
@@ -103,7 +103,7 @@ class AuthController {
     // metodo para autenticar o user
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
     try {
-      const chekoutLogin = await usuariosModel.checkpasswordUserLogin({ login: req.body.login });
+      const chekoutLogin = await UsuariosModel.checkpasswordUserLogin({ login: req.body.login });
       console.log(chekoutLogin);
       const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey);
       const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8);
@@ -114,8 +114,8 @@ class AuthController {
         return;
       }
 
-      const result = await usuariosModel.authenticat({ login: req.body.login, senha: decryptSenha });
-      const curUser = await usuariosModel.getUserById({ userId: result[0].id_usuario });
+      const result = await UsuariosModel.authenticat({ login: req.body.login, senha: decryptSenha });
+      const curUser = await UsuariosModel.getUserById({ userId: result[0].id_usuario });
       console.log(curUser);
       if (curUser) {
         // verificação se existe um usuario no banco
@@ -155,6 +155,26 @@ class AuthController {
 
     const result = await UsuariosModel.getUserById({ userId: resDecode.data.ID });
     res.status(200).send({ data: result });
+    res.end();
+  }
+
+  async getUserCredentials(req, res) {
+    const userToken = req.headers['user-token'];
+    const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
+
+    if (!userToken) {
+      res.status(401).send({ message: 'token inválido' });
+      res.end();
+      return;
+    }
+
+    const resDecode = decodeJwt(userToken);
+    const userCredentials = await UsuariosModel.getUserCredentials({ userId: resDecode.data.ID });
+
+    const criptSenha = CryptoJS.AES.decrypt(userCredentials[0].senha, recoverySecretKey);
+    const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8);
+
+    res.status(200).send({ login: userCredentials[0].login, senha: decryptSenha });
     res.end();
   }
 }
