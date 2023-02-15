@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import usuariosModel from '../models/usuariosModel.js';
+import UsuariosModel from '../models/usuariosModel.js';
 import CryptoJS from 'crypto-js';
 import encodeJwt from '../utils/encodeJwt.js';
 import decodeJwt from '../utils/decodeJwt.js';
@@ -103,18 +103,18 @@ class AuthController {
     // metodo para autenticar o user
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
     try {
-      const chekoutLogin = await usuariosModel.checkpasswordUserLogin({login:req.body.login})
+      const chekoutLogin = await usuariosModel.checkpasswordUserLogin({ login: req.body.login });
       console.log(chekoutLogin);
-      const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey)
-      const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8)
+      const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey);
+      const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8);
       console.log(decryptSenha);
-      
-      if (criptSenha.length === 0 || decryptSenha!= req.body.senha) {
+
+      if (criptSenha.length === 0 || decryptSenha != req.body.senha) {
         res.status(401).send({ message: 'Usuário ou senha invalidos!' });
         return;
       }
-      
-      const result = await usuariosModel.authenticat({ login: req.body.login, senha: decryptSenha});
+
+      const result = await usuariosModel.authenticat({ login: req.body.login, senha: decryptSenha });
       const curUser = await usuariosModel.getUserById({ userId: result[0].id_usuario });
       console.log(curUser);
       if (curUser) {
@@ -153,7 +153,8 @@ class AuthController {
       return;
     }
 
-    res.status(200).send({ data: resDecode.data });
+    const result = await UsuariosModel.getUserById({ userId: resDecode.data.ID });
+    res.status(200).send({ data: result });
     res.end();
   }
 }
