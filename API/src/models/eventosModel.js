@@ -1,4 +1,5 @@
 import database from '../database/index.js';
+import UsuariosModel from './usuariosModel.js';
 
 class EventosModel {
   constructor() {
@@ -81,11 +82,12 @@ class EventosModel {
     return parsedResultEvents;
   }
 
-  async getAll({ maiorLat, maiorLong, menorLat, menorLong }, userId) {
-    const whereCondition = 'ee.latitude  <= ? AND ee.latitude  >=  ? AND ee.longitude  <= ? AND ee.longitude  >= ?';
+  async getAll({ maiorLat, maiorLong, menorLat, menorLong, maxDate }, userId) {
+    const whereCondition =
+      'ee.latitude  <= ? AND ee.latitude  >=  ? AND ee.longitude  <= ? AND ee.longitude  >= ? AND data_inicio <= ?';
     const response = await this.getEventsByWhereCondition(
       whereCondition,
-      [maiorLat, menorLat, maiorLong, menorLong],
+      [maiorLat, menorLat, maiorLong, menorLong, maxDate],
       userId,
     );
     return response;

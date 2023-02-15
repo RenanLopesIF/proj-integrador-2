@@ -29,6 +29,12 @@ class UsuariosModel {
     return result;
   }
 
+  async getUserConfig({ userId }) {
+    const query = `SELECT distancia_maxima, data_maxima  FROM configuracoes_usuario cu where id_usuario = ?;`;
+    const [result] = await this.db.query(query, [userId]);
+    return result;
+  }
+
   async updatePasswordById({ senha, id }) {
     const query = `UPDATE credenciais_usuario
       SET senha = ?
@@ -99,9 +105,9 @@ class UsuariosModel {
     const [result] = await this.db.query(query, [maxDistance, maxDate, userId]);
     return result;
   }
-  async checkpasswordUserLogin({login}){
-    const query = "SELECT senha FROM credenciais_usuario WHERE login = ?";
-    
+  async checkpasswordUserLogin({ login }) {
+    const query = 'SELECT senha FROM credenciais_usuario WHERE login = ?';
+
     const [result] = await this.db.query(query, [login]);
     return result;
   }

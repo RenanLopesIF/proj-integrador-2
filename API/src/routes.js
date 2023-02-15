@@ -20,6 +20,7 @@ routes.use(json());
 routes.get('/usuarios', UsuariosController.getAll);
 routes.get('/usuarios/:id', UsuariosController.getOne);
 routes.get('/usuario/eventos/:userID', EventosController.getEventsByUser);
+routes.get('/usuario/configuracoes/:id', protectedRoute, UsuariosController.getUserConfig);
 routes.post(
   '/usuario/upload/profile-image/:userId',
   [protectedRoute, uploadUserProfileImage.single('profile-image')],

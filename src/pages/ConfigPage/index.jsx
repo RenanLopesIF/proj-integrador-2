@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import IconeUser from '../../components/iconeUser';
 import CustomSlider from './../../components/CustomSlider';
 import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { useAuth } from '../../hooks/auth';
+import api from '../../services/axios';
 
 function ConfigPage() {
-  const { isAuthed } = useAuth();
+  const { isAuthed, userData } = useAuth();
 
   const distanceData = [
     { label: '1km', value: 1 },
@@ -25,13 +26,42 @@ function ConfigPage() {
     maxDays: 30,
   });
 
-  function handleDistance(value) {
+  const getUserConfig = useCallback(async () => {
+    const res = await api.get(`/usuario/configuracoes/${userData.ID}`);
+    setUserSettings({
+      maxDays: res.data[0].data_maxima,
+      maxDistance: res.data[0].distancia_maxima,
+    });
+  }, [userData]);
+
+  async function handleDistance(value) {
     setUserSettings((prev) => ({ ...prev, maxDistance: value }));
+    await api.put('/usuario/atualizar/configuracoes', {
+      userId: userData.ID,
+      maxDistance: value,
+      maxDate: userSettings.maxDays,
+    });
   }
 
-  function handleDays(value) {
+  async function handleDays(value) {
     setUserSettings((prev) => ({ ...prev, maxDays: value }));
+    await api.put('/usuario/atualizar/configuracoes', {
+      userId: userData.ID,
+      maxDistance: userSettings.maxDistance,
+      maxDate: value,
+    });
   }
+
+  useEffect(() => {
+    if (isAuthed) {
+      getUserConfig();
+    } else {
+      setUserSettings({
+        maxDistance: 30,
+        maxDays: 30,
+      });
+    }
+  }, [userData]);
 
   return (
     <Layout>

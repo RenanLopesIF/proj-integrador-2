@@ -1,4 +1,5 @@
 import EventosModel from '../models/eventosModel.js';
+import UsuariosModel from '../models/usuariosModel.js';
 import decodeJwt from '../utils/decodeJwt.js';
 import getGeolocationInfo from '../utils/getGeolocationInfo.js';
 import fs from 'fs';
@@ -8,23 +9,38 @@ class EventosController {
   async getAll(req, res) {
     const userToken = req.headers['user-token'];
     const userId = userToken ? decodeJwt(userToken).data.ID : 0;
+    const ONE_DAY_ONTIMESTAMP = 86400000;
+
     try {
       const curGeolocation = { lat: Number(req.query.lat), lng: Number(req.query.lng) };
 
-      const maxDistance = 30;
+      let [userConfigs] = await UsuariosModel.getUserConfig({ userId });
+
+      if (!userConfigs)
+        userConfigs = {
+          data_maxima: 30,
+          distancia_maxima: 30,
+        };
+
+      const eventMaxDate = new Date(Date.now() + userConfigs.data_maxima * ONE_DAY_ONTIMESTAMP)
+        .toJSON()
+        .slice(0, 19)
+        .replace('T', ' ');
+      const maxDistance = userConfigs.distancia_maxima;
 
       // latitude
       const diffLat = maxDistance / 107;
       const diffLong = maxDistance / 99.012;
 
-      const geoMetrics = {
+      const eventConfigs = {
         maiorLat: diffLat + curGeolocation.lat,
         menorLat: -diffLat + curGeolocation.lat,
         maiorLong: diffLong + curGeolocation.lng,
         menorLong: -diffLong + curGeolocation.lng,
+        maxDate: eventMaxDate,
       };
 
-      const result = await EventosModel.getAll(geoMetrics, userId);
+      const result = await EventosModel.getAll(eventConfigs, userId);
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

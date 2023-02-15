@@ -33,6 +33,19 @@ class UsuariosController {
     }
   }
 
+  async getUserConfig(req, res) {
+    const { id } = req.params;
+    try {
+      const result = await UsuariosModel.getUserConfig({ userId: id });
+      res.status(200).send(result);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ message: 'error' });
+    } finally {
+      res.end();
+    }
+  }
+
   async uploadUserProfileImage(req, res) {
     try {
       await UsuariosModel.updateUserProfileImage({
@@ -85,7 +98,7 @@ class UsuariosController {
   async updateConfigUser(req, res) {
     try {
       const { userId, maxDistance, maxDate } = req.body;
-      const result = await usuariosModel.updateConfigUser({
+      const result = await UsuariosModel.updateConfigUser({
         userId,
         maxDistance,
         maxDate,
