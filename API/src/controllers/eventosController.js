@@ -2,6 +2,7 @@ import EventosModel from '../models/eventosModel.js';
 import UsuariosModel from '../models/usuariosModel.js';
 import decodeJwt from '../utils/decodeJwt.js';
 import getGeolocationInfo from '../utils/getGeolocationInfo.js';
+import insertDistanceIntoEvents from '../utils/getDistanceFromEvent.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -41,7 +42,8 @@ class EventosController {
       };
 
       const result = await EventosModel.getAll(eventConfigs, userId);
-      res.status(200).send(result);
+      const parsedResult = await insertDistanceIntoEvents(result, curGeolocation);
+      res.status(200).send(parsedResult);
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'error' });

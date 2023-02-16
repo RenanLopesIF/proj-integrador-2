@@ -5,6 +5,7 @@ import { BiMap, BiComment } from 'react-icons/bi';
 import { TbMap2 } from 'react-icons/tb';
 import Faixaetaria from '../FaixaEtaria';
 import { convertEventDate } from '../../utils/convertEventDate';
+import { convertEventDistance } from '../../utils/convertEventDistance';
 import EventState from '../EventState';
 import PostAutorWithDate from '../PostAutorWithDate';
 import PostShortInfo from '../PostShortInfo';
@@ -184,7 +185,7 @@ function Post({ event, refetch, isDeletable }) {
           </HStack>
           <PostShortInfo
             icon={<BiMap color={colors.cinza[50]} />}
-            text={String(`Em ${event.cidade}, À ${32}km`).toLocaleUpperCase()}
+            text={String(`Em ${event.cidade}, À ${convertEventDistance(event.distancia)}`).toLocaleUpperCase()}
           />
         </VStack>
         <Box padding={contentPadding}>

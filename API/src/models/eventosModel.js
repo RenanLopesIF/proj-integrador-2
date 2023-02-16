@@ -1,5 +1,4 @@
 import database from '../database/index.js';
-import UsuariosModel from './usuariosModel.js';
 
 class EventosModel {
   constructor() {
