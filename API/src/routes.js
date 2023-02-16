@@ -40,7 +40,7 @@ routes.post('/evento/novo', [protectedRoute, uploadEventImage.single('event-imag
 routes.post('/evento/enviar-curtida', protectedRoute, EventosController.addEventLike);
 routes.post('/evento/enviar-comentario', protectedRoute, EventosController.addEventComment);
 routes.post('/evento/enviar-resposta', protectedRoute, EventosController.addCommentReply);
-routes.delete('/evento/deletar/:eventID/:userID', protectedRoute, EventosController.deletandoEvent);
+routes.delete('/evento/deletar', protectedRoute, EventosController.deletandoEvent);
 routes.delete('/evento/remover-curtida', protectedRoute, EventosController.removeEventLike);
 
 routes.post('/auth/recuperar-senha', AuthController.sendMailToRecoveryPassword);

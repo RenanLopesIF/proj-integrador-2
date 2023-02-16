@@ -107,7 +107,7 @@ function Profile() {
           {currentTab === 'publications' && (
             <VStack gap={6}>
               {events.map((evt) => (
-                <Post refetch={getEventsByUser} key={evt.ID} event={evt} />
+                <Post isDeletable refetch={getEventsByUser} key={evt.ID} event={evt} />
               ))}
             </VStack>
           )}

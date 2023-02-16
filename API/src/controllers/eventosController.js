@@ -181,8 +181,7 @@ class EventosController {
   }
 
   async deletandoEvent(req, res) {
-    const eventID = req.params.eventID;
-    const userID = req.params.userID;
+    const { eventID, userID } = req.body;
     try {
       const result = await EventosModel.deletarEvento(eventID, userID);
       console.log(result);

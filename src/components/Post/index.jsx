@@ -19,12 +19,20 @@ import { useTheme } from '@emotion/react';
 import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
 import { toast } from 'react-toastify';
+import ModalConfirmDeleteEvent from '../ModalConfirmDeleteEvent';
 
-function Post({ event, refetch }) {
+function Post({ event, refetch, isDeletable }) {
   const contentPadding = 3;
   const { colors } = useTheme();
   const inputCommentRef = useRef();
   const { userData, isAuthed } = useAuth();
+  const { isOpen: isOpenDelete, onClose: onCloseDelete, onOpen: onOpenDelete } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.titulo}-${event.criado_em}` });
+
+  const [commentsIsOpen, setCommentsIsOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(event.curtiu === 1);
+  const [idToSentComment, setIdToSentComment] = useState(event.ID);
+  const [commentReferType, setCommentReferType] = useState('post');
 
   const scrollStyle = {
     '&::-webkit-scrollbar': {
@@ -41,12 +49,6 @@ function Post({ event, refetch }) {
     },
   };
 
-  const { isOpen, onClose, onOpen } = useDisclosure({ id: `${event.titulo}-${event.criado_em}` });
-  const [commentsIsOpen, setCommentsIsOpen] = useState(false);
-  const [isLiked, setIsLiked] = useState(event.curtiu === 1);
-  const [idToSentComment, setIdToSentComment] = useState(event.ID);
-  const [commentReferType, setCommentReferType] = useState('post');
-
   function handleComments() {
     setCommentsIsOpen((prev) => !prev);
   }
@@ -58,6 +60,28 @@ function Post({ event, refetch }) {
     const oldInputValue = String(inputCommentRef.current.value).replace(rr, '');
     inputCommentRef.current.value = `@${commentAuthor},${oldInputValue}`;
     inputCommentRef.current.focus();
+  }
+
+  async function onExclude() {
+    try {
+      await api.delete('/evento/deletar', {
+        data: {
+          userID: userData.ID,
+          eventID: event.ID,
+        },
+      });
+
+      if (refetch) {
+        await refetch();
+      }
+
+      toast.success('Publicação excluída com sucesso');
+    } catch (error) {
+      console.log(error);
+      toast.error('Houver um erro ao tentar deletar publicação');
+    } finally {
+      onCloseDelete();
+    }
   }
 
   async function sendComment() {
@@ -128,6 +152,14 @@ function Post({ event, refetch }) {
             autor={{ imagem: event.usuario_avatar, name: event.usuario_nome }}
             postCreationDate={event.criado_em}
           />
+          {isDeletable && (
+            <Box>
+              <Button onClick={onOpenDelete} size="sm" colorScheme="red">
+                EXCLUIR
+              </Button>
+            </Box>
+          )}
+
           <Flex alignItems="flex-end" flexDir="column" gap={1}>
             <EventState start={event.data_inicio} end={event.data_fim} />
           </Flex>
@@ -251,6 +283,7 @@ function Post({ event, refetch }) {
           </VStack>
         </Box>
       </Box>
+      <ModalConfirmDeleteEvent isOpen={isOpenDelete} onClose={onCloseDelete} onConfirm={onExclude} />
       <ModalAddressDetails
         autoAddress={event.auto_descricao_endereco}
         isOpen={isOpen}
