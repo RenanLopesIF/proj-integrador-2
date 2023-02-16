@@ -49,8 +49,6 @@ function ModalCreateEvent({ isOpen, onClose }) {
     form.append('latitude', mapPosition.lat);
     form.append('longitude', mapPosition.lng);
     form.append('id_usuario', userData.ID);
-    const formData = Object.fromEntries(form);
-    console.log(formData);
 
     const URL = 'evento/novo';
     try {

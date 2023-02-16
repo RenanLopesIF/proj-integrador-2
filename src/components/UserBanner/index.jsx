@@ -1,10 +1,10 @@
 import { Center, Image } from '@chakra-ui/react';
 import React from 'react';
 
-function UserBanner() {
+function UserBanner({ src }) {
   return (
-    <Center w="full" h="180px" bgColor="black">
-      <Image src="https://bit.ly/dan-abramov" maxH="full" />
+    <Center w="full" h="180px" bgColor="secondary.800">
+      {src && <Image src={src} maxH="full" />}
     </Center>
   );
 }

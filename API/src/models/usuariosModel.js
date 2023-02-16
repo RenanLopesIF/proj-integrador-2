@@ -90,7 +90,7 @@ class UsuariosModel {
 
     const queryUser = 'INSERT INTO usuarios (nome, email, data_nascimento) VALUES (?,?,?)';
     const [resultUser] = await this.db.query(queryUser, [nome, email, data_nascimento]);
-    console.log(resultUser);
+
     const queryCred = 'INSERT INTO credenciais_usuario (login,id_usuario,senha) VALUES (?,?,?)';
     await this.db.query(queryCred, [login, resultUser.insertId, senha]);
 

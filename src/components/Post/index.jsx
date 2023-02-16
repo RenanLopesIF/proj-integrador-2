@@ -149,7 +149,7 @@ function Post({ event, refetch, isDeletable }) {
       <Box borderRadius="10px" bgColor="#FFF" width="100%" minH="50px" pb={contentPadding}>
         <HStack alignItems="flex-start" justifyContent="space-between" w="full" padding={contentPadding}>
           <PostAutorWithDate
-            autor={{ imagem: event.usuario_avatar, name: event.usuario_nome }}
+            autor={{ image: `http://localhost:3004/${event.usuario_avatar}`, name: event.usuario_nome }}
             postCreationDate={event.criado_em}
           />
           {isDeletable && (

@@ -83,7 +83,6 @@ class UsuariosController {
       const { userID, name, email, birthdate, login, senha } = req.body;
       const criptSenha = CryptoJS.AES.encrypt(String(senha), recoverySecretKey).toString();
 
-      console.log(req.body);
       const result = await UsuariosModel.updateUserData({
         userID,
         name,
@@ -97,7 +96,6 @@ class UsuariosController {
         userId: userID,
       });
 
-      console.log(respp);
       res.status(200).send(result);
     } catch (error) {
       console.log(error);

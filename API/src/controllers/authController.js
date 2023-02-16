@@ -105,7 +105,6 @@ class AuthController {
     const recoverySecretKey = process.env['SECRET_KEY_RECOVERY_PASS'] || '';
     try {
       const chekoutLogin = await UsuariosModel.checkpasswordUserLogin({ login: req.body.login });
-      console.log(chekoutLogin);
       const criptSenha = CryptoJS.AES.decrypt(chekoutLogin[0].senha, recoverySecretKey);
       const decryptSenha = criptSenha.toString(CryptoJS.enc.Utf8);
 
@@ -116,12 +115,10 @@ class AuthController {
 
       const result = await UsuariosModel.authenticat({ login: req.body.login, senha: decryptSenha });
       const curUser = await UsuariosModel.getUserById({ userId: result[0].id_usuario });
-      console.log(curUser);
       if (curUser) {
         // verificação se existe um usuario no banco
 
         const token = encodeJwt(curUser);
-        console.log(token);
         res.status(200).send({ data: curUser, token: token }); //caso exista
       } else {
         res.status(402).send({ message: 'Usuário  invalidos!' }); //caso não exista

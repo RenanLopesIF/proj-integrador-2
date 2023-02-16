@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Layout from '../../components/Layout';
-import { Box, Button, Circle, Flex, GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, GridItem, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import UserBanner from '../../components/UserBanner';
-import UserChooseImage from '../../components/UserChooseImage';
-import { HiCamera } from 'react-icons/hi';
 import ButtonEditPerfil from '../../components/ButtonEditPerfil';
 import { MdModeEditOutline } from 'react-icons/md';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -12,13 +10,20 @@ import InputWithLabel from '../../components/InputWithLabel';
 import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
 import { toast } from 'react-toastify';
+import DropzoneUserImage from '../../components/DropzoneUserImage';
+import DropzoneUserBgImage from '../../components/DropzoneUserBgImage';
 
 function Profile() {
+  const { userData, isAuthed } = useAuth();
+  const imgFileRef = useRef();
+  const imgBgFileRef = useRef();
+
   const [currentTab, setCurrentTab] = useState('edit');
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { userData, isAuthed } = useAuth();
   const [userCredentials, setUserCredentials] = useState({ login: '', senha: '' });
+  const [userInfo, setUserInfo] = useState(userData);
+  const [bgImg, setBgImg] = useState(userData.url_imagem_fundo);
 
   function handleTabScreen(tab) {
     setCurrentTab(tab);
@@ -34,7 +39,7 @@ function Profile() {
       return;
     }
     await api.put('/usuario/atualizar/dados', {
-      userID: userData.ID,
+      userID: userInfo.ID,
       name: formData.name,
       email: formData.email,
       birthdate: formData.birthdate,
@@ -44,18 +49,34 @@ function Profile() {
   }
 
   const getEventsByUser = useCallback(async () => {
-    const res = await api.get(`/usuario/eventos/${userData.ID}`);
+    const res = await api.get(`/usuario/eventos/${userInfo.ID}`);
     setEvents(res.data);
     setIsLoading(false);
-  }, [userData]);
+  }, [userInfo]);
 
   const getUserCredentials = useCallback(async () => {
     const res = await api.get(`/auth/usuario-credenciais`);
     setUserCredentials(res.data);
-  }, [userData]);
+  }, [userInfo]);
+
+  const handleUserImage = useCallback(async () => {
+    const form = new FormData();
+    form.append('background-image', imgBgFileRef.current);
+
+    await api.put(`/usuario/upload/background-image/${userInfo.ID}`, form);
+    toast.info('Sua imagem de capa foi alterada');
+  }, [bgImg]);
+
+  useEffect(() => {
+    if (bgImg && bgImg.includes('blob:http')) {
+      handleUserImage();
+    }
+  }, [bgImg]);
 
   useEffect(() => {
     if (userData.ID) {
+      setUserInfo(userData);
+      setBgImg(`http://localhost:3004/${userData.url_imagem_fundo}`);
       getEventsByUser();
       getUserCredentials();
     }
@@ -76,12 +97,15 @@ function Profile() {
     <Layout>
       <Box w="full" h="full" bgColor={currentTab === 'edit' ? '#FFF' : 'cinza.50'}>
         <Box w="full" bgColor="#FFF">
-          <UserBanner />
+          <UserBanner src={bgImg} />
           <Flex flexDir="row" justifyContent="space-between" px={6} position="relative" bottom="50px">
-            <UserChooseImage />
-            <Circle zIndex={100} bgColor="#FFF" p={1} w="32px" h="32px">
-              <HiCamera color="#000" width="full" size={28} />
-            </Circle>
+            <Flex alignItems="flex-end">
+              <DropzoneUserImage fileRef={imgFileRef} userImg={`http://localhost:3004/${userInfo.url_imagem_perfil}`} />
+              <Text ml={4} color="black" fontSize={22} fontWeight={500}>
+                {userInfo.nome}
+              </Text>
+            </Flex>
+            <DropzoneUserBgImage handlePreview={setBgImg} fileRef={imgBgFileRef} />
           </Flex>
         </Box>
 
@@ -117,10 +141,10 @@ function Profile() {
               <form onSubmit={handleSubmit}>
                 <SimpleGrid columns={2} spacingX={5} spacingY={8}>
                   <GridItem colSpan={2}>
-                    <InputWithLabel defaultValue={userData.email} name="email" label="Email:" invalidText="preencha" />
+                    <InputWithLabel defaultValue={userInfo.email} name="email" label="Email:" invalidText="preencha" />
                   </GridItem>
                   <GridItem>
-                    <InputWithLabel defaultValue={userData.nome} name="name" label="Nome:" />
+                    <InputWithLabel defaultValue={userInfo.nome} name="name" label="Nome:" />
                   </GridItem>
                   <GridItem>
                     <InputWithLabel defaultValue={userCredentials.login} name="login" label="Usuário:" />
@@ -143,7 +167,7 @@ function Profile() {
                   </GridItem>
                   <GridItem>
                     <InputWithLabel
-                      defaultValue={userData.data_nascimento ? userData.data_nascimento.split('T')[0] : ''}
+                      defaultValue={userInfo.data_nascimento ? userInfo.data_nascimento.split('T')[0] : ''}
                       name="birthdate"
                       label="Data de nascimento:"
                       type="date"
