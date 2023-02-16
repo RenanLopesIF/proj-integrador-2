@@ -23,8 +23,8 @@ function MiniEvent({ distance, event }) {
         filter="drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25))"
         border="1px solid #FF9900"
       >
-        <GridItem width="100px">
-          <Image src={event.url_imagem} />
+        <GridItem width="100px" bgColor={event.url_imagem ? 'white' : 'gray.300'}>
+          {event.url_imagem && <Image src={`http://localhost:3004/${event.url_imagem}`} />}
         </GridItem>
         <GridItem width="100%" textAlign="left">
           <Flex flexDir="column" justifyContent="space-between" h="full" w="full">

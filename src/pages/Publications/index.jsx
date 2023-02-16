@@ -13,6 +13,7 @@ import { useGeolocation } from '../../hooks/geolocation';
 import api from '../../services/axios';
 import { useAuth } from '../../hooks/auth';
 import { toast } from 'react-toastify';
+import { convertEventDistance } from '../../utils/convertEventDistance';
 
 function Publications() {
   const { colors } = useTheme();
@@ -137,7 +138,11 @@ function Publications() {
 
             {partyEvent.length > 0 && (
               <Box mt={12}>
-                <MiniEvent event={partyEvent[0]} city="Salinas" distance="120km" />
+                <MiniEvent
+                  event={partyEvent[0]}
+                  city="Salinas"
+                  distance={convertEventDistance(partyEvent[0].distancia)}
+                />
               </Box>
             )}
           </Box>

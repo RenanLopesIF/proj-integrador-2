@@ -185,7 +185,7 @@ function Post({ event, refetch, isDeletable }) {
           </HStack>
           <PostShortInfo
             icon={<BiMap color={colors.cinza[50]} />}
-            text={String(`Em ${event.cidade}, À ${convertEventDistance(event.distancia)}`).toLocaleUpperCase()}
+            text={String(`Em ${event.cidade}, À ${convertEventDistance(event.distancia || 0)}`).toLocaleUpperCase()}
           />
         </VStack>
         <Box padding={contentPadding}>
