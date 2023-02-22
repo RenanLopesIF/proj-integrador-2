@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Layout from '../../components/Layout';
-import { Box, Button, Flex, GridItem, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, GridItem, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import UserBanner from '../../components/UserBanner';
 import ButtonEditPerfil from '../../components/ButtonEditPerfil';
 import { MdModeEditOutline } from 'react-icons/md';
@@ -130,9 +130,15 @@ function Profile() {
         <Box px="20%" mt={8} py={10}>
           {currentTab === 'publications' && (
             <VStack gap={6}>
-              {events.map((evt) => (
-                <Post isDeletable refetch={getEventsByUser} key={evt.ID} event={evt} />
-              ))}
+              {events.length > 0 ? (
+                events.map((evt) => <Post isDeletable refetch={getEventsByUser} key={evt.ID} event={evt} />)
+              ) : (
+                <Center w="100%" h="100%">
+                  <Text fontWeight="900" fontSize="30px" color="secondary.600">
+                    Nenhuma publicação foi encontrada
+                  </Text>
+                </Center>
+              )}
             </VStack>
           )}
 

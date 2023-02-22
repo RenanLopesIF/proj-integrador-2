@@ -37,7 +37,11 @@ function SideBar() {
         <Flex w="full" h="full" flexDir="column" p={4}>
           <Flex h="full" w="full" flexDir="column" gap={2}>
             <Box mb={5}>
-              <NavigationButtonSide icon={<Image w="36px" h="44px" src="/FestFinder.png" />} text="FestFinder" />
+              <NavigationButtonSide
+                href="/"
+                icon={<Image w="36px" h="44px" src="/FestFinder.png" />}
+                text="FestFinder"
+              />
             </Box>
             {items.map((item) => {
               if (!isAuthed && itemNeedAuth.includes(item.href)) return;

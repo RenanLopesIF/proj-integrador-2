@@ -10,8 +10,6 @@ import Login from '../pages/TelaLogin';
 import Publication from '../pages/ViewPublications';
 
 import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from 'react-router-dom';
-import TutoriaisRoutes from './Tutoriais.Routes';
-import TestesRoutes from './Testes.Routes';
 
 function AppRoutes() {
   const routesElement = createRoutesFromElements(
@@ -24,9 +22,6 @@ function AppRoutes() {
       <Route path="/cadastrar" element={<Cadastrar />} />
       <Route path="/recuperar-senha" element={<EsqueciSenha />} />
       <Route path="/recuperar-senha/nova-senha/:userIdToken" element={<AlterarSenha />} />
-
-      {TutoriaisRoutes().map((route, idx) => cloneElement(route, { key: idx }))}
-      {TestesRoutes().map((route, idx) => cloneElement(route, { key: idx }))}
     </>,
   );
   const router = createBrowserRouter(routesElement);
