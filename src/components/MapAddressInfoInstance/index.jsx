@@ -25,7 +25,9 @@ function MapInstance({ lat, lng, mapMode = 'satellite-streets-v12' }) {
       // mapStyle="mapbox://styles/mapbox/satellite-v9"
       // mapStyle="mapbox://sprites/mapbox/bright-v8"
       // mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
-      mapStyle={`mapbox://styles/mapbox/${mapMode}`}
+      mapStyle="mapbox://styles/mapbox/navigation-day-v1"
+      // mapStyle="mapbox://styles/mapbox/navigation-night-v1"
+      // mapStyle={`mapbox://styles/mapbox/${mapMode}`}
       width="100%"
       height="100%"
       onMove={(evt) => setViewport(evt.viewState)}

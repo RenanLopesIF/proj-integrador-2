@@ -29,7 +29,7 @@ import ButtonSubmit from '../ButtonSubmit';
 import api from '../../services/axios.js';
 import { useAuth } from '../../hooks/auth';
 
-function ModalCreateEvent({ isOpen, onClose }) {
+function ModalCreateEvent({ isOpen, onClose, refetch }) {
   const borderRadio = '20px';
   const imgFileRef = useRef();
   const formRef = useRef();
@@ -54,6 +54,9 @@ function ModalCreateEvent({ isOpen, onClose }) {
     try {
       await api.post(URL, form);
       toast.success('Evento publicado com sucesso');
+      if (refetch) {
+        await refetch();
+      }
       onClose();
     } catch (err) {
       toast.error('Ocorreu um erro ao publicar o evento');

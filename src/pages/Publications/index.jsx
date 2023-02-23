@@ -122,7 +122,7 @@ function Publications() {
                 color={colors.secondary[900]}
                 marginBottom="22px"
               >
-                Qual é a boa de hoje?
+                Qual é a boa pra hoje?
               </Text>
               <ButtonSubmit
                 onClick={handlePublicEvent}
@@ -148,7 +148,7 @@ function Publications() {
           </Box>
         </GridItem>
       </Grid>
-      <ModalCreateEvent isOpen={isOpen} onClose={onClose} />
+      <ModalCreateEvent refetch={getPartyEvent} isOpen={isOpen} onClose={onClose} />
     </Layout>
   );
 }

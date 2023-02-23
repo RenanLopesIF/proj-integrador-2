@@ -76,7 +76,9 @@ function Profile() {
   useEffect(() => {
     if (userData.ID) {
       setUserInfo(userData);
-      setBgImg(`http://localhost:3004/${userData.url_imagem_fundo}`);
+      if (userData.url_imagem_fundo) {
+        setBgImg(`http://localhost:3004/${userData.url_imagem_fundo}`);
+      }
       getEventsByUser();
       getUserCredentials();
     }

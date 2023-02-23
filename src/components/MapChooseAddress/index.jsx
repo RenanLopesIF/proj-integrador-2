@@ -33,7 +33,8 @@ function MapChooseAddress({ initialLocation, mapMode = 'satellite-streets-v12', 
       // mapStyle="mapbox://styles/mapbox/satellite-v9"
       // mapStyle="mapbox://sprites/mapbox/bright-v8"
       // mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
-      mapStyle={`mapbox://styles/mapbox/${mapMode}`}
+      // mapStyle={`mapbox://styles/mapbox/${mapMode}`}
+      mapStyle="mapbox://styles/mapbox/navigation-day-v1"
       width="100%"
       height="100%"
       onMove={(evt) => setViewport(evt.viewState)}
