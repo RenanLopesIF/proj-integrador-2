@@ -160,9 +160,26 @@ class EventosModel {
   }
 
   async deletarEvento(id_evento, id_usuario) {
+    const queryDeleteReply = `delete rc from comentarios_evento ce
+    join respostas_comentario rc ON rc.id_comentario = ce.ID
+    right join eventos ev on ev.ID = ce.id_evento
+  where ev.ID = ? and ev.id_usuario = ?;`;
+
+    const queryDeleteComment = `delete ce from comentarios_evento ce
+      join eventos ev on ev.ID = ce.id_evento
+    where ev.ID = ? and ev.id_usuario = ?;`;
+
+    const queryDeleteLikes = `delete ec from eventos_curtidas ec
+	    join eventos ev on ev.ID = ec.id_evento
+    where ev.ID = ? and ev.id_usuario = ?;`;
+
     const query = `DELETE ee, e FROM endereco_eventos ee
       JOIN eventos e on e.ID = ee.id_evento
       WHERE ee.id_evento = ? AND e.id_usuario = ?;`;
+
+    await this.db.query(queryDeleteReply, [id_evento, id_usuario]);
+    await this.db.query(queryDeleteComment, [id_evento, id_usuario]);
+    await this.db.query(queryDeleteLikes, [id_evento, id_usuario]);
 
     const [result] = await this.db.query(query, [id_evento, id_usuario]);
     if (result.affectedRows === 0) {
