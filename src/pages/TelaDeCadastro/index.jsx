@@ -5,8 +5,11 @@ import CustomInput from '../../components/CustomInput';
 import api from '../../services/axios';
 import { toast } from 'react-toastify';
 import ButtonBack from '../../components/ButtonBack';
+import { useNavigate } from 'react-router-dom';
 
 function TelaDeCadastro() {
+  const navigate = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.nativeEvent.target));
@@ -15,13 +18,20 @@ function TelaDeCadastro() {
       toast.error('Confirmação de senha não coincide');
       return;
     }
-    await api.post('/auth/novo', {
-      nome: form.name + ' ' + form.sobrenome,
-      email: form.email,
-      data_nascimento: form.nascimento,
-      login: form.login,
-      senha: form.senha,
-    });
+    try {
+      await api.post('/auth/novo', {
+        nome: form.name + ' ' + form.sobrenome,
+        email: form.email,
+        data_nascimento: form.nascimento,
+        login: form.login,
+        senha: form.senha,
+      });
+
+      toast.success('Conta criada com sucesso');
+      navigate('/login');
+    } catch (error) {
+      toast.error('Houve um erro ao tentar criar conta. Tente novamente mais tarde');
+    }
   }
 
   return (
