@@ -19,7 +19,7 @@ function TelaLogin() {
   }
 
   useEffect(() => {
-    if (isAuthed) window.history.back();
+    if (isAuthed) window.location = '/';
   }, [isAuthed]);
 
   return (
