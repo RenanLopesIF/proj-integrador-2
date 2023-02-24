@@ -21,6 +21,7 @@ function AuthProvider({ children }) {
       setIsAuthed(true);
     } catch (error) {
       setIsAuthed(false);
+      throw new Error('erro');
     }
   }
 

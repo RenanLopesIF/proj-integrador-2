@@ -5,6 +5,7 @@ import InputEsquecSenha from '../../components/InputEsquecSenha';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import { useAuth } from '../../hooks/auth';
 import ButtonBack from '../../components/ButtonBack';
+import { toast } from 'react-toastify';
 
 function TelaLogin() {
   const formRef = useRef();
@@ -15,7 +16,11 @@ function TelaLogin() {
     const form = new FormData(ev);
     const formData = Object.fromEntries(form);
 
-    await login(formData.login, formData.senha);
+    try {
+      await login(formData.login, formData.senha);
+    } catch (error) {
+      toast.error('Senha incorreta ou usuário não existe!');
+    }
   }
 
   useEffect(() => {
